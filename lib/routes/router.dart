@@ -1,3 +1,6 @@
+import 'package:ecart/features/auth/login/binding/login_binding.dart';
+import 'package:ecart/features/auth/login/login_screen.dart';
+import 'package:ecart/features/auth/register/binding/register_binding.dart';
 import 'package:ecart/features/auth/register/register_screen.dart';
 import 'package:ecart/features/splash/splash_screen.dart';
 import 'package:ecart/routes/routes_names.dart';
@@ -11,7 +14,14 @@ class AppRouter {
     ),
     GetPage(
       name: AppRoutesNames.registerScreen,
+      binding: RegisterBinding(),
       page: () => RegisterScreen(),
+    ),
+    GetPage(
+      name: AppRoutesNames.loginScreen,
+      binding: LoginBinding(),
+      page: () => LoginScreen(),
+      transition: Transition.fadeIn
     ),
   ];
 }

@@ -24,6 +24,13 @@ dependencies:
   flutter:
     sdk: flutter
   get: ^4.3.8
+  dio: ^4.0.0
+  image_picker: ^0.8.3+3
+  dartz: ^0.10.0
+  flutter_svg: ^0.22.0
+  path_provider: ^2.0.2
+  modal_progress_hud_nsn: ^0.1.0-nullsafety-1
+  http_parser: ^4.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -48,6 +55,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/images/
+   - assets/svg/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
