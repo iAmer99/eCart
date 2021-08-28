@@ -50,15 +50,16 @@ class RegisterController extends GetxController {
     final XFile? image = await _picker.pickImage(source: source);
     if (image != null){
       this.image = File(image.path);
-      imageData = await dio.MultipartFile.fromFile(image!.path, contentType: new MediaType("image", "jpg"));
     }
     update();
   }
 
   register() async {
     status = RxStatus.loading();
+    if(image != null){
+      imageData = await dio.MultipartFile.fromFile(image!.path, contentType: new MediaType("image", "jpg"));
+    }
     update();
-    final imageData = await dio.MultipartFile.fromFile(image!.path, contentType: new MediaType("image", "jpg"));
     dio.FormData formData = dio.FormData.fromMap({
       "name": name,
       "email": email,

@@ -46,3 +46,35 @@ showErrorDialog(String error) {
     ],
   ));
 }
+
+showSuccessDialog(String msg) {
+  Get.dialog(AlertDialog(
+    title: Text("Success"),
+    backgroundColor: Get.theme.canvasColor,
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SvgPicture.asset(
+          "assets/svg/success.svg",
+          height: 30 * imageSizeMultiplier,
+        ),
+        SizedBox(
+          height: 2 * heightMultiplier,
+        ),
+        Text(
+          msg,
+          style: TextStyle(
+              color: Get.theme.primaryColorDark,
+              fontSize: 2.2 * textMultiplier),
+        ),
+      ],
+    ),
+    actions: [
+      TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text("Okay"))
+    ],
+  ));
+}
