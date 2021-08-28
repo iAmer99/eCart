@@ -1,23 +1,28 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
+import 'package:ecart/features/auth/login/repository/model/login_response.dart';
+import 'package:flutter/cupertino.dart';
 
 class LoginRepository{
   final Dio _dio;
   LoginRepository(this._dio);
 
-  Future<Either<String, String>> login(Map<String, String> map) async {
+  Future<Either<String, LoginResponse>> login(Map<String, String> map) async {
     try {
       final response = await _dio.post('/auth/login', data: map);
-      final data = response.data as Map<String, dynamic>;
-      return Right(data["message"]);
+      final data =  LoginResponse.fromJson(response.data);
+      return Right(data);
     } on DioError catch (error) {
-      final response = error.response!.data as Map<String, dynamic>;
-      if(!response.containsKey("message")){
+      final response = LoginResponse.fromJson(error.response!.data);
+      if(response.message == null){
         return Left(DioUtil.handleDioError(error));
       }else {
-        return Left(response["message"]);
+        return Left(response.message!);
       }
+    }catch(error){
+      debugPrint(error.toString());
+      return Left("Something went wrong!");
     }
   }
 }

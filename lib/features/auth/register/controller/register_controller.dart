@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/auth/register/repository/register_repository.dart';
+import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
-
 
 class RegisterController extends GetxController {
   final RegisterRepository _repository;
@@ -48,7 +49,7 @@ class RegisterController extends GetxController {
   pickImage(ImageSource source) async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: source);
-    if (image != null){
+    if (image != null) {
       this.image = File(image.path);
     }
     update();
@@ -56,8 +57,9 @@ class RegisterController extends GetxController {
 
   register() async {
     status = RxStatus.loading();
-    if(image != null){
-      imageData = await dio.MultipartFile.fromFile(image!.path, contentType: new MediaType("image", "jpg"));
+    if (image != null) {
+      imageData = await dio.MultipartFile.fromFile(image!.path,
+          contentType: new MediaType("image", "jpg"));
     }
     update();
     dio.FormData formData = dio.FormData.fromMap({
@@ -69,12 +71,26 @@ class RegisterController extends GetxController {
       "phone": phone,
       "address": address,
       "role": "user",
-      "image": imageData }
-    );
+      "image": imageData
+    });
     final res = await _repository.register(formData);
-    status = RxStatus.empty();
-    update();
-    res.fold((error) => showErrorDialog(error), (r) => Get.defaultDialog(title: r));
+    res.fold((error) {
+      showErrorDialog(error);
+      status = RxStatus.error(error);
+      update();
+    }, (response) {
+      status = RxStatus.success();
+      SessionManagement.createUserSession(
+        accessToken: response.tokens!.accessToken!,
+        refreshToken: response.tokens!.refreshToken!,
+        name: response.user!.name!,
+        email: response.user!.email!,
+        phone: response.user!.phone,
+        image: response.user!.profileImage!,
+      );
+      update();
+      Get.offAllNamed(AppRoutesNames.homeScreen);
+    });
   }
 
   goBack() {

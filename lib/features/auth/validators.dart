@@ -29,5 +29,5 @@ String? confirmPassword(String password, String? confirmedPassword) {
 
 String? isValidPassword(String? password) {
   if (password!.isEmpty) return "Password is empty";
-  return password.length >= 6 ? null : "Password is to short";
+  return password.length > 8 ? null : "Password is too short";
 }

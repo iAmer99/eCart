@@ -4,6 +4,8 @@ import 'package:ecart/features/auth/register/binding/register_binding.dart';
 import 'package:ecart/features/auth/register/register_screen.dart';
 import 'package:ecart/features/forgotPassword/binding/forgotPassword_binding.dart';
 import 'package:ecart/features/forgotPassword/forgotPassword_screen.dart';
+import 'package:ecart/features/home/binding/home_binding.dart';
+import 'package:ecart/features/home/home_screen.dart';
 import 'package:ecart/features/splash/splash_screen.dart';
 import 'package:ecart/routes/routes_names.dart';
 import 'package:get/get.dart';
@@ -29,6 +31,12 @@ class AppRouter {
         name: AppRoutesNames.forgotPasswordScreen,
         binding: ForgotPasswordBinding(),
         page: () => ForgotPasswordScreen(),
+        transition: Transition.fadeIn
+    ),
+    GetPage(
+        name: AppRoutesNames.homeScreen,
+        binding: HomeBinding(),
+        page: () => HomeScreen(),
         transition: Transition.fadeIn
     ),
   ];

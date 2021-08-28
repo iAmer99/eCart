@@ -28,9 +28,9 @@ dependencies:
   image_picker: ^0.8.3+3
   dartz: ^0.10.0
   flutter_svg: ^0.22.0
-  path_provider: ^2.0.2
   modal_progress_hud_nsn: ^0.1.0-nullsafety-1
   http_parser: ^4.0.0
+  get_storage: ^2.0.3
 
 
   # The following adds the Cupertino Icons font to your application.

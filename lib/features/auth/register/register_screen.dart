@@ -1,4 +1,5 @@
 import 'package:ecart/core/remote/dio_util.dart';
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/auth/validators.dart';
 import 'package:ecart/features/auth/widgets/authFormField.dart';
 import 'package:ecart/features/auth/widgets/page_indicator.dart';
@@ -279,6 +280,8 @@ class RegisterScreen extends StatelessWidget {
                   end: 2 * widthMultiplier, top: 3 * heightMultiplier),
               child: TextButton(
                 onPressed: () {
+                  SessionManagement.createGuestSession();
+                  Get.offAllNamed(AppRoutesNames.homeScreen);
                 },
                 child: Text("Continue as a guest"),
               ),
