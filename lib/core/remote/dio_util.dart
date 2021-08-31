@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
+import '../session_management.dart';
+
 class DioUtil{
 
   static DioUtil? _instance;
@@ -14,7 +16,10 @@ class DioUtil{
               receiveDataWhenStatusError: true,
               contentType: Headers.jsonContentType,
               connectTimeout: 50  * 1000 ,
-              receiveTimeout: 50 * 1000
+              receiveTimeout: 50 * 1000,
+            headers: {
+             'Authorization': "Bearer ${SessionManagement.accessToken}"
+            }
           )
       );
     }

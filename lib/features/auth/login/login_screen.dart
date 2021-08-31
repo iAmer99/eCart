@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
+                  if(Navigator.canPop(context))    Padding(
                         padding: EdgeInsetsDirectional.only(
                           top: 5 * heightMultiplier,),
                         child: BackButton(color: Get.theme.primaryColorDark,),

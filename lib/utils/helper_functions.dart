@@ -8,7 +8,7 @@ void changeStatusBarColor() {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
-      statusBarColor: Colors.transparent,
+      statusBarColor: Colors.transparent
     ),
   );
 }
