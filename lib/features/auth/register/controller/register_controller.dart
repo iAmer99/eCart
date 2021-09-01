@@ -73,23 +73,31 @@ class RegisterController extends GetxController {
       "role": "user",
       "image": imageData
     });
-    final res = await _repository.register(formData);
-    res.fold((error) {
-      showErrorDialog(error);
-      status = RxStatus.error(error);
-      update();
-    }, (response) {
-      status = RxStatus.success();
-      SessionManagement.createUserSession(
-        accessToken: response.tokens!.accessToken!,
-        refreshToken: response.tokens!.refreshToken!,
-        name: response.user!.name!,
-        email: response.user!.email!,
-        phone: response.user!.phone,
-        image: response.user!.profileImage!,
-      );
-      update();
-      Get.offAllNamed(AppRoutesNames.homeScreen);
+    await checkInternetConnection().then((internet) async{
+      if(internet != null && internet){
+        final res = await _repository.register(formData);
+        res.fold((error) {
+          showErrorDialog(error);
+          status = RxStatus.error(error);
+          update();
+        }, (response) {
+          status = RxStatus.success();
+          SessionManagement.createUserSession(
+            accessToken: response.tokens!.accessToken!,
+            refreshToken: response.tokens!.refreshToken!,
+            name: response.user!.name!,
+            email: response.user!.email!,
+            phone: response.user!.phone,
+            image: response.user!.profileImage!,
+          );
+          update();
+          Get.offAllNamed(AppRoutesNames.bottomBarScreen);
+        });
+      }else{
+        status = RxStatus.error();
+        update();
+        noInternetSnackBar();
+      }
     });
   }
 

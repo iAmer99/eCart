@@ -33,6 +33,11 @@ class MyApp extends StatelessWidget {
                 primaryColorLight: Colors.white,
                 primaryColorDark: Colors.black,
                 canvasColor: Colors.white,
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                backgroundColor: Colors.black,
+                selectedItemColor: mainColor,
+                unselectedItemColor: Colors.black,
+              ),
               elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(mainColor),

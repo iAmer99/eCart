@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -77,4 +79,21 @@ showSuccessDialog(String msg) {
           child: Text("Okay"))
     ],
   ));
+}
+
+Future<bool?> checkInternetConnection() async {
+  try {
+    final result = await InternetAddress.lookup('google.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      return true;
+    }
+  } on SocketException catch (_) {
+    return false;
+  }
+}
+
+noInternetSnackBar(){
+  Get.snackbar("Error", "No Internet Connection",
+      backgroundColor: Get.theme.primaryColorDark,
+      colorText: Get.theme.primaryColorLight);
 }

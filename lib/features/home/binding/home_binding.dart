@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class HomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeController>(() => HomeController(HomeRepository(Get.find<Dio>(tag: "dio"))));
+    Get.lazyPut<HomeController>(() => HomeController(HomeRepository(Get.find<Dio>(tag: "dio"))), fenix: true);
   }
 
 }

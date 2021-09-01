@@ -14,26 +14,33 @@ class LoginController extends GetxController {
   login({required String email, required String password}) async {
     status = RxStatus.loading();
     update();
-    final response = await _repository.login({
-      "email": email,
-      "password": password,
+    await checkInternetConnection().then((internet) async {
+      if (internet != null && internet) {
+        final response = await _repository.login({
+          "email": email,
+          "password": password,
+        });
+        response.fold((error) {
+          status = RxStatus.error(error);
+          update();
+          showErrorDialog(error);
+        }, (response) {
+          SessionManagement.createUserSession(
+              accessToken: response.tokens!.accessToken!,
+              refreshToken: response.tokens!.refreshToken!,
+              name: response.user!.name!,
+              email: response.user!.email!,
+              phone: response.user!.phone,
+              image: response.user!.profileImage!);
+          status = RxStatus.success();
+          update();
+          Get.offAllNamed(AppRoutesNames.bottomBarScreen);
+        });
+      } else {
+        status = RxStatus.error();
+        update();
+        noInternetSnackBar();
+      }
     });
-    response.fold((error) {
-      status = RxStatus.error(error);
-      update();
-      showErrorDialog(error);
-    }, (response) {
-      SessionManagement.createUserSession(
-          accessToken: response.tokens!.accessToken!,
-          refreshToken: response.tokens!.refreshToken!,
-          name: response.user!.name!,
-          email: response.user!.email!,
-          phone: response.user!.phone,
-          image: response.user!.profileImage!);
-      status = RxStatus.success();
-      update();
-      Get.offAllNamed(AppRoutesNames.homeScreen);
-    });
-
   }
 }
