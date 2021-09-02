@@ -39,7 +39,7 @@ class LoginController extends GetxController {
       } else {
         status = RxStatus.error();
         update();
-        noInternetSnackBar();
+        showSnackBar("No Internet Connection");
       }
     });
   }

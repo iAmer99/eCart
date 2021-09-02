@@ -92,8 +92,7 @@ Future<bool?> checkInternetConnection() async {
   }
 }
 
-noInternetSnackBar(){
-  Get.snackbar("Error", "No Internet Connection",
-      backgroundColor: Get.theme.primaryColorDark,
-      colorText: Get.theme.primaryColorLight);
+showSnackBar(String msg){
+  Get.rawSnackbar(title: "Error", messageText: Text(msg, style: TextStyle(color: Get.theme.primaryColorLight),),
+      backgroundColor: Get.theme.primaryColorDark,);
 }

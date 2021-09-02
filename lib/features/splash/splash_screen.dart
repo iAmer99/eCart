@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     Timer(Duration(seconds: 1), () {
       _animationController.forward();
       Timer(Duration(seconds: 2),(){
-        Get.offNamed(AppRoutesNames.registerScreen);
+        if(SessionManagement.isGuest || SessionManagement.isUser){
+          Get.offNamed(AppRoutesNames.bottomBarScreen);
+        }else{
+          Get.offNamed(AppRoutesNames.registerScreen);
+        }
       });
     });
   }

@@ -1,11 +1,9 @@
-import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/home/controller/home_controller.dart';
 import 'package:ecart/features/home/widgets/categoriesSlider.dart';
 import 'package:ecart/features/home/widgets/cheapestProducts.dart';
 import 'package:ecart/features/home/widgets/popularProducts.dart';
 import 'package:ecart/features/home/widgets/saleBanner.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';
-import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

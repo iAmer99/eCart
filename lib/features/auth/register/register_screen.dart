@@ -51,9 +51,9 @@ class RegisterScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 3 * heightMultiplier),
-                        child:
-                            GetBuilder<RegisterController>(builder: (controller) {
+                        padding: EdgeInsets.only(top: 2 * heightMultiplier),
+                        child: GetBuilder<RegisterController>(
+                            builder: (controller) {
                           return controller.index != 0
                               ? BackButton(
                                   color: Get.theme.primaryColorDark,
@@ -61,12 +61,17 @@ class RegisterScreen extends StatelessWidget {
                                     controller.goBack();
                                   },
                                 )
-                              : Container();
+                              : (Navigator.canPop(context)
+                                  ? BackButton(
+                                      color: Get.theme.primaryColorDark,
+                                    )
+                                  : Container());
                         }),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.only(
-                            top: 7 * heightMultiplier, start: 6 * widthMultiplier),
+                            top: 2 * heightMultiplier,
+                            start: 6 * widthMultiplier),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -105,8 +110,8 @@ class RegisterScreen extends StatelessWidget {
                       if (controller.index == 0)
                         Padding(
                           child: _buildFirstForm(context, controller),
-                          padding:
-                              EdgeInsetsDirectional.only(top: 2 * heightMultiplier),
+                          padding: EdgeInsetsDirectional.only(
+                              top: 2 * heightMultiplier),
                         ),
                       if (controller.index == 1)
                         Padding(
@@ -114,14 +119,15 @@ class RegisterScreen extends StatelessWidget {
                           padding: EdgeInsetsDirectional.only(
                               top: 5.5 * heightMultiplier),
                         ),
-                      if (controller.index == 2)  Padding(
-                        child: Align(
-                          child: _buildThirdPage(controller),
-                          alignment: Alignment.center,
+                      if (controller.index == 2)
+                        Padding(
+                          child: Align(
+                            child: _buildThirdPage(controller),
+                            alignment: Alignment.center,
+                          ),
+                          padding: EdgeInsetsDirectional.only(
+                              top: 5.5 * heightMultiplier),
                         ),
-                        padding:
-                            EdgeInsetsDirectional.only(top: 5.5 * heightMultiplier),
-                      ),
                     ],
                   ),
                 ),
@@ -450,9 +456,9 @@ class RegisterScreen extends StatelessWidget {
             margin: EdgeInsets.only(top: 3 * heightMultiplier),
             child: ElevatedButton(
                 onPressed: () {
-                  if(controller.image == null){
+                  if (controller.image == null) {
                     showErrorDialog("You have to choose a picture");
-                  }else{
+                  } else {
                     controller.register();
                   }
                 },

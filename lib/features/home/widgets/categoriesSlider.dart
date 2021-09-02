@@ -1,5 +1,6 @@
 import 'package:ecart/features/home/controller/home_controller.dart';
 import 'package:ecart/features/shared/models/category.dart';
+import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,9 @@ class CategoriesSlider extends StatelessWidget {
                     color: Get.theme.primaryColorDark.withOpacity(0.7),
                     fontSize: 2.2 * textMultiplier),
               ),
-              TextButton(onPressed: () {}, child: Text("See All")),
+              TextButton(onPressed: () {
+                Get.toNamed(AppRoutesNames.categoriesScreen);
+              }, child: Text("See All")),
             ],
           ),
           SingleChildScrollView(

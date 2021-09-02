@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
+import 'package:ecart/core/session_management.dart';
+import 'package:ecart/features/home/repository/models/refresh_tokens.dart';
 import 'package:ecart/features/shared/models/category.dart';
 import 'package:ecart/features/shared/models/product.dart';
 
@@ -52,6 +54,28 @@ class HomeRepository {
           return Right([]);
         }
         else{
+          final res = error.response!.data as Map<String, dynamic>;
+          return Left(res["message"]);
+        }
+      } else {
+        print(error.toString());
+        return Left("Something went wrong!");
+      }
+    }
+  }
+
+  Future<Either<String, RefreshTokens>> checkTokenValidity() async{
+    try{
+      final response = await _dio.post("auth/tokens", data: {
+        "refreshToken" : SessionManagement.refreshToken
+      });
+      final data = response.data as Map<String , dynamic>;
+      return Right(RefreshTokens.fromJson(data));
+    }catch (error){
+      if (error is DioError) {
+        if(error.response == null){
+          return Left(DioUtil.handleDioError(error));
+        }else{
           final res = error.response!.data as Map<String, dynamic>;
           return Left(res["message"]);
         }

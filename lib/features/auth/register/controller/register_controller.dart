@@ -73,8 +73,8 @@ class RegisterController extends GetxController {
       "role": "user",
       "image": imageData
     });
-    await checkInternetConnection().then((internet) async{
-      if(internet != null && internet){
+    await checkInternetConnection().then((internet) async {
+      if (internet != null && internet) {
         final res = await _repository.register(formData);
         res.fold((error) {
           showErrorDialog(error);
@@ -93,10 +93,10 @@ class RegisterController extends GetxController {
           update();
           Get.offAllNamed(AppRoutesNames.bottomBarScreen);
         });
-      }else{
+      } else {
         status = RxStatus.error();
         update();
-        noInternetSnackBar();
+        showSnackBar("No Internet Connection");
       }
     });
   }

@@ -1,3 +1,4 @@
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/home/repository/home_repository.dart';
 import 'package:ecart/features/shared/models/category.dart';
 import 'package:ecart/features/shared/models/product.dart';
@@ -105,8 +106,23 @@ class HomeController extends GetxController {
     });
   }
 
+  checkTokenValidity() async{
+   if(SessionManagement.isUser){
+     if(DateTime.parse(SessionManagement.expiryDate!).isBefore(DateTime.now())){
+       final response = await _repository.checkTokenValidity();
+       response.fold((error){
+         print(error);
+         showSnackBar("No Internet Connection");
+        }, (res){
+         SessionManagement.refreshTokens(accessToken: res.tokens!.accessToken!, refreshToken: res.tokens!.refreshToken!);
+       });
+     }
+   }
+  }
+
   @override
-  void onInit() {
+  void onInit() async{
+    await checkTokenValidity();
     getCategories();
     getCheapProducts();
     getPopularProducts();
