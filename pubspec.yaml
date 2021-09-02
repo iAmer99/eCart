@@ -32,6 +32,10 @@ dependencies:
   http_parser: ^4.0.0
   get_storage: ^2.0.3
   shimmer: ^2.0.0
+  chips_choice:
+    git:
+     url: https://github.com/kechankrisna/flutter_chips_choice.git
+     ref: master
 
 
   # The following adds the Cupertino Icons font to your application.

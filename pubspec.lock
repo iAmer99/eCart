@@ -29,6 +29,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  chips_choice:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: adcbdaabe25af74221295142b13949a498bf2b65
+      url: "https://github.com/kechankrisna/flutter_chips_choice.git"
+    source: git
+    version: "3.0.0"
   clock:
     dependency: transitive
     description:

@@ -13,6 +13,9 @@ import 'package:ecart/features/home/binding/home_binding.dart';
 import 'package:ecart/features/home/home_screen.dart';
 import 'package:ecart/features/more/binding/more_binding.dart';
 import 'package:ecart/features/more/more_screen.dart';
+import 'package:ecart/features/products/binding/products_binding.dart';
+import 'package:ecart/features/products/products_screen.dart';
+import 'package:ecart/features/shared/models/category.dart';
 import 'package:ecart/features/splash/splash_screen.dart';
 import 'package:ecart/routes/routes_names.dart';
 import 'package:get/get.dart';
@@ -27,41 +30,42 @@ class AppRouter {
       name: AppRoutesNames.registerScreen,
       binding: RegisterBinding(),
       page: () => RegisterScreen(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
       name: AppRoutesNames.loginScreen,
       binding: LoginBinding(),
       page: () => LoginScreen(),
-      transition: Transition.fadeIn
+      transition: Transition.fadeIn,
     ),
     GetPage(
-        name: AppRoutesNames.forgotPasswordScreen,
-        binding: ForgotPasswordBinding(),
-        page: () => ForgotPasswordScreen(),
-        transition: Transition.fadeIn
+      name: AppRoutesNames.forgotPasswordScreen,
+      binding: ForgotPasswordBinding(),
+      page: () => ForgotPasswordScreen(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
-        name: AppRoutesNames.homeScreen,
-        page: () => HomeScreen(),
-        transition: Transition.fadeIn
+      name: AppRoutesNames.homeScreen,
+      page: () => HomeScreen(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
-        name: AppRoutesNames.categoriesScreen,
-        page: () => CategoriesScreen(),
-        binding: CategoriesBinding(),
-        transition: Transition.fadeIn
+      name: AppRoutesNames.categoriesScreen,
+      page: () => CategoriesScreen(),
+      binding: CategoriesBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
-        name: AppRoutesNames.favouritesScreen,
-        page: () => FavouritesScreen(),
-        binding: FavouritesBinding(),
-        transition: Transition.fadeIn
+      name: AppRoutesNames.favouritesScreen,
+      page: () => FavouritesScreen(),
+      binding: FavouritesBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
-        name: AppRoutesNames.moreScreen,
-        page: () => MoreScreen(),
-        binding: MoreBinding(),
-        transition: Transition.fadeIn
+      name: AppRoutesNames.moreScreen,
+      page: () => MoreScreen(),
+      binding: MoreBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
         name: AppRoutesNames.bottomBarScreen,
@@ -72,7 +76,13 @@ class AppRouter {
           FavouritesBinding(),
           MoreBinding()
         ],
-        transition: Transition.fadeIn
+        transition: Transition.fadeIn),
+    GetPage(
+      name: AppRoutesNames.productsScreen,
+      page: () => ProductsScreen(),
+      arguments: Category,
+      binding: ProductsBinding(),
+      transition: Transition.fadeIn,
     ),
   ];
 }

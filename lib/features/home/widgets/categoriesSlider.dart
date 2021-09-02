@@ -58,35 +58,40 @@ class CategoriesSlider extends StatelessWidget {
 
   List<Widget> _buildCategories(List<Category> categories) {
     return categories.map((category) {
-      return Container(
-        margin: EdgeInsetsDirectional.only(
-            top: .6 * heightMultiplier,
-            bottom: .6 * heightMultiplier,
-            end: 2 * widthMultiplier),
-        child: Column(
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(1.5 * heightMultiplier),
-                child: FadeInImage(
-                  image: _imageProvider(category.image),
-                  placeholder: AssetImage("assets/images/default.jpg"),
-                  fit: BoxFit.fill,
-                  height: 23 * imageSizeMultiplier,
-                  width: 23 * imageSizeMultiplier,
-                )),
-            SizedBox(height: heightMultiplier),
-            Container(
-              alignment: Alignment.center,
-              child: Text(
-                category.name!,
-                style: TextStyle(
-                  color: Get.theme.primaryColorDark,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 2 * textMultiplier,
+      return GestureDetector(
+        onTap: (){
+          Get.toNamed(AppRoutesNames.productsScreen, arguments: category);
+        },
+        child: Container(
+          margin: EdgeInsetsDirectional.only(
+              top: .6 * heightMultiplier,
+              bottom: .6 * heightMultiplier,
+              end: 2 * widthMultiplier),
+          child: Column(
+            children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(1.5 * heightMultiplier),
+                  child: FadeInImage(
+                    image: _imageProvider(category.image),
+                    placeholder: AssetImage("assets/images/default.jpg"),
+                    fit: BoxFit.fill,
+                    height: 23 * imageSizeMultiplier,
+                    width: 23 * imageSizeMultiplier,
+                  )),
+              SizedBox(height: heightMultiplier),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  category.name!,
+                  style: TextStyle(
+                    color: Get.theme.primaryColorDark,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 2 * textMultiplier,
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       );
     }).toList();

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/home/controller/home_controller.dart';
 import 'package:ecart/features/home/widgets/categoriesSlider.dart';
 import 'package:ecart/features/home/widgets/cheapestProducts.dart';
@@ -8,8 +11,35 @@ import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+   HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final HomeController controller = Get.find<HomeController>();
+  @override
+  void initState() {
+   if(SessionManagement.isUser){
+     if(DateTime.parse(SessionManagement.expiryDate!).isAfter(DateTime.now())){
+       Duration difference = DateTime.parse(SessionManagement.expiryDate!).difference(DateTime.now());
+       Timer(Duration(seconds: difference.inSeconds), (){
+         controller.checkTokenValidity().then((_){
+           Timer.periodic(Duration(minutes: 28), (_){
+             controller.checkTokenValidity();
+           });
+         });
+       });
+     }else {
+       Timer.periodic(Duration(minutes: 28), (_){
+         controller.checkTokenValidity();
+       });
+     }
+   }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

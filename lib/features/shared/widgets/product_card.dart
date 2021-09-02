@@ -11,96 +11,104 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 23 * imageSizeMultiplier,
+      height: 30 * imageSizeMultiplier,
       width: double.infinity,
       color: Colors.transparent,
-      margin: EdgeInsetsDirectional.only(bottom: 2 * heightMultiplier),
-      child: Row(
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(1.5 * heightMultiplier),
-                  child: FadeInImage(
-                    image: _imageProvider(product.mainImage),
-                    placeholder: AssetImage("assets/images/default.jpg"),
-                    fit: BoxFit.fill,
-                    height: 23 * imageSizeMultiplier,
-                    width: 23 * imageSizeMultiplier,
-                  )),
-              if (product.priceDiscount != null && product.priceDiscount != 0)
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.only(top: 3 * imageSizeMultiplier),
-                  child: Container(
-                    height: 5 * imageSizeMultiplier,
-                    width: 15 * imageSizeMultiplier,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadiusDirectional.horizontal(
-                            end: Radius.circular(1.5 * heightMultiplier)),
-                        gradient: LinearGradient(colors: [
-                          Get.theme.primaryColor.withOpacity(0.8),
-                          Get.theme.primaryColor
-                        ])),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "-${product.priceDiscount.toString()}%",
-                      style: TextStyle(color: Colors.white),
+      margin: EdgeInsetsDirectional.only(bottom: 1 * heightMultiplier),
+      padding: EdgeInsetsDirectional.only(end: widthMultiplier),
+      child: Card(
+        color: Get.theme.canvasColor,
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(1.5 * heightMultiplier)
+        ),
+        child: Row(
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(1.5 * heightMultiplier),
+                    child: FadeInImage(
+                      image: _imageProvider(product.mainImage),
+                      placeholder: AssetImage("assets/images/default.jpg"),
+                      fit: BoxFit.fill,
+                      height: 30 * imageSizeMultiplier,
+                      width: 30 * imageSizeMultiplier,
+                    )),
+                if (product.priceDiscount != null && product.priceDiscount != 0)
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.only(top: 3 * imageSizeMultiplier),
+                    child: Container(
+                      height: 5 * imageSizeMultiplier,
+                      width: 15 * imageSizeMultiplier,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.horizontal(
+                              end: Radius.circular(1.5 * heightMultiplier)),
+                          gradient: LinearGradient(colors: [
+                            Get.theme.primaryColor.withOpacity(0.8),
+                            Get.theme.primaryColor
+                          ])),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "-${product.priceDiscount.toString()}%",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-            ],
-          ),
-          SizedBox(
-            width: 3 * widthMultiplier,
-          ),
-          Expanded(
-            flex: 4,
-            child: Padding(
-              padding: EdgeInsetsDirectional.only(top: heightMultiplier),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.name!,
-                    style: TextStyle(
-                      color: Get.theme.primaryColorDark,
-                      fontSize: 2 * textMultiplier,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
-                  SizedBox(
-                    height: heightMultiplier,
-                  ),
-                  Text(
-                    "${product.priceAfterDiscount!} EGP",
-                    style: TextStyle(
-                      color: product.priceDiscount != null &&
-                              product.priceDiscount != 0
-                          ? Get.theme.primaryColor
-                          : Get.theme.primaryColorDark.withOpacity(0.8),
-                      fontSize: 2 * textMultiplier,
-                    ),
-                  )
-                ],
-              ),
+              ],
             ),
-          ),
-          if (remove != null)
+            SizedBox(
+              width: 3 * widthMultiplier,
+            ),
             Expanded(
-              flex: 1,
-              child: IconButton(
-                icon: Icon(
-                  Icons.favorite,
-                  color: Get.theme.primaryColor,
+              flex: 4,
+              child: Padding(
+                padding: EdgeInsetsDirectional.only(top: heightMultiplier),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.name!,
+                      style: TextStyle(
+                        color: Get.theme.primaryColorDark,
+                        fontSize: 2 * textMultiplier,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                    SizedBox(
+                      height: heightMultiplier,
+                    ),
+                    Text(
+                      "${product.priceAfterDiscount!} EGP",
+                      style: TextStyle(
+                        color: product.priceDiscount != null &&
+                                product.priceDiscount != 0
+                            ? Get.theme.primaryColor
+                            : Get.theme.primaryColorDark.withOpacity(0.8),
+                        fontSize: 2 * textMultiplier,
+                      ),
+                    )
+                  ],
                 ),
-                onPressed: () {
-                  remove!(product.id!);
-                },
               ),
             ),
-        ],
+            if (remove != null)
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.favorite,
+                    color: Get.theme.primaryColor,
+                  ),
+                  onPressed: () {
+                    remove!(product.id!);
+                  },
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

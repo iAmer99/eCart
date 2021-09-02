@@ -1,4 +1,5 @@
 import 'package:ecart/features/shared/models/category.dart';
+import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,9 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AppRoutesNames.productsScreen, arguments: category);
+      },
       child: Container(
         margin: EdgeInsetsDirectional.only(
           bottom: 2 * heightMultiplier,
