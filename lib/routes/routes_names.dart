@@ -10,4 +10,5 @@ class AppRoutesNames{
   static const String moreScreen = "/more_screen";
   static const String bottomBarScreen = "/bottomBar_screen";
   static const String productsScreen = "/products_screen";
+  static const String searchScreen = "/search_screen";
 }

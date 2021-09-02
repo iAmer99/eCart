@@ -54,7 +54,7 @@ class HomeController extends GetxController {
     update();
    await checkInternetConnection().then((internet) async{
      if(internet != null && internet){
-       final response = await _repository.getProducts("/top-5-Cheap?sort=1,price");
+       final response = await _repository.getProducts("/top-5-Cheap?sort=1,priceAfterDiscount");
        response.fold(
              (error) {
            cheapProductStatus = RxStatus.error(error);
@@ -112,9 +112,9 @@ class HomeController extends GetxController {
     response.fold((error){
       print(error);
       showSnackBar("No Internet Connection");
-    }, (res){
-      SessionManagement.refreshTokens(accessToken: res.tokens!.accessToken!, refreshToken: res.tokens!.refreshToken!);
-      DioUtil.setDioAgain();
+    }, (res) async{
+      await SessionManagement.refreshTokens(accessToken: res.tokens!.accessToken!, refreshToken: res.tokens!.refreshToken!);
+      await DioUtil.setDioAgain();
     });
   }
 

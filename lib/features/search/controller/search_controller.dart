@@ -1,15 +1,16 @@
-import 'package:ecart/features/products/repository/products_repository.dart';
+import 'package:ecart/features/search/repository/search_repository.dart';
 import 'package:ecart/features/shared/models/product.dart';
 import 'package:get/get.dart';
 
-class ProductsController extends GetxController {
-  final ProductsRepository _repository;
+class SearchController extends GetxController {
+  final SearchRepository _repository;
 
-  ProductsController(this._repository);
+  SearchController(this._repository);
 
-  RxStatus _status = RxStatus.loading();
-  RxStatus get status => _status;
+  RxStatus? _status;
+  RxStatus? get status => _status;
   List<Product> products = [];
+  bool isInitial = true;
   String sorting = "ratingsAverage,ratingsQuantity";
 
   getSorting(int index){
@@ -37,12 +38,18 @@ class ProductsController extends GetxController {
     }
   }
 
-  getProducts() async{
-    _status = RxStatus.loading();
+  search(String input) async{
+    if(products.isEmpty){
+      _status = RxStatus.loading();
+      update();
+    }else{
+      _status = RxStatus.loadingMore();
+    }
+    isInitial = false;
     update();
-    final response = await _repository.getCategoryProducts({
-      "category" : Get.arguments.id,
-      "sort" : sorting
+    final response = await _repository.search({
+      "filter" : input,
+      "sort" : sorting,
     });
     response.fold((error) {
       _status = RxStatus.error(error);
@@ -58,11 +65,4 @@ class ProductsController extends GetxController {
       }
     });
   }
-
-  @override
-  void onInit() {
-    getProducts();
-    super.onInit();
-  }
-
 }
