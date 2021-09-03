@@ -5,6 +5,7 @@ import 'package:ecart/features/shared/widgets/appBar.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -21,9 +22,14 @@ class CategoriesScreen extends StatelessWidget {
               onRefresh: () async{
                 controller.getCategories();
               },
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
+                child: LazyLoadScrollView(
+                  onEndOfPage: (){
+                    controller.loadNextPage();
+                    controller.getCategories();
+                  },
+                  isLoading: controller.lastPage,
                   child: Column(
                     children: [
                       SizedBox(
@@ -44,8 +50,17 @@ class CategoriesScreen extends StatelessWidget {
                           ),
                         )),
                       if (controller.categoryStatus.isSuccess)
-                        ...(controller.categories!
-                            .map((category) => CategoryCard(category: category))),
+                       Expanded(
+                         child: ListView(
+                           children: [
+                             ...(controller.categories.map((category){
+                               return CategoryCard(category: category);
+                             })),
+                             if(controller.categoryStatus.isLoadingMore)
+                               _buildLoading(),
+                           ],
+                         ),
+                       ),
                       if (controller.categoryStatus.isError)
                         Expanded(
                             child: Center(
@@ -57,8 +72,16 @@ class CategoriesScreen extends StatelessWidget {
                           ),
                         )),
                       if(controller.categoryStatus.isLoading)
-                        for(var i = 0; i < 7 ; i ++)
-                          _buildLoading(),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                for(var i = 0; i < 7; i++)
+                                _buildLoading()
+                              ],
+                            ),
+                          ),
+                        )
 
                     ],
                   ),

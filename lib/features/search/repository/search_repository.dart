@@ -8,7 +8,7 @@ class SearchRepository {
 
   SearchRepository(this._dio);
 
-  search(Map<String, dynamic> query) async{
+  Future<Either<String, List<Product>?>> search(Map<String, dynamic> query) async{
     try{
       final response = await _dio.get("product", queryParameters: query);
       final data = response.data as Map<String , dynamic>;

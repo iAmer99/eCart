@@ -16,7 +16,7 @@ class MyAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if(Navigator.canPop(context)) Expanded(child: BackButton(color: Get.theme.primaryColorDark,), flex: 1,),
+        if(Navigator.canPop(context) && Get.currentRoute != AppRoutesNames.bottomBarScreen) Expanded(child: BackButton(color: Get.theme.primaryColorDark,), flex: 1,),
         Expanded(
           flex: 6,
           child: title == null ? Container(

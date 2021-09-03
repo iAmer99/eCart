@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/favourites/repository/model/favourites_response.dart';
 import 'package:ecart/features/shared/models/product.dart';
 
@@ -9,7 +10,7 @@ class FavouritesRepository {
 
   FavouritesRepository(this._dio);
 
-  Future<Either<String, Product>> _getProducts(String id) async {
+  Future<Either<String, Product>> getProduct(String id,) async {
     try {
       final response = await _dio.get("product/$id");
       final data = response.data as Map<String, dynamic>;
@@ -31,23 +32,12 @@ class FavouritesRepository {
     }
   }
 
-  Future<Either<String, List<Product>>> getFavourites() async {
+  Future<Either<String, List<String>>> getFavourites() async {
     try {
       final response = await _dio.get('product/favorite');
       final resData = response.data as Map<String, dynamic>;
       final data = FavouritesResponse.fromJson(resData);
-      List<Product> favourites = [];
-      if (data.products != null) {
-        data.products!.map((id) async {
-          final productResponse = await _getProducts(id);
-          productResponse.fold((error) {
-            return Left(error);
-          }, (product) {
-            favourites.add(product);
-          });
-        }).toList();
-      }
-      return Right(favourites);
+      return Right(data.products!);
     } catch (error) {
       if (error is DioError) {
         if (error.response == null) {
@@ -68,8 +58,8 @@ class FavouritesRepository {
   Future<Either<String, bool>> removeFromFavourites(String id) async{
      try{
        final response = await _dio.delete("product/favorite/$id");
-       final data = response.data as Map<String, dynamic>;
-       if(data["type"] == "Success"){
+       print(response.statusMessage);
+       if(response.statusMessage == "OK"){
          return Right(true);
        }else{
          return Left("Something went wrong!");

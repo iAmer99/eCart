@@ -8,12 +8,12 @@ class ProductsRepository {
 
   ProductsRepository(this._dio);
 
-  getCategoryProducts(Map<String, dynamic> query) async{
+  Future<Either<String, List<Product>>> getCategoryProducts(Map<String, dynamic> query) async{
     try{
       final response = await _dio.get("product", queryParameters: query);
       final data = response.data as Map<String , dynamic>;
-      List? productsData = data["products"];
-      List<Product>? products = productsData?.map((map){
+      List productsData = data["products"];
+      List<Product> products = productsData.map((map){
         return Product.fromJson(map);
       }).toList();
       return Right(products);

@@ -8,12 +8,12 @@ class CategoriesRepository {
 
   CategoriesRepository(this._dio);
 
-  Future<Either<String, List<Category>?>> getCategories() async {
+  Future<Either<String, List<Category>>> getCategories(Map<String, dynamic> query) async {
     try {
-      final response = await _dio.get("category");
+      final response = await _dio.get("category", queryParameters: query);
       final data = response.data as Map<String , dynamic>;
-      List? categoriesData = data["categories"];
-      List<Category>? categories = categoriesData?.map((element){
+      List categoriesData = data["categories"];
+      List<Category> categories = categoriesData.map((element){
         return Category.fromJson(element);
       }).toList();
       return Right(categories);

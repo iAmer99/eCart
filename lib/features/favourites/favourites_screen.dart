@@ -7,6 +7,7 @@ import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 class FavouritesScreen extends StatelessWidget {
   const FavouritesScreen({Key? key}) : super(key: key);
@@ -29,21 +30,21 @@ class FavouritesScreen extends StatelessWidget {
             onRefresh: () async {
               controller.getFavourites();
             },
-            child: SingleChildScrollView(
-              child: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: Get.statusBarHeight * 0.4,
-                    ),
-                    MyAppBar(),
-                    SizedBox(
-                      height: 3 * heightMultiplier,
-                    ),
-                    if (controller.status.isEmpty)
-                      Center(
+            child: Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: Get.statusBarHeight * 0.4,
+                  ),
+                  MyAppBar(),
+                  SizedBox(
+                    height: 3 * heightMultiplier,
+                  ),
+                  if (controller.status.isEmpty)
+                    Expanded(
+                      child: Center(
                         child: Text(
                           "No Favourites Found",
                           style: TextStyle(
@@ -51,8 +52,10 @@ class FavouritesScreen extends StatelessWidget {
                               fontSize: 2.2 * textMultiplier),
                         ),
                       ),
-                    if (controller.status.isError)
-                      Center(
+                    ),
+                  if (controller.status.isError)
+                    Expanded(
+                      child: Center(
                         child: Text(
                           controller.status.errorMessage!,
                           style: TextStyle(
@@ -60,18 +63,32 @@ class FavouritesScreen extends StatelessWidget {
                               fontSize: 2.2 * textMultiplier),
                         ),
                       ),
-                    if (controller.status.isSuccess)
-                      ...(controller.favourites.map((product) {
-                        return ProductCard(
-                          product: product,
-                          remove: (String id) =>
-                              controller.removeFromFavourites(id),
-                        );
-                      })),
-                    if (controller.status.isLoading)
-                      for (var i = 0; i < 7; i++) LoadingProductCard()
-                  ],
-                ),
+                    ),
+                  if (controller.status.isSuccess)
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          ...(controller.favourites.map((product) {
+                            return ProductCard(
+                              product: product,
+                              remove: (String id) =>
+                                  controller.removeFromFavourites(id),
+                            );
+                          })),
+                        ],
+                      ),
+                    ),
+                  if (controller.status.isLoading)
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            for (var i = 0; i < 7; i++) LoadingProductCard()
+                          ],
+                        ),
+                      ),
+                    )
+                ],
               ),
             ),
           );

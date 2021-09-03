@@ -8,6 +8,7 @@ import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 class SearchScreen extends StatefulWidget {
   SearchScreen({Key? key}) : super(key: key);
@@ -38,7 +39,12 @@ class _SearchScreenState extends State<SearchScreen> {
             body: SafeArea(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
-                child: SingleChildScrollView(
+                child: LazyLoadScrollView(
+                  onEndOfPage: (){
+                    controller.loadNextPage();
+                    controller.search(_input);
+                  },
+                  isLoading: controller.lastPage,
                   child: Column(
                     children: [
                       SizedBox(
@@ -56,45 +62,54 @@ class _SearchScreenState extends State<SearchScreen> {
                       SizedBox(
                         height: heightMultiplier,
                       ),
-                     if(!controller.isInitial) SortSelection(onSelection: (index){
+                      if(!controller.isInitial) SortSelection(onSelection: (index){
                         controller.getSorting(index);
                         controller.search(_input);
                       },),
                       if (controller.isInitial)
-                        Center(
-                            child: SvgPicture.asset(
-                          "assets/svg/search.svg",
-                          height: 60 * imageSizeMultiplier,
-                        )),
+                        Expanded(
+                          child: Center(
+                              child: SvgPicture.asset(
+                                "assets/svg/search.svg",
+                                height: 60 * imageSizeMultiplier,
+                              )),
+                        ),
                       if(controller.status != null && controller.status!.isLoading)
-                        CircularProgressIndicator(),
+                        LoadingProductCard(),
                       if (controller.status != null && controller.status!.isEmpty)
-                        Center(
-                          child: Text(
-                            "No Products Found",
-                            style: TextStyle(
-                                color: Get.theme.primaryColorDark,
-                                fontSize: 2.2 * textMultiplier),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              "No Products Found",
+                              style: TextStyle(
+                                  color: Get.theme.primaryColorDark,
+                                  fontSize: 2.2 * textMultiplier),
+                            ),
                           ),
                         ),
                       if (controller.status != null && controller.status!.isError)
-                        Center(
-                          child: Text(
-                            controller.status!.errorMessage!,
-                            style: TextStyle(
-                                color: Get.theme.primaryColorDark,
-                                fontSize: 2.2 * textMultiplier),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              controller.status!.errorMessage!,
+                              style: TextStyle(
+                                  color: Get.theme.primaryColorDark,
+                                  fontSize: 2.2 * textMultiplier),
+                            ),
                           ),
                         ),
-                      if (controller.status != null && controller.status!.isLoadingMore)
-                        LoadingProductCard(),
                       if (controller.status != null && controller.status!.isSuccess)
-                        ...(controller.products.map((product) {
-                          return ProductCard(
-                            product: product,
-                          );
-                        })),
-
+                        Expanded(
+                          child: ListView(
+                            children: [
+                              ...(controller.products.map((product){
+                                return ProductCard(product: product,);
+                              })),
+                              if(controller.status!.isLoadingMore)
+                                LoadingProductCard(),
+                            ],
+                          ),
+                        ),
                     ],
                   ),
                 ),
