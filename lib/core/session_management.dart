@@ -9,6 +9,7 @@ class SessionManagement {
   static const String EMAIL_KEY = "email_key";
   static const String PROFILE_IMAGE_KEY = "profile_image_key";
   static const String PHONE_KEY = "phone_key";
+  static const String ID_KEY = "id_key";
   static const String IS_GUEST = "is_guest";
   static const String IS_USER = "is_user";
 
@@ -25,6 +26,8 @@ class SessionManagement {
   static String? get refreshToken => _box.read(REFRESH_TOKEN);
 
   static String? get expiryDate => _box.read(EXPIRES_KEY);
+
+  static String? get userID => _box.read(ID_KEY);
 
   static String? get name => _box.read(NAME_KEY);
 
@@ -43,6 +46,7 @@ class SessionManagement {
       required String refreshToken,
       required String name,
       required String email,
+      required String id,
       String? phone,
       required String image}) {
     _box.write(IS_USER, true);
@@ -51,7 +55,8 @@ class SessionManagement {
     _box.write(REFRESH_TOKEN, refreshToken);
     _box.write(NAME_KEY, name);
     _box.write(EMAIL_KEY, email);
-    _box.write(PHONE_KEY, phone);
+    _box.write(ID_KEY, id);
+    if (phone != null) _box.write(PHONE_KEY, phone);
     _box.write(PROFILE_IMAGE_KEY, image);
     DateTime expiryDate = DateTime.now().add(Duration(minutes: 29));
     _box.write(EXPIRES_KEY, expiryDate.toIso8601String());
@@ -65,6 +70,8 @@ class SessionManagement {
 
   static logout() {
     _box.erase();
+    _box.write(IS_GUEST, true);
+    _box.write(IS_USER, false);
   }
 
   static refreshTokens(
@@ -74,5 +81,4 @@ class SessionManagement {
     DateTime expiryDate = DateTime.now().add(Duration(minutes: 29));
     _box.write(EXPIRES_KEY, expiryDate.toIso8601String());
   }
-
 }

@@ -9,7 +9,6 @@ class FavouritesController extends GetxController {
   FavouritesController(this._repository);
 
   List<Product> favourites = [];
-  List<String> favIDs = [];
   RxStatus _status = RxStatus.loading();
 
   RxStatus get status => _status;
@@ -24,47 +23,39 @@ class FavouritesController extends GetxController {
       _status = RxStatus.error(error);
       update();
     }, (favourites) async {
-        if (favourites.isEmpty) {
-          _status = RxStatus.empty();
-          update();
-        } else {
-          favIDs = favourites;
-          bool isDone = await getFavouritesData();
-          if (isDone) {
-            _status = RxStatus.success();
-            update();
-          } else {
-            _status = RxStatus.error("Something went wrong!");
-            update();
-          }
-        }
+     if(favourites.isNotEmpty){
+       this.favourites = favourites;
+       _status = RxStatus.success();
+       update();
+     }else{
+       _status = RxStatus.empty();
+       update();
+     }
       } );
   }
 
-  Future<bool> getFavouritesData() async {
-    favIDs.forEach((id) async {
-      final response = await _repository.getProduct(id);
-      response.fold((error) {
-        return false;
-      }, (product) {
-          this.favourites.add(product);
-          update();
-      });
-    });
-    return true;
-  }
 
   removeFromFavourites(String id) async {
+    Product removedProduct = favourites.firstWhere((element) => element.id == id);
+    int index = favourites.indexOf(removedProduct);
+    favourites.removeAt(index);
+    update();
     final response = await _repository.removeFromFavourites(id);
     response.fold((error) {
+      favourites.insert(index, removedProduct);
+      update();
       showSnackBar(error);
     }, (res) {
-      if (res) {
-        getFavourites();
-      } else {
+      if (!res) {
+        favourites.insert(index, removedProduct);
+        update();
         showSnackBar("Something went wrong!");
       }
     });
+    if(favourites.isEmpty){
+      _status = RxStatus.empty();
+      update();
+    }
   }
 
 

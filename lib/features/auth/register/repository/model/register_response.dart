@@ -1,4 +1,3 @@
-
 class RegisterResponse {
   String? _type;
   String? _message;
@@ -6,20 +5,20 @@ class RegisterResponse {
   Tokens? _tokens;
 
   String? get type => _type;
+
   String? get message => _message;
+
   User? get user => _user;
+
   Tokens? get tokens => _tokens;
 
-  RegisterResponse({
-      String? type, 
-      String? message, 
-      User? user, 
-      Tokens? tokens}){
+  RegisterResponse(
+      {String? type, String? message, User? user, Tokens? tokens}) {
     _type = type;
     _message = message;
     _user = user;
     _tokens = tokens;
-}
+  }
 
   RegisterResponse.fromJson(dynamic json) {
     _type = json['type'];
@@ -40,7 +39,6 @@ class RegisterResponse {
     }
     return map;
   }
-
 }
 
 class Tokens {
@@ -48,14 +46,13 @@ class Tokens {
   String? _refreshToken;
 
   String? get accessToken => _accessToken;
+
   String? get refreshToken => _refreshToken;
 
-  Tokens({
-      String? accessToken, 
-      String? refreshToken}){
+  Tokens({String? accessToken, String? refreshToken}) {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
-}
+  }
 
   Tokens.fromJson(dynamic json) {
     _accessToken = json['accessToken'];
@@ -68,13 +65,13 @@ class Tokens {
     map['refreshToken'] = _refreshToken;
     return map;
   }
-
 }
 
 class User {
   String? _name;
   String? _username;
   String? _email;
+  String? _id;
   String? _password;
   String? _passwordConfirmation;
   String? _role;
@@ -86,34 +83,49 @@ class User {
   String? _profileImageId;
 
   String? get name => _name;
+
   String? get username => _username;
+
   String? get email => _email;
+
+  String? get id => _id;
+
   String? get password => _password;
+
   String? get passwordConfirmation => _passwordConfirmation;
+
   String? get role => _role;
+
   bool? get isEmailVerified => _isEmailVerified;
+
   String? get address => _address;
+
   String? get phone => _phone;
+
   String? get companyName => _companyName;
+
   String? get profileImage => _profileImage;
+
   String? get profileImageId => _profileImageId;
 
-  User({
-      String? name, 
-      String? username, 
-      String? email, 
-      String? password, 
-      String? passwordConfirmation, 
-      String? role, 
-      bool? isEmailVerified, 
-      String? address, 
-      String? phone, 
-      String? companyName, 
-      String? profileImage, 
-      String? profileImageId}){
+  User(
+      {String? name,
+      String? username,
+      String? email,
+      String? id,
+      String? password,
+      String? passwordConfirmation,
+      String? role,
+      bool? isEmailVerified,
+      String? address,
+      String? phone,
+      String? companyName,
+      String? profileImage,
+      String? profileImageId}) {
     _name = name;
     _username = username;
     _email = email;
+    _id = id;
     _password = password;
     _passwordConfirmation = passwordConfirmation;
     _role = role;
@@ -123,12 +135,13 @@ class User {
     _companyName = companyName;
     _profileImage = profileImage;
     _profileImageId = profileImageId;
-}
+  }
 
   User.fromJson(dynamic json) {
     _name = json['name'];
     _username = json['username'];
     _email = json['email'];
+    _id = json['_id'];
     _password = json['password'];
     _passwordConfirmation = json['passwordConfirmation'];
     _role = json['role'];
@@ -145,6 +158,7 @@ class User {
     map['name'] = _name;
     map['username'] = _username;
     map['email'] = _email;
+    map['_id'] = _id;
     map['password'] = _password;
     map['passwordConfirmation'] = _passwordConfirmation;
     map['role'] = _role;
@@ -156,5 +170,4 @@ class User {
     map['profileImageId'] = _profileImageId;
     return map;
   }
-
 }

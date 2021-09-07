@@ -33,21 +33,22 @@ class ProductsScreen extends StatelessWidget {
                     SizedBox(
                       height: Get.statusBarHeight * 0.4,
                     ),
-                    MyAppBar(
-                      title: Center(
-                        child: Text(
-                          category.name!,
-                          style: TextStyle(
-                            color: Get.theme.primaryColorDark,
-                            fontSize: 3.6 * textMultiplier,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
+                    MyAppBar(),
                     SizedBox(
                       height: 2 * heightMultiplier,
                     ),
+                    Align(
+                      alignment: AlignmentDirectional.center,
+                      child: Text(
+                        category.name!,
+                        style: TextStyle(
+                          color: Get.theme.primaryColorDark.withOpacity(0.7),
+                          fontSize: 2.5 * textMultiplier,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+
                     SortSelection(
                       onSelection: (index) {
                         controller.getSorting(index);

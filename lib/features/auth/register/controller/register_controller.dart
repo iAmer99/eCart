@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
+import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/auth/register/repository/register_repository.dart';
 import 'package:ecart/routes/routes_names.dart';
@@ -87,9 +88,11 @@ class RegisterController extends GetxController {
             refreshToken: response.tokens!.refreshToken!,
             name: response.user!.name!,
             email: response.user!.email!,
+            id: response.user!.id!,
             phone: response.user!.phone,
             image: response.user!.profileImage!,
           );
+          DioUtil.setDioAgain();
           update();
           Get.offAllNamed(AppRoutesNames.bottomBarScreen);
         });

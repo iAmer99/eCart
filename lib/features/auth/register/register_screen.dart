@@ -287,7 +287,7 @@ class RegisterScreen extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   SessionManagement.createGuestSession();
-                  Get.offAllNamed(AppRoutesNames.homeScreen);
+                  Get.offAllNamed(AppRoutesNames.bottomBarScreen);
                 },
                 child: Text("Continue as a guest"),
               ),

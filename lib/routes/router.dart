@@ -13,11 +13,14 @@ import 'package:ecart/features/home/binding/home_binding.dart';
 import 'package:ecart/features/home/home_screen.dart';
 import 'package:ecart/features/more/binding/more_binding.dart';
 import 'package:ecart/features/more/more_screen.dart';
+import 'package:ecart/features/product_details/binding/product_binding.dart';
+import 'package:ecart/features/product_details/product_screen.dart';
 import 'package:ecart/features/products/binding/products_binding.dart';
 import 'package:ecart/features/products/products_screen.dart';
 import 'package:ecart/features/search/binding/search_binding.dart';
 import 'package:ecart/features/search/search_screen.dart';
 import 'package:ecart/features/shared/models/category.dart';
+import 'package:ecart/features/shared/models/product.dart';
 import 'package:ecart/features/splash/splash_screen.dart';
 import 'package:ecart/routes/routes_names.dart';
 import 'package:get/get.dart';
@@ -90,6 +93,13 @@ class AppRouter {
       name: AppRoutesNames.searchScreen,
       page: () => SearchScreen(),
       binding: SearchBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutesNames.productDetailsScreen,
+      page: () => ProductDetailsScreen(),
+      arguments: Product,
+      binding: ProductBinding(),
       transition: Transition.fadeIn,
     ),
   ];

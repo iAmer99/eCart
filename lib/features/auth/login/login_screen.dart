@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.only(
-                            top: 5 * heightMultiplier, start: 6 * widthMultiplier),
+                            top: Navigator.canPop(context) ? 5 * heightMultiplier : 10 * heightMultiplier, start: 6 * widthMultiplier),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
