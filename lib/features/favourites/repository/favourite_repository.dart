@@ -30,7 +30,6 @@ class FavouritesRepository {
       for(var id in data.products!){
         favourites.add(await getProduct(id));
       }
-      print(favourites);
       return Right(favourites);
     } catch (error) {
       if (error is DioError) {

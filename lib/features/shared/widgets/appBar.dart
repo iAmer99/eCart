@@ -9,8 +9,10 @@ class MyAppBar extends StatelessWidget {
     Key? key,
     this.node,
     this.onChange,
+    this.title,
   }) : super(key: key);
   final FocusNode? node;
+  final Widget? title;
   final Function(String)? onChange;
 
   @override
@@ -29,7 +31,7 @@ class MyAppBar extends StatelessWidget {
           ),
         Expanded(
           flex: 6,
-          child: Container(
+          child: title == null ? Container(
             width: double.infinity,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(heightMultiplier),
@@ -64,7 +66,7 @@ class MyAppBar extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+          ) : Center(child: title,),
         ),
         Expanded(
             flex: 1,

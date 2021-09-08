@@ -8,7 +8,7 @@ class Product {
   num? _quantity;
   num? _sold;
   bool? _isOutOfStock;
-  double? _ratingsAverage;
+  num? _ratingsAverage;
   int? _ratingsQuantity;
   String? _id;
   String? _mainImage;
@@ -36,7 +36,7 @@ class Product {
 
   bool? get isOutOfStock => _isOutOfStock;
 
-  double? get ratingsAverage => _ratingsAverage;
+  num? get ratingsAverage => _ratingsAverage;
 
   int? get ratingsQuantity => _ratingsQuantity;
 
@@ -70,7 +70,7 @@ class Product {
     num? quantity,
     num? sold,
     bool? isOutOfStock,
-    double? ratingsAverage,
+    num? ratingsAverage,
     int? ratingsQuantity,
     String? id,
     String? mainImage,

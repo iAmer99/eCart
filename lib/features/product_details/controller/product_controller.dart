@@ -129,8 +129,24 @@ class ProductController extends GetxController {
     });
   }
 
+  refreshProduct() async {
+    _status = RxStatus.loading();
+    update();
+    final response = await _repository.refreshProduct(product.id!);
+    response.fold((error){
+      _status = RxStatus.success();
+      update();
+      showSnackBar(error);
+    }, (product){
+      this.product = product;
+      _status = RxStatus.success();
+      update();
+    });
+  }
+
   @override
-  void onInit() {
+  void onInit() async{
+    await refreshProduct();
     getImages();
     checkFavouriteAndCart();
     super.onInit();

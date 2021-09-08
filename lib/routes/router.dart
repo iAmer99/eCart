@@ -17,6 +17,8 @@ import 'package:ecart/features/product_details/binding/product_binding.dart';
 import 'package:ecart/features/product_details/product_screen.dart';
 import 'package:ecart/features/products/binding/products_binding.dart';
 import 'package:ecart/features/products/products_screen.dart';
+import 'package:ecart/features/reviews/binding/reviews_binding.dart';
+import 'package:ecart/features/reviews/presentation/reviews_screen.dart';
 import 'package:ecart/features/search/binding/search_binding.dart';
 import 'package:ecart/features/search/search_screen.dart';
 import 'package:ecart/features/shared/models/category.dart';
@@ -100,6 +102,13 @@ class AppRouter {
       page: () => ProductDetailsScreen(),
       arguments: Product,
       binding: ProductBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutesNames.reviewsScreen,
+      page: () => ReviewsScreen(),
+      arguments: Product,
+      binding: ReviewsBinding(),
       transition: Transition.fadeIn,
     ),
   ];

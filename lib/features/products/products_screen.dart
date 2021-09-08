@@ -1,4 +1,4 @@
-import 'package:chips_choice/chips_choice.dart';
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/products/controller/products_controller.dart';
 import 'package:ecart/features/shared/models/category.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';

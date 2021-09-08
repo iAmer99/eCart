@@ -10,116 +10,134 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ProductDetailsScreen extends GetView<ProductController> {
+class ProductDetailsScreen extends StatefulWidget {
   ProductDetailsScreen({Key? key}) : super(key: key);
 
-  final Product product = Get.arguments;
+  @override
+  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  final ProductController controller = Get.find<ProductController>();
+  late Product product;
+
+  @override
+  void initState() {
+    product = controller.product;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       persistentFooterButtons: [
         GetBuilder<ProductController>(
-          builder: (controller){
-            return controller.status.isLoading ? _buildLoadingBottomBar() : Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          controller.decrease();
-                        },
-                        child: Container(
-                          height: 9 * imageSizeMultiplier,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(heightMultiplier),
-                            border: Border.all(
-                                color:
-                                Get.theme.primaryColorDark.withOpacity(0.2)),
-                            color: Get.theme.canvasColor,
-                          ),
-                          alignment: Alignment.center,
-                          child: Icon(
-                            Icons.remove,
-                            size: 7 * imageSizeMultiplier,
-                            color: Get.theme.primaryColorDark,
-                          ),
+          builder: (controller) {
+            return controller.status.isLoading
+                ? _buildLoadingBottomBar()
+                : Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                controller.decrease();
+                              },
+                              child: Container(
+                                height: 9 * imageSizeMultiplier,
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(heightMultiplier),
+                                  border: Border.all(
+                                      color: Get.theme.primaryColorDark
+                                          .withOpacity(0.2)),
+                                  color: Get.theme.canvasColor,
+                                ),
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.remove,
+                                  size: 7 * imageSizeMultiplier,
+                                  color: Get.theme.primaryColorDark,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2 * widthMultiplier,
+                            ),
+                            Obx(() {
+                              return Text(
+                                "${controller.quantity}",
+                                style: TextStyle(
+                                  color: Get.theme.primaryColorDark
+                                      .withOpacity(0.7),
+                                  fontSize: 3 * textMultiplier,
+                                ),
+                              );
+                            }),
+                            SizedBox(
+                              width: 2 * widthMultiplier,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                controller.increase();
+                              },
+                              child: Container(
+                                height: 9 * imageSizeMultiplier,
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(heightMultiplier),
+                                  border: Border.all(
+                                      color: Get.theme.primaryColorDark
+                                          .withOpacity(0.2)),
+                                  color: Get.theme.canvasColor,
+                                ),
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.add,
+                                  size: 7 * imageSizeMultiplier,
+                                  color: Get.theme.primaryColor,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        width: 2 * widthMultiplier,
-                      ),
-                      Obx(() {
-                        return Text(
-                          "${controller.quantity}",
-                          style: TextStyle(
-                            color: Get.theme.primaryColorDark.withOpacity(0.7),
-                            fontSize: 3 * textMultiplier,
-                          ),
-                        );
-                      }),
-                      SizedBox(
-                        width: 2 * widthMultiplier,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          controller.increase();
-                        },
-                        child: Container(
-                          height: 9 * imageSizeMultiplier,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(heightMultiplier),
-                            border: Border.all(
-                                color:
-                                Get.theme.primaryColorDark.withOpacity(0.2)),
-                            color: Get.theme.canvasColor,
-                          ),
-                          alignment: Alignment.center,
-                          child: Icon(
-                            Icons.add,
-                            size: 7 * imageSizeMultiplier,
-                            color: Get.theme.primaryColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                      height: 8 * heightMultiplier,
-                      margin: EdgeInsetsDirectional.only(
-                          bottom: heightMultiplier, top: heightMultiplier),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            if(SessionManagement.isUser){
-                              if(controller.addedToCart.isFalse){
-                                controller.addToCart();
-                              }else{
-
-                              }
-                            }else{
-                              Get.toNamed(AppRoutesNames.registerScreen);
-                            }
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                controller.addedToCart.value
-                                    ? Colors.blueGrey
-                                    : Get.theme.primaryColor),
-                          ),
-                          child: Text(
-                            controller.addedToCart.value
-                                ? "Checkout"
-                                : "Add to Cart",
-                            style: TextStyle(fontSize: 3.6 * textMultiplier),
-                          ))),
-                ],
-              ),
-            );
+                        Container(
+                            height: 8 * heightMultiplier,
+                            margin: EdgeInsetsDirectional.only(
+                                bottom: heightMultiplier,
+                                top: heightMultiplier),
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  if (SessionManagement.isUser) {
+                                    if (controller.addedToCart.isFalse) {
+                                      controller.addToCart();
+                                    } else {}
+                                  } else {
+                                    Get.toNamed(AppRoutesNames.registerScreen);
+                                  }
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      controller.addedToCart.value
+                                          ? Colors.blueGrey
+                                          : Get.theme.primaryColor),
+                                ),
+                                child: Text(
+                                  controller.addedToCart.value
+                                      ? "Checkout"
+                                      : "Add to Cart",
+                                  style:
+                                      TextStyle(fontSize: 3.6 * textMultiplier),
+                                ))),
+                      ],
+                    ),
+                  );
           },
         )
       ],
@@ -313,7 +331,10 @@ class ProductDetailsScreen extends GetView<ProductController> {
                           width: 2 * widthMultiplier,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(AppRoutesNames.reviewsScreen,
+                                arguments: product);
+                          },
                           child: Container(
                             padding: EdgeInsets.all(heightMultiplier),
                             decoration: BoxDecoration(
@@ -343,20 +364,24 @@ class ProductDetailsScreen extends GetView<ProductController> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Size",
-                            style: TextStyle(
-                              color:
-                                  Get.theme.primaryColorDark.withOpacity(0.5),
-                              fontSize: 2.2 * textMultiplier,
+                          Flexible(
+                            child: Text(
+                              "Size",
+                              style: TextStyle(
+                                color:
+                                    Get.theme.primaryColorDark.withOpacity(0.5),
+                                fontSize: 2.2 * textMultiplier,
+                              ),
                             ),
                           ),
-                          Text(
-                            "${product.size}",
-                            style: TextStyle(
-                              color:
-                                  Get.theme.primaryColorDark.withOpacity(0.7),
-                              fontSize: 2.2 * textMultiplier,
+                          Flexible(
+                            child: Text(
+                              "${product.size}",
+                              style: TextStyle(
+                                color:
+                                    Get.theme.primaryColorDark.withOpacity(0.7),
+                                fontSize: 2.2 * textMultiplier,
+                              ),
                             ),
                           ),
                         ],
@@ -370,20 +395,24 @@ class ProductDetailsScreen extends GetView<ProductController> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Color",
-                            style: TextStyle(
-                              color:
-                                  Get.theme.primaryColorDark.withOpacity(0.5),
-                              fontSize: 2.2 * textMultiplier,
+                          Flexible(
+                            child: Text(
+                              "Color",
+                              style: TextStyle(
+                                color:
+                                    Get.theme.primaryColorDark.withOpacity(0.5),
+                                fontSize: 2.2 * textMultiplier,
+                              ),
                             ),
                           ),
-                          Text(
-                            "${product.color}",
-                            style: TextStyle(
-                              color:
-                                  Get.theme.primaryColorDark.withOpacity(0.7),
-                              fontSize: 2.2 * textMultiplier,
+                          Flexible(
+                            child: Text(
+                              "${product.color}",
+                              style: TextStyle(
+                                color:
+                                    Get.theme.primaryColorDark.withOpacity(0.7),
+                                fontSize: 2.2 * textMultiplier,
+                              ),
                             ),
                           ),
                         ],
@@ -432,6 +461,7 @@ class ProductDetailsScreen extends GetView<ProductController> {
       highlightColor: Colors.grey.shade300,
     );
   }
+
   _buildLoadingBottomBar() {
     return Shimmer.fromColors(
       child: Container(
