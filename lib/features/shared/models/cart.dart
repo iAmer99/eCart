@@ -1,20 +1,21 @@
+import 'package:ecart/features/cart/repository/model/cart_item.dart';
+
 class CartResponse {
   String? _type;
   String? _message;
   Cart? _cart;
 
   String? get type => _type;
+
   String? get message => _message;
+
   Cart? get cart => _cart;
 
-  CartResponse({
-      String? type, 
-      String? message, 
-      Cart? cart}){
+  CartResponse({String? type, String? message, Cart? cart}) {
     _type = type;
     _message = message;
     _cart = cart;
-}
+  }
 
   CartResponse.fromJson(dynamic json) {
     _type = json['type'];
@@ -31,30 +32,39 @@ class CartResponse {
     }
     return map;
   }
-
 }
 
 class Cart {
   String? _email;
   List<Items>? _items;
-  int? _totalQuantity;
-  int? _totalPrice;
+  List<CartItem>? _cartItems;
+  num? _totalQuantity;
+  num? _totalPrice;
 
   String? get email => _email;
-  List<Items>? get items => _items;
-  int? get totalQuantity => _totalQuantity;
-  int? get totalPrice => _totalPrice;
 
-  Cart({
-      String? email, 
-      List<Items>? items, 
-      int? totalQuantity, 
-      int? totalPrice}){
+  List<Items>? get items => _items;
+
+  List<CartItem>? get cartItems => _cartItems;
+
+  num? get totalQuantity => _totalQuantity;
+
+  num? get totalPrice => _totalPrice;
+
+  set cartItemsSetter(List<CartItem> cartItems) => this._cartItems = cartItems;
+
+  Cart(
+      {String? email,
+      List<Items>? items,
+      List<CartItem>? cartItems,
+      num? totalQuantity,
+      num? totalPrice}) {
     _email = email;
     _items = items;
+    _cartItems = cartItems;
     _totalQuantity = totalQuantity;
     _totalPrice = totalPrice;
-}
+  }
 
   Cart.fromJson(dynamic json) {
     _email = json['email'];
@@ -78,30 +88,32 @@ class Cart {
     map['totalPrice'] = _totalPrice;
     return map;
   }
-
 }
 
 class Items {
   String? _id;
   String? _product;
-  int? _totalProductQuantity;
-  int? _totalProductPrice;
+  num? _totalProductQuantity;
+  num? _totalProductPrice;
 
   String? get id => _id;
-  String? get product => _product;
-  int? get totalProductQuantity => _totalProductQuantity;
-  int? get totalProductPrice => _totalProductPrice;
 
-  Items({
-      String? id, 
+  String? get product => _product;
+
+  num? get totalProductQuantity => _totalProductQuantity;
+
+  num? get totalProductPrice => _totalProductPrice;
+
+  Items(
+      {String? id,
       String? product,
-      int? totalProductQuantity, 
-      int? totalProductPrice}){
+      num? totalProductQuantity,
+      num? totalProductPrice}) {
     _id = id;
     _product = product;
     _totalProductQuantity = totalProductQuantity;
     _totalProductPrice = totalProductPrice;
-}
+  }
 
   Items.fromJson(dynamic json) {
     _id = json['_id'];
@@ -120,5 +132,4 @@ class Items {
     map['totalProductPrice'] = _totalProductPrice;
     return map;
   }
-
 }

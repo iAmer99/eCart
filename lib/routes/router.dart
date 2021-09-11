@@ -3,6 +3,8 @@ import 'package:ecart/features/auth/login/login_screen.dart';
 import 'package:ecart/features/auth/register/binding/register_binding.dart';
 import 'package:ecart/features/auth/register/register_screen.dart';
 import 'package:ecart/features/bottomBarScreen/bottomBar_screen.dart';
+import 'package:ecart/features/cart/binding/cart_binding.dart';
+import 'package:ecart/features/cart/cart_screen.dart';
 import 'package:ecart/features/categories/binding/categories_binding.dart';
 import 'package:ecart/features/categories/categories_screen.dart';
 import 'package:ecart/features/favourites/binding/favourite_binding.dart';
@@ -109,6 +111,12 @@ class AppRouter {
       page: () => ReviewsScreen(),
       arguments: Product,
       binding: ReviewsBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutesNames.cartScreen,
+      page: () => CartScreen(),
+      binding: CartBinding(),
       transition: Transition.fadeIn,
     ),
   ];

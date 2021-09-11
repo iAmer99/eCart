@@ -19,13 +19,8 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final ProductController controller = Get.find<ProductController>();
-  late Product product;
+  Product product = Get.arguments;
 
-  @override
-  void initState() {
-    product = controller.product;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +112,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   if (SessionManagement.isUser) {
                                     if (controller.addedToCart.isFalse) {
                                       controller.addToCart();
-                                    } else {}
+                                    } else {
+                                      Get.toNamed(AppRoutesNames.cartScreen);
+                                    }
                                   } else {
                                     Get.toNamed(AppRoutesNames.registerScreen);
                                   }

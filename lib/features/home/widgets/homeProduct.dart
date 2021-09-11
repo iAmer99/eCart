@@ -70,7 +70,9 @@ class HomeProduct extends StatelessWidget {
                     margin: EdgeInsetsDirectional.only(
                         bottom: 1 * heightMultiplier),
                     child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(AppRoutesNames.productDetailsScreen, arguments: product);
+                        },
                         child: Text(
                           "Buy Now",
                           style: TextStyle(fontSize: 2 * textMultiplier),

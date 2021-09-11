@@ -70,10 +70,15 @@ class MyAppBar extends StatelessWidget {
         ),
         Expanded(
             flex: 1,
-            child: SvgPicture.asset(
-              "assets/svg/cart.svg",
-              color: Get.theme.primaryColor,
-              height: 8 * imageSizeMultiplier,
+            child: GestureDetector(
+              onTap: (){
+                Get.toNamed(AppRoutesNames.cartScreen);
+              },
+              child: SvgPicture.asset(
+                "assets/svg/cart.svg",
+                color: Get.theme.primaryColor,
+                height: 8 * imageSizeMultiplier,
+              ),
             ))
       ],
     );

@@ -1,59 +1,37 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
+import 'package:ecart/features/cart/repository/model/cart_item.dart';
+import 'package:ecart/features/cart/repository/model/discount_response.dart';
 import 'package:ecart/features/shared/models/cart.dart';
 import 'package:ecart/features/shared/models/product.dart';
-import 'package:ecart/features/shared/models/product_response.dart';
 
-class ProductRepository {
+class CartRepository {
   final Dio _dio;
 
-  ProductRepository(this._dio);
+  CartRepository(this._dio);
 
-  Future<bool> checkFavourite(String id) async {
+  Future<Either<String, Cart>> getCartItems() async {
     try {
-      final response = await _dio.get("favorite/check/$id");
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
-
-  Future<Map<String, Object?>> checkCart(String id) async {
-    try {
-      final response = await _dio.get("/cart");
-      final CartResponse data = CartResponse.fromJson(response.data);
-      if(data.cart != null) {
-        if (data.cart!.items!.any((element) => element.product == id)) {
-          return {
-            "exists": true,
-            "quantity": data.cart!.items!.firstWhere((element) => element.product == id).totalProductQuantity,
-          };
-        }
+      final response = await _dio.get('cart');
+      final data = CartResponse.fromJson(response.data);
+      List<CartItem> cartItems = [];
+      for (var item in data.cart!.items!) {
+        Product product = await _getProduct(item.product!);
+        CartItem cartItem = CartItem(
+            product: product,
+            totalProductQuantity: item.totalProductQuantity!,
+            totalProductPrice: item.totalProductPrice!);
+        cartItems.add(cartItem);
       }
-      return {
-        "exists" : false,
-      };
-    }catch (_) {
-      return {
-        "exists" : false,
-      };
-    }
-  }
-
-  Future<Either<String, bool>> addToFavourite(String id) async {
-    try {
-      final response =
-          await _dio.post('favorite', data: {"productId": id});
-      if (response.statusMessage == "OK") {
-        return Right(true);
-      } else {
-        return Left("Something went wrong!");
-      }
+      data.cart!.cartItemsSetter = cartItems;
+      return Right(data.cart!);
     } catch (error) {
       if (error is DioError) {
         if (error.response == null) {
           return Left(DioUtil.handleDioError(error));
+        } else if (error.response!.statusCode == 404) {
+          return Right(Cart(cartItems: []));
         } else {
           final res = error.response!.data as Map<String, dynamic>;
           return Left(res["message"]);
@@ -65,56 +43,21 @@ class ProductRepository {
     }
   }
 
-  Future<Either<String, bool>> removeFromFavourites(String id) async {
+  Future<Product> _getProduct(
+    String id,
+  ) async {
     try {
-      final response = await _dio.delete("favorite/$id");
-      if (response.statusMessage == "OK") {
-        return Right(true);
-      } else {
-        return Left("Something went wrong!");
-      }
+      final response = await _dio.get("product/$id");
+      final data = response.data as Map<String, dynamic>;
+      Map<String, dynamic>? productData = data["product"];
+      Product product = Product.fromJson(productData);
+      return product;
     } catch (error) {
-      if (error is DioError) {
-        if (error.response == null) {
-          return Left(DioUtil.handleDioError(error));
-        } else {
-          final res = error.response!.data as Map<String, dynamic>;
-          return Left(res["message"]);
-        }
-      } else {
-        print(error.toString());
-        return Left("Something went wrong!");
-      }
+      throw error;
     }
   }
 
-  Future<Either<String, bool>> addToCart(String id, int quantity) async {
-    try {
-      final response = await _dio.post('cart', data: {
-        "productId": id,
-        "quantity": quantity,
-      });
-      if (response.statusMessage == "OK") {
-        return Right(true);
-      } else {
-        return Left("Something went wrong!");
-      }
-    } catch (error) {
-      if (error is DioError) {
-        if (error.response == null) {
-          return Left(DioUtil.handleDioError(error));
-        } else {
-          final res = error.response!.data as Map<String, dynamic>;
-          return Left(res["message"]);
-        }
-      } else {
-        print(error.toString());
-        return Left("Something went wrong!");
-      }
-    }
-  }
-
-  Future<Either<String, bool>> increase(String id) async{
+  Future<Either<String, bool>> increase(String id) async {
     try {
       final response = await _dio.patch('cart/increase-one', data: {
         "productId": id,
@@ -140,7 +83,7 @@ class ProductRepository {
     }
   }
 
-  Future<Either<String, bool>> decrease(String id) async{
+  Future<Either<String, bool>> decrease(String id) async {
     try {
       final response = await _dio.patch('cart/reduce-one', data: {
         "productId": id,
@@ -165,17 +108,17 @@ class ProductRepository {
     }
   }
 
-  Future<Either<String, Product>> refreshProduct(String productID) async{
+  Future<Either<String, bool>> removeFromCart(String id) async {
     try {
-      final response = await _dio.get("product/$productID");
-      final data = ProductResponse.fromJson(response.data);
-      return Right(data.product!);
-    }catch (error) {
+      final response = await _dio.delete("cart/$id");
+      if (response.statusMessage == "OK") {
+        return Right(true);
+      }
+      return Right(false);
+    } catch (error) {
       if (error is DioError) {
         if (error.response == null) {
           return Left(DioUtil.handleDioError(error));
-        } else if (error.response!.statusCode == 404) {
-          return Left("No Product found");
         } else {
           final res = error.response!.data as Map<String, dynamic>;
           return Left(res["message"]);
@@ -187,4 +130,26 @@ class ProductRepository {
     }
   }
 
+  Future<Either<String, num>> verifyDiscount(String code) async {
+    try {
+      final response =
+          await _dio.post('discount/verify', data: {"discountCode": code});
+      final data = DiscountResponse.fromJson(response.data);
+      return Right(data.discount!);
+    } catch (error) {
+      if (error is DioError) {
+        if (error.response == null) {
+          return Left(DioUtil.handleDioError(error));
+        } else if (error.response!.statusCode == 404) {
+          return Left("Invalid Code");
+        } else {
+          final res = error.response!.data as Map<String, dynamic>;
+          return Left(res["message"]);
+        }
+      } else {
+        print(error.toString());
+        return Left("Something went wrong!");
+      }
+    }
+  }
 }

@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
-import 'package:ecart/features/favourites/repository/model/favourites_response.dart';
 import 'package:ecart/features/shared/models/product.dart';
+
+import 'model/favourite_response.dart';
 
 class FavouritesRepository {
   final Dio _dio;
@@ -23,11 +24,11 @@ class FavouritesRepository {
 
   Future<Either<String, List<Product>>> getFavourites() async {
     try {
-      final response = await _dio.get('product/favorite');
+      final response = await _dio.get('favorite');
       final resData = response.data as Map<String, dynamic>;
-      final data = FavouritesResponse.fromJson(resData);
+      final data = FavouriteResponse.fromJson(resData);
       List<Product> favourites = [];
-      for(var id in data.products!){
+      for(var id in data.favorite!.products!){
         favourites.add(await getProduct(id));
       }
       return Right(favourites);
@@ -50,7 +51,7 @@ class FavouritesRepository {
 
   Future<Either<String, bool>> removeFromFavourites(String id) async{
      try{
-       final response = await _dio.delete("product/favorite/$id");
+       final response = await _dio.delete("favorite/$id");
        if(response.statusMessage == "OK"){
          return Right(true);
        }else{

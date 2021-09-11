@@ -12,6 +12,8 @@ class SessionManagement {
   static const String ID_KEY = "id_key";
   static const String IS_GUEST = "is_guest";
   static const String IS_USER = "is_user";
+  static const String DISCOUNT = "discount";
+  static const String DISCOUNT_CODE = "discount_code";
 
   static late GetStorage _box;
 
@@ -40,6 +42,10 @@ class SessionManagement {
   static bool get isGuest => _box.read(IS_GUEST) ?? false;
 
   static bool get isUser => _box.read(IS_USER) ?? false;
+
+  static num get discount => _box.read(DISCOUNT) ?? 0;
+
+  static String? get discountCode => _box.read(DISCOUNT_CODE);
 
   static createUserSession(
       {required String accessToken,
@@ -80,5 +86,14 @@ class SessionManagement {
     _box.write(REFRESH_TOKEN, refreshToken);
     DateTime expiryDate = DateTime.now().add(Duration(minutes: 29));
     _box.write(EXPIRES_KEY, expiryDate.toIso8601String());
+  }
+
+  static setNewDiscount(num discount, String code){
+    _box.write(DISCOUNT, discount);
+    _box.write(DISCOUNT_CODE, code);
+  }
+  static resetDiscount(){
+    _box.remove(DISCOUNT);
+    _box.remove(DISCOUNT_CODE);
   }
 }

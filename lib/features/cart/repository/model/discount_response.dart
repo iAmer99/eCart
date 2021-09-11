@@ -1,32 +1,32 @@
-class FavouritesResponse {
+class DiscountResponse {
   String? _type;
   String? _message;
-  List<String>? _products;
+  num? _discount;
 
   String? get type => _type;
   String? get message => _message;
-  List<String>? get products => _products;
+  num? get discount => _discount;
 
-  FavouritesResponse({
+  DiscountResponse({
       String? type, 
       String? message, 
-      List<String>? products}){
+      num? discount}){
     _type = type;
     _message = message;
-    _products = products;
+    _discount = discount;
 }
 
-  FavouritesResponse.fromJson(dynamic json) {
+  DiscountResponse.fromJson(dynamic json) {
     _type = json['type'];
     _message = json['message'];
-    _products = json['products'] != null ? json['products'].cast<String>() : [];
+    _discount = json['discount'];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['type'] = _type;
     map['message'] = _message;
-    map['products'] = _products;
+    map['discount'] = _discount;
     return map;
   }
 
