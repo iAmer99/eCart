@@ -25,6 +25,8 @@ class CartController extends GetxController {
 
   RxStatus get discountStatus => _discountStatus;
 
+  String code = SessionManagement.discountCode ?? "";
+
   getCart() async {
     _status = RxStatus.loading();
     update();
@@ -47,19 +49,19 @@ class CartController extends GetxController {
     });
   }
 
-  _localChange(bool increase, String id){
+  _localChange(bool increase, String id) {
     CartItem selectedItem =
-    cart.cartItems!.firstWhere((item) => item.product!.id == id);
+        cart.cartItems!.firstWhere((item) => item.product!.id == id);
     num selectedItemQuantity = selectedItem.totalProductQuantity!;
     num selectedItemPrice =
         selectedItem.totalProductPrice! / selectedItemQuantity;
-    if(increase){
+    if (increase) {
       selectedItem.totalProductQuantitySetter = selectedItemQuantity + 1;
       selectedItem.totalProductPriceSetter =
           selectedItem.totalProductPrice! + selectedItemPrice;
       _totalPrice = _totalPrice + selectedItemPrice;
       update();
-    }else{
+    } else {
       selectedItem.totalProductQuantitySetter =
           selectedItem.totalProductQuantity! - 1;
       selectedItem.totalProductPriceSetter =
@@ -69,20 +71,20 @@ class CartController extends GetxController {
     }
   }
 
-  _onError(bool increase, String id){
+  _onError(bool increase, String id) {
     CartItem selectedItem =
-    cart.cartItems!.firstWhere((item) => item.product!.id == id);
+        cart.cartItems!.firstWhere((item) => item.product!.id == id);
     num selectedItemQuantity = selectedItem.totalProductQuantity!;
     num selectedItemPrice =
         selectedItem.totalProductPrice! / selectedItemQuantity;
-    if(increase){
+    if (increase) {
       selectedItem.totalProductQuantitySetter =
           selectedItem.totalProductQuantity! - 1;
       selectedItem.totalProductPriceSetter =
           selectedItem.totalProductPrice! - selectedItemPrice;
       _totalPrice = _totalPrice - selectedItemPrice;
       update();
-    }else{
+    } else {
       selectedItem.totalProductQuantitySetter =
           selectedItem.totalProductQuantity! + 1;
       selectedItem.totalProductPriceSetter =
@@ -111,7 +113,7 @@ class CartController extends GetxController {
       _localChange(false, id);
       final response = await _repository.decrease(id);
       response.fold((error) {
-       _onError(false, id);
+        _onError(false, id);
         update();
         showSnackBar(error);
       }, (res) {
@@ -165,6 +167,33 @@ class CartController extends GetxController {
       _discountStatus = RxStatus.success();
       update();
     });
+  }
+
+  deleteDiscount() async {
+    String? code = SessionManagement.discountCode;
+    num discount = SessionManagement.discount;
+    this.code = "";
+    SessionManagement.resetDiscount();
+    update();
+    final response = await _repository.cancelDiscount();
+    response.fold((error) {
+      SessionManagement.setNewDiscount(discount, code!);
+      this.code = code;
+      showSnackBar(error);
+      update();
+    }, (response) {
+      if (!response) {
+        SessionManagement.setNewDiscount(discount, code!);
+        this.code = code;
+        showSnackBar("Something went wrong!");
+        update();
+      }
+    });
+  }
+
+  onCodeChange(String code){
+    this.code = code;
+    update();
   }
 
   @override

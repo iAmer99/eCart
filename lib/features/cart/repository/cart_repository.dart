@@ -152,4 +152,26 @@ class CartRepository {
       }
     }
   }
+
+  Future<Either<String, bool>> cancelDiscount() async {
+    try {
+      final response = await _dio.delete("discount/cancel");
+      if (response.statusMessage == "OK") {
+        return Right(true);
+      }
+      return Right(false);
+    } catch (error) {
+      if (error is DioError) {
+        if (error.response == null) {
+          return Left(DioUtil.handleDioError(error));
+        } else {
+          final res = error.response!.data as Map<String, dynamic>;
+          return Left(res["message"]);
+        }
+      } else {
+        print(error.toString());
+        return Left("Something went wrong!");
+      }
+    }
+  }
 }
