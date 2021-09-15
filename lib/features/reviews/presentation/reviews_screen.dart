@@ -3,7 +3,7 @@ import 'package:ecart/features/reviews/controller/reviews_controller.dart';
 import 'package:ecart/features/reviews/modes.dart';
 import 'package:ecart/features/reviews/presentation/editor_screen.dart';
 import 'package:ecart/features/reviews/repository/models/reviews_response.dart';
-import 'package:ecart/features/reviews/repository/models/user_response.dart';
+import 'package:ecart/features/shared/models/user_response.dart';
 import 'package:ecart/features/shared/models/product.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';
 import 'package:ecart/routes/routes_names.dart';

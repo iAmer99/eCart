@@ -9,9 +9,8 @@ import 'package:get/get.dart';
 void changeStatusBarColor() {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
-      statusBarColor: Colors.transparent
-    ),
+        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent),
   );
 }
 
@@ -49,36 +48,41 @@ showErrorDialog(String error) {
   ));
 }
 
-showSuccessDialog(String msg) {
-  Get.dialog(AlertDialog(
-    title: Text("Success"),
-    backgroundColor: Get.theme.canvasColor,
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SvgPicture.asset(
-          "assets/svg/success.svg",
-          height: 30 * imageSizeMultiplier,
-        ),
-        SizedBox(
-          height: 2 * heightMultiplier,
-        ),
-        Text(
-          msg,
-          style: TextStyle(
+showSuccessDialog(String msg, {Function? onAction}) {
+  Get.dialog(
+    AlertDialog(
+      title: Text("Success"),
+      backgroundColor: Get.theme.canvasColor,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            "assets/svg/success.svg",
+            height: 30 * imageSizeMultiplier,
+          ),
+          SizedBox(
+            height: 2 * heightMultiplier,
+          ),
+          Text(
+            msg,
+            style: TextStyle(
               color: Get.theme.primaryColorDark,
-              fontSize: 2.2 * textMultiplier),
-        ),
+              fontSize: 2.2 * textMultiplier,
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Get.back();
+              if (onAction != null) onAction();
+            },
+            child: Text("Okay"))
       ],
     ),
-    actions: [
-      TextButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: Text("Okay"))
-    ],
-  ));
+    barrierDismissible: onAction == null,
+  );
 }
 
 Future<bool?> checkInternetConnection() async {
@@ -92,7 +96,13 @@ Future<bool?> checkInternetConnection() async {
   }
 }
 
-showSnackBar(String msg){
-  Get.rawSnackbar(title: "Error", messageText: Text(msg, style: TextStyle(color: Get.theme.primaryColorLight),),
-      backgroundColor: Get.theme.primaryColorDark,);
+showSnackBar(String msg) {
+  Get.rawSnackbar(
+    title: "Error",
+    messageText: Text(
+      msg,
+      style: TextStyle(color: Get.theme.primaryColorLight),
+    ),
+    backgroundColor: Get.theme.primaryColorDark,
+  );
 }

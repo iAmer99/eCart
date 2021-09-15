@@ -2,7 +2,7 @@ import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/reviews/controller/reviews_controller.dart';
 import 'package:ecart/features/reviews/modes.dart';
 import 'package:ecart/features/reviews/repository/models/reviews_response.dart';
-import 'package:ecart/features/reviews/repository/models/user_response.dart';
+import 'package:ecart/features/shared/models/user_response.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

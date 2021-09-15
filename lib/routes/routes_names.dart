@@ -14,4 +14,5 @@ class AppRoutesNames{
   static const String productDetailsScreen = "/product_details_screen";
   static const String reviewsScreen = "/reviews_screen";
   static const String cartScreen = "/cart_screen";
+  static const String checkoutScreen = "/checkout_screen";
 }

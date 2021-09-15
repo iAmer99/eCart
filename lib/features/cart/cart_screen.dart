@@ -3,6 +3,7 @@ import 'package:ecart/features/cart/widgets/cart_item.dart';
 import 'package:ecart/features/cart/widgets/coupon.dart';
 import 'package:ecart/features/cart/widgets/loading_item.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';
+import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,6 +39,7 @@ class CartScreen extends GetView<CartController> {
                       fontSize: 2.5 * textMultiplier,
                     ),
                   ),
+                  hideCart: true,
                 ),
                 SizedBox(
                   height: 2 * heightMultiplier,
@@ -120,7 +122,9 @@ class CartScreen extends GetView<CartController> {
                                               width: 40 * widthMultiplier,
                                               height: 6 * heightMultiplier,
                                               child: ElevatedButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Get.toNamed(AppRoutesNames.checkoutScreen);
+                                                },
                                                 child: Text(
                                                   "Checkout",
                                                   style: TextStyle(

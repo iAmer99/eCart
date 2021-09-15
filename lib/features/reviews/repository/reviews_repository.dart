@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/features/shared/models/product_response.dart';
 import 'package:ecart/features/reviews/repository/models/reviews_response.dart';
-import 'package:ecart/features/reviews/repository/models/user_response.dart';
+import 'package:ecart/features/shared/models/user_response.dart';
 import 'package:ecart/features/shared/models/product.dart';
 
 class ReviewsRepository {

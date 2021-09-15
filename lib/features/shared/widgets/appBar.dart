@@ -10,10 +10,12 @@ class MyAppBar extends StatelessWidget {
     this.node,
     this.onChange,
     this.title,
+    this.hideCart,
   }) : super(key: key);
   final FocusNode? node;
   final Widget? title;
   final Function(String)? onChange;
+  final bool? hideCart;
 
   @override
   Widget build(BuildContext context) {
@@ -31,47 +33,54 @@ class MyAppBar extends StatelessWidget {
           ),
         Expanded(
           flex: 6,
-          child: title == null ? Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(heightMultiplier),
-                border: Border.all(
-                    color: Get.theme.primaryColorDark.withOpacity(0.1))),
-            alignment: AlignmentDirectional.centerStart,
-            child: InkWell(
-              onTap: () {
-                Get.toNamed(AppRoutesNames.searchScreen);
-              },
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
-              focusColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              child: IgnorePointer(
-                ignoring: node == null,
-                child: TextField(
-                  focusNode: node,
-                  onChanged:
-                      onChange != null ? (value) => onChange!(value) : null,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "What are you looking for?",
-                      hintStyle: TextStyle(
-                        color: Get.theme.primaryColorDark.withOpacity(0.7),
+          child: title == null
+              ? Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(heightMultiplier),
+                      border: Border.all(
+                          color: Get.theme.primaryColorDark.withOpacity(0.1))),
+                  alignment: AlignmentDirectional.centerStart,
+                  child: InkWell(
+                    onTap: () {
+                      Get.toNamed(AppRoutesNames.searchScreen);
+                    },
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    focusColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    child: IgnorePointer(
+                      ignoring: node == null,
+                      child: TextField(
+                        focusNode: node,
+                        onChanged: onChange != null
+                            ? (value) => onChange!(value)
+                            : null,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "What are you looking for?",
+                            hintStyle: TextStyle(
+                              color:
+                                  Get.theme.primaryColorDark.withOpacity(0.7),
+                            ),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color:
+                                  Get.theme.primaryColorDark.withOpacity(0.7),
+                            )),
                       ),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Get.theme.primaryColorDark.withOpacity(0.7),
-                      )),
+                    ),
+                  ),
+                )
+              : Center(
+                  child: title,
                 ),
-              ),
-            ),
-          ) : Center(child: title,),
         ),
-        Expanded(
+        hideCart == null || hideCart == false ?  Expanded(
             flex: 1,
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(AppRoutesNames.cartScreen);
               },
               child: SvgPicture.asset(
@@ -79,7 +88,15 @@ class MyAppBar extends StatelessWidget {
                 color: Get.theme.primaryColor,
                 height: 8 * imageSizeMultiplier,
               ),
-            ))
+            )) : Expanded(
+            flex: 1,
+            child: Container(
+              height: 8 * imageSizeMultiplier,
+              width: 8 * imageSizeMultiplier,
+              color: Colors.transparent,
+            ) ,
+        ),
+
       ],
     );
   }
