@@ -30,6 +30,9 @@ class CartController extends GetxController {
   getCart() async {
     _status = RxStatus.loading();
     update();
+    if(SessionManagement.discountCode == null){
+      await checkDiscount();
+    }
     final response = await _repository.getCartItems();
     response.fold((error) {
       _status = RxStatus.error(error);
@@ -194,6 +197,13 @@ class CartController extends GetxController {
   onCodeChange(String code){
     this.code = code;
     update();
+  }
+
+  checkDiscount() async{
+    final response = await _repository.checkDiscount();
+    response.fold((_) => null, (discount){
+      SessionManagement.setNewDiscount(discount.off, discount.code);
+    });
   }
 
   @override

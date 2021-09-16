@@ -17,8 +17,8 @@ class Product {
   String? _description;
   Category? _category;
   num? _priceDiscount;
-  String? _color;
-  String? _size;
+  List<String>? _color;
+  List<String>? _size;
   Seller? _seller;
   String? _slug;
 
@@ -54,9 +54,9 @@ class Product {
 
   num? get priceDiscount => _priceDiscount;
 
-  String? get color => _color;
+  List<String>? get color => _color;
 
-  String? get size => _size;
+  List<String>? get size => _size;
 
   Seller? get seller => _seller;
 
@@ -79,8 +79,8 @@ class Product {
     String? description,
     Category? category,
     num? priceDiscount,
-    String? color,
-    String? size,
+    List<String>? color,
+    List<String>? size,
     Seller? seller,
     String? slug,
   }) {
@@ -121,12 +121,12 @@ class Product {
     _mainImageId = json['mainImageId'];
     _name = json['name'];
     _description = json['description'];
-    _category =
-        json['category'] != null ? Category.fromJson(json['category']) : null;
+   /* _category =
+        json['category'] != null ? Category.fromJson(json['category']) : null; */
     _priceDiscount = json['priceDiscount'];
-    _color = json['color'];
-    _size = json['size'];
-    _seller = json['seller'] != null ? Seller.fromJson(json['seller']) : null;
+    _color = json['colors'] != null ? json['colors'].cast<String>() : [];
+    _size = json['sizes'] != null ? json['sizes'].cast<String>() : [];
+  //  _seller = json['seller'] != null ? Seller.fromJson(json['seller']) : null;
     _slug = json['slug'];
   }
 
@@ -150,8 +150,8 @@ class Product {
       map['category'] = _category?.toJson();
     }
     map['priceDiscount'] = _priceDiscount;
-    map['color'] = _color;
-    map['size'] = _size;
+    map['colors'] = _color;
+    map['sizes'] = _size;
     if (_seller != null) {
       map['seller'] = _seller?.toJson();
     }

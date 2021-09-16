@@ -31,3 +31,10 @@ class DiscountResponse {
   }
 
 }
+
+class Discount{
+  final String code;
+  final num off;
+
+  Discount({required this.code, required this.off});
+}

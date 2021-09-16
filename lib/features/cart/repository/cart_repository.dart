@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/cart/repository/model/cart_item.dart';
 import 'package:ecart/features/cart/repository/model/discount_response.dart';
 import 'package:ecart/features/shared/models/cart.dart';
 import 'package:ecart/features/shared/models/product.dart';
+import 'package:ecart/features/shared/models/user_response.dart';
 
 class CartRepository {
   final Dio _dio;
@@ -171,6 +173,59 @@ class CartRepository {
       } else {
         print(error.toString());
         return Left("Something went wrong!");
+      }
+    }
+  }
+
+  Future<Either<String, Discount>> checkDiscount() async{
+    try{
+      final User user = await _getUserData(SessionManagement.userID!);
+      if(user.discountCode != null){
+        final response = await _dio.get("discount/find");
+        final data = DiscountResponse.fromJson(response.data);
+        return Right(Discount(code: user.discountCode!, off: data.discount!));
+      }else{
+        return Left("No Discount Found");
+      }
+    } catch (error){
+      if (error is DioError) {
+        if (error.response == null) {
+          return Left(DioUtil.handleDioError(error));
+        } else if (error.response!.statusCode == 404) {
+          return Left("Invalid Code");
+        } else {
+          final res = error.response!.data as Map<String, dynamic>;
+          return Left(res["message"]);
+        }
+      } else {
+        print(error.toString());
+        return Left("Something went wrong!");
+      }
+    }
+  }
+
+  Future<User> _getUserData(String id) async {
+    try {
+      final response = await _dio.get('user/$id');
+      final data = UserResponse.fromJson(response.data);
+      if (data.user != null) {
+        return data.user!;
+      } else {
+        throw "User not found";
+      }
+    } catch (error) {
+      if (error is DioError) {
+        if (error.response == null) {
+          throw DioUtil.handleDioError(error);
+        } else if (error.response!.statusCode == 404) {
+          throw "User not found";
+        } else {
+          final res = error.response!.data as Map<String, dynamic>;
+          throw res["message"];
+        }
+      } else {
+        print(error.toString());
+        throw "Something went wrong!";
       }
     }
   }

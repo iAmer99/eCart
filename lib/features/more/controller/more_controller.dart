@@ -1,8 +1,13 @@
-import 'package:ecart/features/more/repository/more_repository.dart';
+import 'package:ecart/core/remote/dio_util.dart';
+import 'package:ecart/core/session_management.dart';
+import 'package:ecart/routes/routes_names.dart';
 import 'package:get/get.dart';
 
 class MoreController extends GetxController {
-  final MoreRepository _repository;
 
-  MoreController(this._repository);
+  logout(){
+    SessionManagement.logout();
+    DioUtil.setDioAgain();
+    Get.offNamed(AppRoutesNames.loginScreen);
+  }
 }

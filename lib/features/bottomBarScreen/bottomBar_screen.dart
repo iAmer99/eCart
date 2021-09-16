@@ -70,7 +70,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             label: "Favourites",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.menu),
             label: "More",
           ),
         ],

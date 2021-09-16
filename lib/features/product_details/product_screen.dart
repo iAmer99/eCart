@@ -5,6 +5,7 @@ import 'package:ecart/features/product_details/widgets/image_indicator.dart';
 import 'package:ecart/features/shared/models/product.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';
 import 'package:ecart/routes/routes_names.dart';
+import 'package:ecart/utils/helper_functions.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -110,7 +111,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             child: ElevatedButton(
                                 onPressed: () {
                                   if (SessionManagement.isUser) {
-                                    if (controller.addedToCart.isFalse) {
+                                    if(product.isOutOfStock == true){
+                                      showSnackBar("Product is out if stock");
+                                    }
+                                    else if (controller.addedToCart.isFalse) {
                                       controller.addToCart();
                                     } else {
                                       Get.toNamed(AppRoutesNames.cartScreen);
@@ -363,7 +367,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         children: [
                           Flexible(
                             child: Text(
-                              "Size",
+                              "Sizes",
                               style: TextStyle(
                                 color:
                                     Get.theme.primaryColorDark.withOpacity(0.5),
@@ -394,7 +398,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         children: [
                           Flexible(
                             child: Text(
-                              "Color",
+                              "Colors",
                               style: TextStyle(
                                 color:
                                     Get.theme.primaryColorDark.withOpacity(0.5),

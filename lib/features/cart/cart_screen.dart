@@ -1,8 +1,10 @@
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/cart/controller/cart_controller.dart';
 import 'package:ecart/features/cart/widgets/cart_item.dart';
 import 'package:ecart/features/cart/widgets/coupon.dart';
 import 'package:ecart/features/cart/widgets/loading_item.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';
+import 'package:ecart/features/shared/widgets/mustLogin.dart';
 import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:ecart/utils/size_config.dart';
@@ -23,7 +25,7 @@ class CartScreen extends GetView<CartController> {
       },
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
+          child: SessionManagement.isGuest ? MustLogin(hideCart: true,) :  Padding(
             padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +105,7 @@ class CartScreen extends GetView<CartController> {
                                                     height: heightMultiplier,
                                                   ),
                                                   Text(
-                                                    "${controller.totalPrice.toString()} EGP",
+                                                    "${controller.totalPrice.toStringAsFixed(2)} EGP",
                                                     style: TextStyle(
                                                       color: Get.theme
                                                           .primaryColorDark
