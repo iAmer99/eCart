@@ -17,6 +17,8 @@ import 'package:ecart/features/home/binding/home_binding.dart';
 import 'package:ecart/features/home/home_screen.dart';
 import 'package:ecart/features/more/binding/more_binding.dart';
 import 'package:ecart/features/more/more_screen.dart';
+import 'package:ecart/features/orders/binding/orders_binding.dart';
+import 'package:ecart/features/orders/orders_screen.dart';
 import 'package:ecart/features/product_details/binding/product_binding.dart';
 import 'package:ecart/features/product_details/product_screen.dart';
 import 'package:ecart/features/products/binding/products_binding.dart';
@@ -25,9 +27,13 @@ import 'package:ecart/features/reviews/binding/reviews_binding.dart';
 import 'package:ecart/features/reviews/presentation/reviews_screen.dart';
 import 'package:ecart/features/search/binding/search_binding.dart';
 import 'package:ecart/features/search/search_screen.dart';
+import 'package:ecart/features/settings/binding/setteings_binding.dart';
+import 'package:ecart/features/settings/settings_screen.dart';
 import 'package:ecart/features/shared/models/category.dart';
 import 'package:ecart/features/shared/models/product.dart';
 import 'package:ecart/features/splash/splash_screen.dart';
+import 'package:ecart/features/update_account/account_screen.dart';
+import 'package:ecart/features/update_account/binding/account_binding.dart';
 import 'package:ecart/routes/routes_names.dart';
 import 'package:get/get.dart';
 
@@ -125,6 +131,24 @@ class AppRouter {
       name: AppRoutesNames.checkoutScreen,
       page: () => CheckoutScreen(),
       binding: CheckoutBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutesNames.settingsScreen,
+      page: () => SettingsScreen(),
+      binding: SettingsBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutesNames.accountScreen,
+      page: () => AccountScreen(),
+      binding: AccountBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutesNames.ordersScreen,
+      page: () => OrdersScreen(),
+      binding: OrdersBinding(),
       transition: Transition.fadeIn,
     ),
   ];

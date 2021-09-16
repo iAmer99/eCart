@@ -1,8 +1,8 @@
-import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/more/controller/more_controller.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';
 import 'package:ecart/features/shared/widgets/mustLogin.dart';
+import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,54 +33,89 @@ class MoreScreen extends GetView<MoreController> {
                       radius: 15 * imageSizeMultiplier,
                     ),
                     SizedBox(
-                      height: heightMultiplier,
+                      height: 1.5 * heightMultiplier,
                     ),
                     Text(
                       "Welcome " + "${SessionManagement.name}",
                       style: TextStyle(
-                        color: Get.theme.primaryColorDark.withOpacity(0.8),
+                        color: Get.theme.primaryColorDark.withOpacity(0.7),
                         fontSize: 2.5 * textMultiplier,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(
-                      height: 4 * heightMultiplier,
+                      height: 3 * heightMultiplier,
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 8 * heightMultiplier,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Get.theme.accentColor,
-                          borderRadius:
-                              BorderRadius.circular(1.5 * heightMultiplier),
-                        ),
-                        padding: EdgeInsetsDirectional.only(
-                            start: 2 * widthMultiplier),
-                        margin: EdgeInsetsDirectional.only(
-                            top: 1.5 * heightMultiplier),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.account_circle,
-                              color: Get.theme.primaryColor,
-                            ),
-                            SizedBox(
-                              width: 2 * widthMultiplier,
-                            ),
-                            Text(
-                              "My Account",
-                              style: TextStyle(
-                                  color: Get.theme.primaryColorDark.withOpacity(0.8),
-                                  fontSize: 3 * textMultiplier),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                    _buildButton(
+                      onTap: () {
+                        Get.toNamed(AppRoutesNames.accountScreen);
+                      },
+                      icon: Icons.account_circle,
+                      title: "My Account",
+                    ),
+                    _buildButton(
+                      onTap: () {
+                        Get.toNamed(AppRoutesNames.ordersScreen);
+                      },
+                      icon: Icons.inventory_2,
+                      title: "My Orders",
+                    ),
+                    _buildButton(
+                      onTap: () {
+                        Get.toNamed(AppRoutesNames.settingsScreen);
+                      },
+                      icon: Icons.settings,
+                      title: "Settings",
+                    ),
+                    _buildButton(
+                      onTap: () {
+                        controller.logout();
+                      },
+                      icon: Icons.logout,
+                      title: "Logout",
+                    ),
                   ],
                 ),
               ),
+      ),
+    );
+  }
+
+  GestureDetector _buildButton(
+      {required Function onTap,
+      required IconData icon,
+      required String title}) {
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        height: 8 * heightMultiplier,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Get.theme.accentColor,
+          borderRadius: BorderRadius.circular(1.5 * heightMultiplier),
+        ),
+        padding: EdgeInsetsDirectional.only(start: 4 * widthMultiplier),
+        margin: EdgeInsetsDirectional.only(top: 1.5 * heightMultiplier),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: Get.theme.primaryColor,
+              size: 9 * imageSizeMultiplier,
+            ),
+            SizedBox(
+              width: 2.5 * widthMultiplier,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                  color: Get.theme.primaryColorDark.withOpacity(0.7),
+                  fontSize: 3 * textMultiplier),
+            ),
+          ],
+        ),
       ),
     );
   }
