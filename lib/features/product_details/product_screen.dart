@@ -377,7 +377,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                           Flexible(
                             child: Text(
-                              "${product.size.toString().substring(1,product.color.toString().length-1)}",
+                              "${product.size.toString().substring(1, product.size.toString().length -1)}",
                               style: TextStyle(
                                 color:
                                     Get.theme.primaryColorDark.withOpacity(0.7),
@@ -408,7 +408,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                           Flexible(
                             child: Text(
-                              "${product.color.toString().substring(1,product.color.toString().length-1)}",
+                              "${product.color.toString().substring(1, product.color.toString().length -1)}",
                               style: TextStyle(
                                 color:
                                     Get.theme.primaryColorDark.withOpacity(0.7),

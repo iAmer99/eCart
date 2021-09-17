@@ -83,7 +83,8 @@ class CheckoutController extends GetxController {
         msg,
         onAction: () {
           SessionManagement.resetDiscount();
-          Get.offAllNamed(AppRoutesNames.bottomBarScreen);
+          Get.offNamedUntil(AppRoutesNames.bottomBarScreen , (route) => false);
+          Get.toNamed(AppRoutesNames.ordersScreen);
         },
       );
     });

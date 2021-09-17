@@ -59,7 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: Get.statusBarHeight * 0.4,
                   ),
-                  MyAppBar(),
+                  MyAppBar(
+                    hideBack: true,
+                  ),
                   CategoriesSlider(),
                   SizedBox(
                     height: heightMultiplier,

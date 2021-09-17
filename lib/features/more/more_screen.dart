@@ -24,7 +24,9 @@ class MoreScreen extends GetView<MoreController> {
                       SizedBox(
                         height: Get.statusBarHeight * 0.4,
                       ),
-                      MyAppBar(),
+                      MyAppBar(
+                        hideBack: true,
+                      ),
                       SizedBox(
                         height: 3 * heightMultiplier,
                       ),

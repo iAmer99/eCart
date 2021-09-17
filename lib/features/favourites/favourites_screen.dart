@@ -37,7 +37,9 @@ class FavouritesScreen extends StatelessWidget {
                   SizedBox(
                     height: Get.statusBarHeight * 0.4,
                   ),
-                  MyAppBar(),
+                  MyAppBar(
+                    hideBack: true,
+                  ),
                   SizedBox(
                     height: 3 * heightMultiplier,
                   ),
