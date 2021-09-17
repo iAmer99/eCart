@@ -16,67 +16,69 @@ class MoreScreen extends GetView<MoreController> {
       body: SafeArea(
         child: SessionManagement.isGuest
             ? MustLogin()
-            : Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: Get.statusBarHeight * 0.4,
-                    ),
-                    MyAppBar(),
-                    SizedBox(
-                      height: 3 * heightMultiplier,
-                    ),
-                    CircleAvatar(
-                      backgroundImage:
-                          _imageProvider(SessionManagement.imageUrl),
-                      radius: 15 * imageSizeMultiplier,
-                    ),
-                    SizedBox(
-                      height: 1.5 * heightMultiplier,
-                    ),
-                    Text(
-                      "Welcome " + "${SessionManagement.name}",
-                      style: TextStyle(
-                        color: Get.theme.primaryColorDark.withOpacity(0.7),
-                        fontSize: 2.5 * textMultiplier,
-                        fontWeight: FontWeight.bold,
+            : SingleChildScrollView(
+              child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: Get.statusBarHeight * 0.4,
                       ),
-                    ),
-                    SizedBox(
-                      height: 3 * heightMultiplier,
-                    ),
-                    _buildButton(
-                      onTap: () {
-                        Get.toNamed(AppRoutesNames.accountScreen);
-                      },
-                      icon: Icons.account_circle,
-                      title: "My Account",
-                    ),
-                    _buildButton(
-                      onTap: () {
-                        Get.toNamed(AppRoutesNames.ordersScreen);
-                      },
-                      icon: Icons.inventory_2,
-                      title: "My Orders",
-                    ),
-                    _buildButton(
-                      onTap: () {
-                        Get.toNamed(AppRoutesNames.settingsScreen);
-                      },
-                      icon: Icons.settings,
-                      title: "Settings",
-                    ),
-                    _buildButton(
-                      onTap: () {
-                        controller.logout();
-                      },
-                      icon: Icons.logout,
-                      title: "Logout",
-                    ),
-                  ],
+                      MyAppBar(),
+                      SizedBox(
+                        height: 3 * heightMultiplier,
+                      ),
+                      CircleAvatar(
+                        backgroundImage:
+                            _imageProvider(SessionManagement.imageUrl),
+                        radius: 15 * imageSizeMultiplier,
+                      ),
+                      SizedBox(
+                        height: 1.5 * heightMultiplier,
+                      ),
+                      Text(
+                        "Welcome " + "${SessionManagement.name}",
+                        style: TextStyle(
+                          color: Get.theme.primaryColorDark.withOpacity(0.7),
+                          fontSize: 2.5 * textMultiplier,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3 * heightMultiplier,
+                      ),
+                      _buildButton(
+                        onTap: () {
+                          Get.toNamed(AppRoutesNames.accountScreen);
+                        },
+                        icon: Icons.account_circle,
+                        title: "My Account",
+                      ),
+                      _buildButton(
+                        onTap: () {
+                          Get.toNamed(AppRoutesNames.ordersScreen);
+                        },
+                        icon: Icons.inventory_2,
+                        title: "My Orders",
+                      ),
+                      _buildButton(
+                        onTap: () {
+                          Get.toNamed(AppRoutesNames.settingsScreen);
+                        },
+                        icon: Icons.settings,
+                        title: "Settings",
+                      ),
+                      _buildButton(
+                        onTap: () {
+                          controller.logout();
+                        },
+                        icon: Icons.logout,
+                        title: "Logout",
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+            ),
       ),
     );
   }

@@ -9,6 +9,7 @@ class SessionManagement {
   static const String EMAIL_KEY = "email_key";
   static const String PROFILE_IMAGE_KEY = "profile_image_key";
   static const String PHONE_KEY = "phone_key";
+  static const String ADDRESS_KEY = "address";
   static const String ID_KEY = "id_key";
   static const String IS_GUEST = "is_guest";
   static const String IS_USER = "is_user";
@@ -37,6 +38,8 @@ class SessionManagement {
 
   static String? get phone => _box.read(PHONE_KEY);
 
+  static String? get address => _box.read(ADDRESS_KEY);
+
   static String? get imageUrl => _box.read(PROFILE_IMAGE_KEY);
 
   static bool get isGuest => _box.read(IS_GUEST) ?? false;
@@ -54,6 +57,7 @@ class SessionManagement {
       required String email,
       required String id,
       String? phone,
+      String? address,
       required String image}) {
     _box.write(IS_USER, true);
     _box.write(IS_GUEST, false);
@@ -63,9 +67,24 @@ class SessionManagement {
     _box.write(EMAIL_KEY, email);
     _box.write(ID_KEY, id);
     if (phone != null) _box.write(PHONE_KEY, phone);
+    if (address != null) _box.write(ADDRESS_KEY, address);
     _box.write(PROFILE_IMAGE_KEY, image);
     DateTime expiryDate = DateTime.now().add(Duration(minutes: 29));
     _box.write(EXPIRES_KEY, expiryDate.toIso8601String());
+  }
+
+  static updateUserData({
+    String? name,
+    String? email,
+    String? phone,
+    String? address,
+    String? imageUrl,
+  }) {
+    if (name != null) _box.write(NAME_KEY, name);
+    if (email != null) _box.write(EMAIL_KEY, email);
+    if (phone != null) _box.write(PHONE_KEY, phone);
+    if (address != null) _box.write(ADDRESS_KEY, address);
+    if (imageUrl != null) _box.write(PROFILE_IMAGE_KEY, imageUrl);
   }
 
   static createGuestSession() {
@@ -88,11 +107,12 @@ class SessionManagement {
     _box.write(EXPIRES_KEY, expiryDate.toIso8601String());
   }
 
-  static setNewDiscount(num discount, String code){
+  static setNewDiscount(num discount, String code) {
     _box.write(DISCOUNT, discount);
     _box.write(DISCOUNT_CODE, code);
   }
-  static resetDiscount(){
+
+  static resetDiscount() {
     _box.remove(DISCOUNT);
     _box.remove(DISCOUNT_CODE);
   }

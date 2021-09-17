@@ -1,5 +1,5 @@
 import 'package:ecart/features/checkout/controller/checkout_controller.dart';
-import 'package:ecart/features/checkout/widgets/myTextFormField.dart';
+import 'package:ecart/features/shared/widgets/myTextFormField.dart';
 import 'package:ecart/features/checkout/widgets/page_indicator.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:ecart/utils/size_config.dart';

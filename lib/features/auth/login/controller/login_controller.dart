@@ -33,6 +33,7 @@ class LoginController extends GetxController {
               email: response.user!.email!,
               id: response.user!.id!,
               phone: response.user!.phone,
+              address: response.user!.address,
               image: response.user!.profileImage!);
           DioUtil.setDioAgain();
           status = RxStatus.success();
