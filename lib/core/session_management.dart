@@ -15,6 +15,7 @@ class SessionManagement {
   static const String IS_USER = "is_user";
   static const String DISCOUNT = "discount";
   static const String DISCOUNT_CODE = "discount_code";
+  static const String LOCALE_KEY = "locale_key";
 
   static late GetStorage _box;
 
@@ -46,9 +47,15 @@ class SessionManagement {
 
   static bool get isUser => _box.read(IS_USER) ?? false;
 
+  static bool get isArabic => _box.read(LOCALE_KEY) ?? false;
+
   static num get discount => _box.read(DISCOUNT) ?? 0;
 
   static String? get discountCode => _box.read(DISCOUNT_CODE);
+
+  static setLocale(bool isArabic){
+    _box.write(LOCALE_KEY, isArabic);
+  }
 
   static createUserSession(
       {required String accessToken,

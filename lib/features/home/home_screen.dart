@@ -51,32 +51,36 @@ class _HomeScreenState extends State<HomeScreen> {
              controller.getCheapProducts();
              controller.getPopularProducts();
           },
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: Get.statusBarHeight * 0.4,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: Get.statusBarHeight * 0.4,
+                ),
+                MyAppBar(
+                  hideBack: true,
+                ),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      CategoriesSlider(),
+                      SizedBox(
+                        height: heightMultiplier,
+                      ),
+                      SaleBanner(),
+                      SizedBox(
+                        height: heightMultiplier,
+                      ),
+                      CheapestProducts(),
+                      SizedBox(
+                        height: heightMultiplier,
+                      ),
+                      PopularProducts(),
+                    ],
                   ),
-                  MyAppBar(
-                    hideBack: true,
-                  ),
-                  CategoriesSlider(),
-                  SizedBox(
-                    height: heightMultiplier,
-                  ),
-                  SaleBanner(),
-                  SizedBox(
-                    height: heightMultiplier,
-                  ),
-                  CheapestProducts(),
-                  SizedBox(
-                    height: heightMultiplier,
-                  ),
-                  PopularProducts(),
-                ],
-              ),
+                )
+              ],
             ),
           ),
         ),

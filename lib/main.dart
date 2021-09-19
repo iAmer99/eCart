@@ -1,5 +1,8 @@
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/core/session_management.dart';
+import 'package:ecart/features/shared/localization/myLocales.dart';
+import 'package:ecart/features/shared/localization/texts.dart';
+import 'package:ecart/features/shared/themes/themes.dart';
 import 'package:ecart/routes/router.dart';
 import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/colors.dart';
@@ -26,27 +29,9 @@ class MyApp extends StatelessWidget {
           return GetMaterialApp(
             title: 'eCart',
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-                primaryColor: mainColor,
-                primarySwatch: mainColorSwatch,
-                accentColor: accentColor,
-                primaryColorLight: Colors.white,
-                primaryColorDark: Colors.black,
-                canvasColor: Colors.white,
-              bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                backgroundColor: Colors.black,
-                selectedItemColor: mainColor,
-                unselectedItemColor: Colors.black,
-              ),
-              elevatedButtonTheme: ElevatedButtonThemeData(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(mainColor),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(1.5 * heightMultiplier),
-                  ))
-                )
-              )
-            ),
+            theme: Themes.lightTheme,
+            locale: SessionManagement.isArabic ? MyLocales.arabic : MyLocales.english,
+            translations: Texts(),
             getPages: AppRouter.pages,
             initialRoute: AppRoutesNames.splashScreen,
           );

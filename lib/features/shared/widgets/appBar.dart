@@ -12,12 +12,14 @@ class MyAppBar extends StatelessWidget {
     this.title,
     this.hideCart,
     this.hideBack = false,
+    this.showSettings = false,
   }) : super(key: key);
   final FocusNode? node;
   final Widget? title;
   final Function(String)? onChange;
   final bool? hideCart;
   final bool hideBack;
+  final bool showSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +29,13 @@ class MyAppBar extends StatelessWidget {
         if (Navigator.canPop(context) &&
             Get.currentRoute != AppRoutesNames.bottomBarScreen &&
             Get.currentRoute != AppRoutesNames.homeScreen)
-          if(!hideBack)
-          Expanded(
-            child: BackButton(
-              color: Get.theme.primaryColorDark,
+          if (!hideBack)
+            Expanded(
+              child: BackButton(
+                color: Get.theme.primaryColorDark,
+              ),
+              flex: 1,
             ),
-            flex: 1,
-          ),
         Expanded(
           flex: 6,
           child: title == null
@@ -93,14 +95,28 @@ class MyAppBar extends StatelessWidget {
                     height: 8 * imageSizeMultiplier,
                   ),
                 ))
-            : Expanded(
-                flex: 1,
-                child: Container(
-                  height: 8 * imageSizeMultiplier,
-                  width: 8 * imageSizeMultiplier,
-                  color: Colors.transparent,
-                ),
-              ),
+            : showSettings
+                ? Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: (){
+                        Get.toNamed(AppRoutesNames.settingsScreen);
+                      },
+                      child: Icon(
+                        Icons.settings,
+                        color: Get.theme.primaryColorDark.withOpacity(0.7),
+                        size: 8 * imageSizeMultiplier,
+                      ),
+                    ),
+                  )
+                : Expanded(
+                    flex: 1,
+                    child: Container(
+                      height: 8 * imageSizeMultiplier,
+                      width: 8 * imageSizeMultiplier,
+                      color: Colors.transparent,
+                    ),
+                  ),
       ],
     );
   }

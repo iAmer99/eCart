@@ -15,7 +15,10 @@ class MoreScreen extends GetView<MoreController> {
     return Scaffold(
       body: SafeArea(
         child: SessionManagement.isGuest
-            ? MustLogin()
+            ? MustLogin(
+          hideCart: true,
+          showSettings : true,
+        )
             : SingleChildScrollView(
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),

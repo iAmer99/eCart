@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import 'appBar.dart';
 
 class MustLogin extends StatelessWidget {
-  MustLogin({Key? key, this.hideCart}) : super(key: key);
+  MustLogin({Key? key, this.hideCart, this.showSettings = false}) : super(key: key);
   final bool? hideCart;
+  final bool showSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class MustLogin extends StatelessWidget {
           ),
           MyAppBar(
             hideCart: hideCart,
+            showSettings: showSettings,
           ),
           SizedBox(
             height: 2 * heightMultiplier,
