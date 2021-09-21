@@ -18,4 +18,5 @@ class AppRoutesNames{
   static const String settingsScreen = "/settings_screen";
   static const String accountScreen = "/account_screen";
   static const String ordersScreen = "/orders_screen";
+  static const String changePasswordScreen = "/changePassword_screen";
 }

@@ -4,9 +4,11 @@ import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';
 import 'package:ecart/features/shared/widgets/myTextFormField.dart';
 import 'package:ecart/features/update_account/controller/account_controller.dart';
+import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/colors.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:ecart/utils/size_config.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -201,6 +203,33 @@ class AccountScreen extends StatelessWidget {
                               child: Text(
                                 "Save",
                                 style: TextStyle(fontSize: 3.6 * textMultiplier),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 75 * widthMultiplier,
+                            height: 6 * heightMultiplier,
+                            margin: EdgeInsets.only(bottom: 2 * heightMultiplier),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                closeKeyboard(context);
+                                Get.toNamed(AppRoutesNames.changePasswordScreen);
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                                overlayColor:  MaterialStateProperty.all(Colors.transparent),
+                                shadowColor:  MaterialStateProperty.all(Colors.transparent),
+                                foregroundColor:  MaterialStateProperty.all(Colors.transparent),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        side: BorderSide(color: Get.theme.primaryColor,),
+                                      borderRadius: BorderRadius.circular(1.5 * heightMultiplier,),
+                                    ),
+                                ),
+                              ),
+                              child: Text(
+                                "Change Password",
+                                style: TextStyle(fontSize: 2.6 * textMultiplier, color: Get.theme.primaryColor),
                               ),
                             ),
                           ),

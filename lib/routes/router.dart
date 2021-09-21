@@ -7,6 +7,8 @@ import 'package:ecart/features/cart/binding/cart_binding.dart';
 import 'package:ecart/features/cart/cart_screen.dart';
 import 'package:ecart/features/categories/binding/categories_binding.dart';
 import 'package:ecart/features/categories/categories_screen.dart';
+import 'package:ecart/features/changePassword/binding/changePassword_binding.dart';
+import 'package:ecart/features/changePassword/changePassword_screen.dart';
 import 'package:ecart/features/checkout/binding/checkout_binding.dart';
 import 'package:ecart/features/checkout/checkout_screen.dart';
 import 'package:ecart/features/favourites/binding/favourite_binding.dart';
@@ -149,6 +151,12 @@ class AppRouter {
       name: AppRoutesNames.ordersScreen,
       page: () => OrdersScreen(),
       binding: OrdersBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutesNames.changePasswordScreen,
+      binding: ChangePasswordBinding(),
+      page: () => ChangePasswordScreen(),
       transition: Transition.fadeIn,
     ),
   ];
