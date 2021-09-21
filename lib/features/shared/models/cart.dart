@@ -1,4 +1,5 @@
 import 'package:ecart/features/cart/repository/model/cart_item.dart';
+import 'package:ecart/features/shared/models/product.dart';
 
 class CartResponse {
   String? _type;
@@ -95,6 +96,8 @@ class Items {
   String? _product;
   num? _totalProductQuantity;
   num? _totalProductPrice;
+  Color? _selectedColor;
+  Size? _selectedSize;
 
   String? get id => _id;
 
@@ -104,15 +107,23 @@ class Items {
 
   num? get totalProductPrice => _totalProductPrice;
 
+  Color? get selectedColor => _selectedColor;
+
+  Size? get selectedSize => _selectedSize;
+
   Items(
       {String? id,
       String? product,
       num? totalProductQuantity,
+      Color? selectedColor,
+      Size? selectedSize,
       num? totalProductPrice}) {
     _id = id;
     _product = product;
     _totalProductQuantity = totalProductQuantity;
     _totalProductPrice = totalProductPrice;
+    _selectedColor = selectedColor;
+    _selectedSize = selectedSize;
   }
 
   Items.fromJson(dynamic json) {
@@ -120,6 +131,8 @@ class Items {
     _product = json['product'];
     _totalProductQuantity = json['totalProductQuantity'];
     _totalProductPrice = json['totalProductPrice'];
+    _selectedColor = Color.fromJson(json["selectedColor"]);
+    _selectedSize = Size.fromJson(json["selectedSize"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -130,6 +143,8 @@ class Items {
     }
     map['totalProductQuantity'] = _totalProductQuantity;
     map['totalProductPrice'] = _totalProductPrice;
+    map["selectedColor"] = _selectedColor!.toJson();
+    map["selectedSize"] = _selectedSize!.toJson();
     return map;
   }
 }

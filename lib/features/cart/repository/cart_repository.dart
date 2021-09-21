@@ -21,9 +21,12 @@ class CartRepository {
       for (var item in data.cart!.items!) {
         Product product = await _getProduct(item.product!);
         CartItem cartItem = CartItem(
-            product: product,
-            totalProductQuantity: item.totalProductQuantity!,
-            totalProductPrice: item.totalProductPrice!);
+          product: product,
+          totalProductQuantity: item.totalProductQuantity!,
+          selectedColor: item.selectedColor!,
+          selectedSize: item.selectedSize!,
+          totalProductPrice: item.totalProductPrice!,
+        );
         cartItems.add(cartItem);
       }
       data.cart!.cartItemsSetter = cartItems;
@@ -59,10 +62,12 @@ class CartRepository {
     }
   }
 
-  Future<Either<String, bool>> increase(String id) async {
+  Future<Either<String, bool>> increase(String id, String selectedColorID, String selectedSizeID) async {
     try {
       final response = await _dio.patch('cart/increase-one', data: {
         "productId": id,
+        "selectedColor": selectedColorID,
+        "selectedSize": selectedSizeID,
       });
       if (response.statusMessage == "OK") {
         return Right(true);
@@ -85,10 +90,12 @@ class CartRepository {
     }
   }
 
-  Future<Either<String, bool>> decrease(String id) async {
+  Future<Either<String, bool>> decrease(String id, String selectedColorID, String selectedSizeID) async {
     try {
       final response = await _dio.patch('cart/reduce-one', data: {
         "productId": id,
+        "selectedColor": selectedColorID,
+        "selectedSize": selectedSizeID,
       });
       if (response.statusMessage == "OK") {
         return Right(true);
@@ -110,9 +117,12 @@ class CartRepository {
     }
   }
 
-  Future<Either<String, bool>> removeFromCart(String id) async {
+  Future<Either<String, bool>> removeFromCart(String id, String selectedColorID, String selectedSizeID) async {
     try {
-      final response = await _dio.delete("cart/$id");
+      final response = await _dio.delete("cart/$id", data: {
+        "selectedColor": selectedColorID,
+        "selectedSize": selectedSizeID,
+      });
       if (response.statusMessage == "OK") {
         return Right(true);
       }
@@ -177,17 +187,17 @@ class CartRepository {
     }
   }
 
-  Future<Either<String, Discount>> checkDiscount() async{
-    try{
+  Future<Either<String, Discount>> checkDiscount() async {
+    try {
       final User user = await _getUserData(SessionManagement.userID!);
-      if(user.discountCode != null){
+      if (user.discountCode != null) {
         final response = await _dio.get("discount/find");
         final data = DiscountResponse.fromJson(response.data);
         return Right(Discount(code: user.discountCode!, off: data.discount!));
-      }else{
+      } else {
         return Left("No Discount Found");
       }
-    } catch (error){
+    } catch (error) {
       if (error is DioError) {
         if (error.response == null) {
           return Left(DioUtil.handleDioError(error));

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/product_details/controller/product_controller.dart';
 import 'package:ecart/features/product_details/widgets/image_indicator.dart';
+import 'package:ecart/features/product_details/widgets/sizeSelectionMenu.dart';
 import 'package:ecart/features/shared/models/product.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';
 import 'package:ecart/routes/routes_names.dart';
@@ -10,6 +11,8 @@ import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'widgets/colorSelectionMenu.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   ProductDetailsScreen({Key? key}) : super(key: key);
@@ -21,7 +24,6 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final ProductController controller = Get.find<ProductController>();
   Product product = Get.arguments;
-
 
   @override
   Widget build(BuildContext context) {
@@ -103,39 +105,41 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                           ],
                         ),
-                        Container(
-                            height: 8 * heightMultiplier,
-                            margin: EdgeInsetsDirectional.only(
-                                bottom: heightMultiplier,
-                                top: heightMultiplier),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  if (SessionManagement.isUser) {
-                                    if(product.isOutOfStock == true){
-                                      showSnackBar("Product is out if stock");
-                                    }
-                                    else if (controller.addedToCart.isFalse) {
-                                      controller.addToCart();
+                        ObxValue((RxBool addedToCart) {
+                          return Container(
+                              height: 8 * heightMultiplier,
+                              margin: EdgeInsetsDirectional.only(
+                                  bottom: heightMultiplier,
+                                  top: heightMultiplier),
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    if (SessionManagement.isUser) {
+                                      if (product.isOutOfStock == true) {
+                                        showSnackBar("Product is out if stock");
+                                      } else if (addedToCart.isFalse) {
+                                        controller.addToCart();
+                                      } else {
+                                        Get.toNamed(AppRoutesNames.cartScreen);
+                                      }
                                     } else {
-                                      Get.toNamed(AppRoutesNames.cartScreen);
+                                      Get.toNamed(
+                                          AppRoutesNames.registerScreen);
                                     }
-                                  } else {
-                                    Get.toNamed(AppRoutesNames.registerScreen);
-                                  }
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      controller.addedToCart.value
-                                          ? Colors.blueGrey
-                                          : Get.theme.primaryColor),
-                                ),
-                                child: Text(
-                                  controller.addedToCart.value
-                                      ? "Checkout"
-                                      : "Add to Cart",
-                                  style:
-                                      TextStyle(fontSize: 3.6 * textMultiplier),
-                                ))),
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        addedToCart.value
+                                            ? Colors.blueGrey
+                                            : Get.theme.primaryColor),
+                                  ),
+                                  child: Text(
+                                    addedToCart.value
+                                        ? "Checkout"
+                                        : "Add to Cart",
+                                    style: TextStyle(
+                                        fontSize: 3.6 * textMultiplier),
+                                  )));
+                        }, controller.addedToCart),
                       ],
                     ),
                   );
@@ -356,11 +360,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       ],
                     ),
-                    if (product.size != null)
+                    if (product.sizes != null)
                       SizedBox(
                         height: 2 * heightMultiplier,
                       ),
-                    if (product.size != null)
+                    if (product.sizes != null)
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -375,23 +379,52 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ),
                             ),
                           ),
-                          Flexible(
-                            child: Text(
-                              "${product.size.toString().substring(1, product.size.toString().length -1)}",
-                              style: TextStyle(
-                                color:
-                                    Get.theme.primaryColorDark.withOpacity(0.7),
-                                fontSize: 2.2 * textMultiplier,
-                              ),
-                            ),
-                          ),
+                          GetBuilder<ProductController>(
+                            builder: (controller){
+                              return controller.status.isLoading
+                                  ? Flexible(
+                                child: Shimmer.fromColors(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(
+                                          1.5 * heightMultiplier),
+                                    ),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 4 * widthMultiplier),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 4 * widthMultiplier),
+                                    child: SizeSelectionMenu(
+                                        data: product.sizes!),
+                                  ),
+                                  baseColor: Colors.white,
+                                  highlightColor: Colors.grey.shade300,
+                                ),
+                              )
+                                  : Flexible(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Get.theme.accentColor,
+                                    borderRadius: BorderRadius.circular(
+                                        1.5 * heightMultiplier),
+                                  ),
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 4 * widthMultiplier),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 4 * widthMultiplier),
+                                  child:
+                                  SizeSelectionMenu(data: product.sizes!),
+                                ),
+                              );
+                            },
+                          )
                         ],
                       ),
-                    if (product.color != null)
+                    if (product.colors != null)
                       SizedBox(
                         height: 2 * heightMultiplier,
                       ),
-                    if (product.color != null)
+                    if (product.colors != null)
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -406,16 +439,45 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ),
                             ),
                           ),
-                          Flexible(
-                            child: Text(
-                              "${product.color.toString().substring(1, product.color.toString().length -1)}",
-                              style: TextStyle(
-                                color:
-                                    Get.theme.primaryColorDark.withOpacity(0.7),
-                                fontSize: 2.2 * textMultiplier,
-                              ),
-                            ),
-                          ),
+                         GetBuilder<ProductController>(
+                           builder: (controller){
+                             return  controller.status.isLoading
+                                 ? Flexible(
+                               child: Shimmer.fromColors(
+                                 child: Container(
+                                   decoration: BoxDecoration(
+                                     color: Colors.white,
+                                     borderRadius: BorderRadius.circular(
+                                         1.5 * heightMultiplier),
+                                   ),
+                                   margin: EdgeInsets.symmetric(
+                                       horizontal: 4 * widthMultiplier),
+                                   padding: EdgeInsets.symmetric(
+                                       horizontal: 4 * widthMultiplier),
+                                   child: ColorSelectionMenu(
+                                       data: product.colors!),
+                                 ),
+                                 baseColor: Colors.white,
+                                 highlightColor: Colors.grey.shade300,
+                               ),
+                             )
+                                 : Flexible(
+                               child: Container(
+                                 decoration: BoxDecoration(
+                                   color: Get.theme.accentColor,
+                                   borderRadius: BorderRadius.circular(
+                                       1.5 * heightMultiplier),
+                                 ),
+                                 margin: EdgeInsets.symmetric(
+                                     horizontal: 4 * widthMultiplier),
+                                 padding: EdgeInsets.symmetric(
+                                     horizontal: 4 * widthMultiplier),
+                                 child: ColorSelectionMenu(
+                                     data: product.colors!),
+                               ),
+                             );
+                           },
+                         ),
                         ],
                       ),
                     SizedBox(

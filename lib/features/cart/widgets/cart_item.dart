@@ -45,6 +45,60 @@ class CartItemCard extends GetView<CartController> {
                   SizedBox(
                     height: heightMultiplier,
                   ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          "Color",
+                          style: TextStyle(
+                            color: Get.theme.primaryColorDark.withOpacity(0.5),
+                            fontSize: 1.5 * textMultiplier,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Text(
+                          item.selectedColor!.color!,
+                          style: TextStyle(
+                            color: Get.theme.primaryColorDark.withOpacity(0.5),
+                            fontSize: 1.5 * textMultiplier,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: heightMultiplier,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          "Size",
+                          style: TextStyle(
+                            color: Get.theme.primaryColorDark.withOpacity(0.5),
+                            fontSize: 1.5 * textMultiplier,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Text(
+                          item.selectedSize!.size!,
+                          style: TextStyle(
+                            color: Get.theme.primaryColorDark.withOpacity(0.5),
+                            fontSize: 1.5 * textMultiplier,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: heightMultiplier,
+                  ),
                   Text(
                     "${item.totalProductPrice.toString()} EGP",
                     style: TextStyle(
@@ -71,7 +125,11 @@ class CartItemCard extends GetView<CartController> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            controller.decrease(item.product!.id!, item.totalProductQuantity!);
+                            controller.decrease(
+                                item.product!.id!,
+                                item.totalProductQuantity!,
+                                item.selectedColor!,
+                                item.selectedSize!);
                           },
                           child: Container(
                             height: 7 * imageSizeMultiplier,
@@ -107,7 +165,10 @@ class CartItemCard extends GetView<CartController> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            controller.increase(item.product!.id!);
+                            controller.increase(
+                                item.product!.id!,
+                                item.selectedColor!,
+                                item.selectedSize!);
                           },
                           child: Container(
                             height: 7 * imageSizeMultiplier,
@@ -132,7 +193,8 @@ class CartItemCard extends GetView<CartController> {
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        controller.removeFromCart(item.product!.id!);
+                        controller.removeFromCart(item.product!.id!,
+                            item.selectedColor!.id!, item.selectedSize!.id!);
                       },
                       icon: Icon(Icons.delete_forever),
                       label: Text("Remove"),

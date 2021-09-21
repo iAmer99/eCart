@@ -2,6 +2,7 @@ import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/cart/repository/cart_repository.dart';
 import 'package:ecart/features/cart/repository/model/cart_item.dart';
 import 'package:ecart/features/shared/models/cart.dart';
+import 'package:ecart/features/shared/models/product.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +31,7 @@ class CartController extends GetxController {
   getCart() async {
     _status = RxStatus.loading();
     update();
-    if(SessionManagement.discountCode == null){
+    if (SessionManagement.discountCode == null) {
       await checkDiscount();
     }
     final response = await _repository.getCartItems();
@@ -52,9 +53,11 @@ class CartController extends GetxController {
     });
   }
 
-  _localChange(bool increase, String id) {
-    CartItem selectedItem =
-        cart.cartItems!.firstWhere((item) => item.product!.id == id);
+  _localChange(bool increase, String id, Color color, Size size) {
+    CartItem selectedItem = cart.cartItems!.firstWhere((item) =>
+        item.product!.id == id &&
+        item.selectedColor == color &&
+        item.selectedSize == size);
     num selectedItemQuantity = selectedItem.totalProductQuantity!;
     num selectedItemPrice =
         selectedItem.totalProductPrice! / selectedItemQuantity;
@@ -74,9 +77,11 @@ class CartController extends GetxController {
     }
   }
 
-  _onError(bool increase, String id) {
-    CartItem selectedItem =
-        cart.cartItems!.firstWhere((item) => item.product!.id == id);
+  _onError(bool increase, String id, Color color, Size size) {
+    CartItem selectedItem = cart.cartItems!.firstWhere((item) =>
+        item.product!.id == id &&
+        item.selectedColor == color &&
+        item.selectedSize == size);
     num selectedItemQuantity = selectedItem.totalProductQuantity!;
     num selectedItemPrice =
         selectedItem.totalProductPrice! / selectedItemQuantity;
@@ -97,48 +102,55 @@ class CartController extends GetxController {
     }
   }
 
-  increase(String id) async {
-    _localChange(true, id);
-    final response = await _repository.increase(id);
+  increase(String id, Color selectedColor, Size selectedSize) async {
+    _localChange(true, id, selectedColor, selectedSize);
+    final response =
+        await _repository.increase(id, selectedColor.id!, selectedSize.id!);
     response.fold((error) {
-      _onError(true, id);
+      _onError(true, id, selectedColor, selectedSize);
       showSnackBar(error);
     }, (res) {
       if (!res) {
-        _onError(true, id);
+        _onError(true, id, selectedColor, selectedSize);
         showSnackBar("Something went wrong!");
       }
     });
   }
 
-  decrease(String id, num quantity) async {
+  decrease(
+      String id, num quantity, Color selectedColor, Size selectedSize) async {
     if (quantity > 1) {
-      _localChange(false, id);
-      final response = await _repository.decrease(id);
+      _localChange(false, id, selectedColor, selectedSize);
+      final response =
+          await _repository.decrease(id, selectedColor.id!, selectedSize.id!);
       response.fold((error) {
-        _onError(false, id);
+        _onError(false, id, selectedColor, selectedSize);
         update();
         showSnackBar(error);
       }, (res) {
         if (!res) {
-          _onError(false, id);
+          _onError(false, id, selectedColor, selectedSize);
           showSnackBar("Something went wrong!");
         }
       });
     } else {
-      removeFromCart(id);
+      removeFromCart(id, selectedColor.id!, selectedSize.id!);
     }
   }
 
-  removeFromCart(String id) async {
-    CartItem selectedItem =
-        cart.cartItems!.firstWhere((element) => element.product!.id == id);
+  removeFromCart(
+      String id, String selectedColorID, String selectedSizeID) async {
+    CartItem selectedItem = cart.cartItems!.firstWhere((element) =>
+        element.product!.id == id &&
+        element.selectedColor!.id == selectedColorID &&
+        element.selectedSize!.id == selectedSizeID);
     int index = cart.cartItems!.indexOf(selectedItem);
     num selectedItemPrice = selectedItem.totalProductPrice!;
     cart.cartItems!.removeAt(index);
     _totalPrice = _totalPrice - selectedItemPrice;
     update();
-    final response = await _repository.removeFromCart(id);
+    final response =
+        await _repository.removeFromCart(id, selectedColorID, selectedSizeID);
     response.fold((error) {
       cart.cartItems!.insert(index, selectedItem);
       _totalPrice = _totalPrice + selectedItemPrice;
@@ -194,14 +206,14 @@ class CartController extends GetxController {
     });
   }
 
-  onCodeChange(String code){
+  onCodeChange(String code) {
     this.code = code;
     update();
   }
 
-  checkDiscount() async{
+  checkDiscount() async {
     final response = await _repository.checkDiscount();
-    response.fold((_) => null, (discount){
+    response.fold((_) => null, (discount) {
       SessionManagement.setNewDiscount(discount.off, discount.code);
     });
   }

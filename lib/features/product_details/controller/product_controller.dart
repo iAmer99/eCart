@@ -1,3 +1,4 @@
+import 'package:ecart/features/product_details/repository/model/productInCart.dart';
 import 'package:ecart/features/product_details/repository/product_repository.dart';
 import 'package:ecart/features/shared/models/product.dart';
 import 'package:ecart/utils/helper_functions.dart';
@@ -14,38 +15,55 @@ class ProductController extends GetxController {
   int index = 0;
   bool isFavourite = false;
   RxBool addedToCart = false.obs;
+  late Size _selectedSize;
+  late Color _selectedColor;
+  List<ProductInCart> cartOfProduct = [];
 
   RxStatus get status => _status;
 
   RxInt quantity = 1.obs;
 
-  increase() async{
-    quantity ++;
-    if(addedToCart.isTrue){
-      final response = await _repository.increase(product.id!);
+  Size get selectedSize => _selectedSize;
+  Color get selectedColor => _selectedColor;
+
+  increase() async {
+    quantity++;
+    if (addedToCart.isTrue) {
+      final response = await _repository.increase(
+          product.id!, _selectedColor.id!, _selectedSize.id!);
       response.fold((error) {
-        quantity --;
+        quantity--;
         showSnackBar(error);
       }, (res) {
         if (!res) {
-          quantity --;
+          quantity--;
           showSnackBar("Something went wrong!");
+        } else {
+          ProductInCart product =
+              _getProductInCart("${_selectedColor.id}" + "${_selectedSize.id}");
+          product.quantity = quantity.value;
         }
       });
     }
   }
-  decrease() async{
-    if(quantity.value != 1){
-      quantity --;
-      if(addedToCart.isTrue){
-        final response = await _repository.decrease(product.id!);
+
+  decrease() async {
+    if (quantity.value != 1) {
+      quantity--;
+      if (addedToCart.isTrue) {
+        final response = await _repository.decrease(
+            product.id!, _selectedColor.id!, _selectedSize.id!);
         response.fold((error) {
-          quantity ++;
+          quantity++;
           showSnackBar(error);
         }, (res) {
           if (!res) {
-            quantity ++;
+            quantity++;
             showSnackBar("Something went wrong!");
+          } else {
+            ProductInCart product = _getProductInCart(
+                "${_selectedColor.id}" + "${_selectedSize.id}");
+            product.quantity = quantity.value;
           }
         });
       }
@@ -56,6 +74,7 @@ class ProductController extends GetxController {
     this.index = index;
     update();
   }
+
   getImages() {
     img = [
       product.mainImage!,
@@ -63,23 +82,29 @@ class ProductController extends GetxController {
     img.addAll(product.images!);
     update();
   }
+
   checkFavouriteAndCart() async {
     _status = RxStatus.loading();
     update();
     this.isFavourite = await _repository.checkFavourite(product.id!);
-    Map<String, Object?> check = await _repository.checkCart(product.id!);
-    if(check["exists"] != null && check["exists"] == true){
-      this.addedToCart.value = true;
-      this.quantity.value = check["quantity"] as int;
-    }else{
-      this.addedToCart.value = false;
-    }
+    final response = await _repository.checkCart(product.id!);
+    response.fold((error) {
+      addedToCart.value = false;
+      quantity.value = 1;
+    }, (data) {
+      this.cartOfProduct = data;
+      ProductInCart initialProduct = cartOfProduct.first;
+      quantity.value = initialProduct.quantity.toInt();
+      _selectedColor = initialProduct.selectedColor;
+      _selectedSize = initialProduct.selectedSize;
+      addedToCart.value = true;
+      update();
+    });
     _status = RxStatus.success();
     update();
   }
 
-
-  addToFavourites() async{
+  addToFavourites() async {
     isFavourite = true;
     update();
     final response = await _repository.addToFavourite(product.id!);
@@ -95,7 +120,8 @@ class ProductController extends GetxController {
       }
     });
   }
-  removeFromFavourites() async{
+
+  removeFromFavourites() async {
     isFavourite = false;
     update();
     final response = await _repository.removeFromFavourites(product.id!);
@@ -112,10 +138,11 @@ class ProductController extends GetxController {
     });
   }
 
-  addToCart() async{
+  addToCart() async {
     addedToCart.value = true;
     update();
-    final response = await _repository.addToCart(product.id!, quantity.value);
+    final response = await _repository.addToCart(
+        product.id!, quantity.value, _selectedColor.id!, _selectedSize.id!);
     response.fold((error) {
       addedToCart.value = false;
       update();
@@ -125,6 +152,13 @@ class ProductController extends GetxController {
         addedToCart.value = false;
         update();
         showSnackBar("Something went wrong!");
+      } else {
+        cartOfProduct.add(ProductInCart(
+          selectedColor: _selectedColor,
+          selectedSize: _selectedSize,
+          id: "${_selectedColor.id}" + "${_selectedSize.id}",
+          quantity: quantity.value,
+        ));
       }
     });
   }
@@ -133,19 +167,49 @@ class ProductController extends GetxController {
     _status = RxStatus.loading();
     update();
     final response = await _repository.refreshProduct(product.id!);
-    response.fold((error){
+    response.fold((error) {
       _status = RxStatus.success();
       update();
       showSnackBar(error);
-    }, (product){
+    }, (product) {
       this.product = product;
       _status = RxStatus.success();
       update();
     });
+    _selectedSize = product.sizes!.first;
+    _selectedColor = product.colors!.first;
+  }
+
+  ProductInCart _getProductInCart(String id) {
+    ProductInCart product = cartOfProduct.firstWhere((item) => item.id == id);
+    return product;
+  }
+
+  selectSize(Size size) {
+    _selectedSize = size;
+    _onChangeColorOrSize();
+  }
+
+  _onChangeColorOrSize() {
+    if (cartOfProduct.any(
+        (item) => item.id == "${_selectedColor.id}" + "${_selectedSize.id}")) {
+      ProductInCart product =
+          _getProductInCart("${_selectedColor.id}" + "${_selectedSize.id}");
+      addedToCart.value = true;
+      quantity.value = product.quantity.toInt();
+    } else {
+      addedToCart.value = false;
+      quantity.value = 1;
+    }
+  }
+
+  selectColor(Color color) {
+    _selectedColor = color;
+    _onChangeColorOrSize();
   }
 
   @override
-  void onInit() async{
+  void onInit() async {
     await refreshProduct();
     getImages();
     checkFavouriteAndCart();

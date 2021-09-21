@@ -62,88 +62,11 @@ class CartScreen extends GetView<CartController> {
                                         ...(controller.cart.cartItems!.map(
                                             (item) =>
                                                 CartItemCard(item: item))),
+                                      if(context.orientation == Orientation.landscape )  _buildBottomSheet(controller),
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    color: Get.theme.canvasColor,
-                                    padding: EdgeInsets.only(
-                                        top: 2 * heightMultiplier),
-                                    child: Column(
-                                      children: [
-                                        CouponRow(
-                                          couponController: _couponController,
-                                          node: _node,
-                                        ),
-                                        SizedBox(
-                                          height: heightMultiplier,
-                                        ),
-                                        Divider(),
-                                        SizedBox(
-                                          height: heightMultiplier,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Total Price",
-                                                    style: TextStyle(
-                                                      color: Get.theme
-                                                          .primaryColorDark
-                                                          .withOpacity(0.8),
-                                                      fontSize:
-                                                          2.2 * textMultiplier,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: heightMultiplier,
-                                                  ),
-                                                  Text(
-                                                    "${controller.totalPrice.toStringAsFixed(2)} EGP",
-                                                    style: TextStyle(
-                                                      color: Get.theme
-                                                          .primaryColorDark
-                                                          .withOpacity(0.8),
-                                                      fontSize:
-                                                          2.2 * textMultiplier,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 4 * widthMultiplier,
-                                            ),
-                                            Container(
-                                              width: 40 * widthMultiplier,
-                                              height: 6 * heightMultiplier,
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  Get.toNamed(AppRoutesNames.checkoutScreen);
-                                                },
-                                                child: Text(
-                                                  "Checkout",
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        3 * textMultiplier,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 3 * heightMultiplier,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  if(context.orientation == Orientation.portrait )  _buildBottomSheet(controller),
                                 ],
                               ),
                             ),
@@ -184,5 +107,87 @@ class CartScreen extends GetView<CartController> {
         ),
       ),
     );
+  }
+
+  Container _buildBottomSheet(CartController controller) {
+    return Container(
+                                  color: Get.theme.canvasColor,
+                                  padding: EdgeInsets.only(
+                                      top: 2 * heightMultiplier),
+                                  child: Column(
+                                    children: [
+                                      CouponRow(
+                                        couponController: _couponController,
+                                        node: _node,
+                                      ),
+                                      SizedBox(
+                                        height: heightMultiplier,
+                                      ),
+                                      Divider(),
+                                      SizedBox(
+                                        height: heightMultiplier,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Total Price",
+                                                  style: TextStyle(
+                                                    color: Get.theme
+                                                        .primaryColorDark
+                                                        .withOpacity(0.8),
+                                                    fontSize:
+                                                        2.2 * textMultiplier,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: heightMultiplier,
+                                                ),
+                                                Text(
+                                                  "${controller.totalPrice.toStringAsFixed(2)} EGP",
+                                                  style: TextStyle(
+                                                    color: Get.theme
+                                                        .primaryColorDark
+                                                        .withOpacity(0.8),
+                                                    fontSize:
+                                                        2.2 * textMultiplier,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 4 * widthMultiplier,
+                                          ),
+                                          Container(
+                                            width: 40 * widthMultiplier,
+                                            height: 6 * heightMultiplier,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Get.toNamed(AppRoutesNames.checkoutScreen);
+                                              },
+                                              child: Text(
+                                                "Checkout",
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      3 * textMultiplier,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 3 * heightMultiplier,
+                                      ),
+                                    ],
+                                  ),
+                                );
   }
 }

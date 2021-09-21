@@ -17,8 +17,8 @@ class Product {
   String? _description;
   Category? _category;
   num? _priceDiscount;
-  List<String>? _color;
-  List<String>? _size;
+  List<Color>? _colors;
+  List<Size>? _sizes;
   Seller? _seller;
   String? _slug;
 
@@ -54,9 +54,9 @@ class Product {
 
   num? get priceDiscount => _priceDiscount;
 
-  List<String>? get color => _color;
+  List<Color>? get colors => _colors;
 
-  List<String>? get size => _size;
+  List<Size>? get sizes => _sizes;
 
   Seller? get seller => _seller;
 
@@ -79,8 +79,8 @@ class Product {
     String? description,
     Category? category,
     num? priceDiscount,
-    List<String>? color,
-    List<String>? size,
+    List<Color>? colors,
+    List<Size>? sizes,
     Seller? seller,
     String? slug,
   }) {
@@ -100,8 +100,8 @@ class Product {
     _description = description;
     _category = category;
     _priceDiscount = priceDiscount;
-    _color = color;
-    _size = size;
+    _colors = colors;
+    _sizes = sizes;
     _seller = seller;
     _slug = slug;
   }
@@ -124,8 +124,18 @@ class Product {
    /* _category =
         json['category'] != null ? Category.fromJson(json['category']) : null; */
     _priceDiscount = json['priceDiscount'];
-    _color = json['colors'] != null ? json['colors'].cast<String>() : [];
-    _size = json['sizes'] != null ? json['sizes'].cast<String>() : [];
+    if (json['colors'] != null) {
+      _colors = [];
+      json['colors'].forEach((v) {
+        _colors?.add(Color.fromJson(v));
+      });
+    }
+    if (json['sizes'] != null) {
+      _sizes = [];
+      json['sizes'].forEach((v) {
+        _sizes?.add(Size.fromJson(v));
+      });
+    }
   //  _seller = json['seller'] != null ? Seller.fromJson(json['seller']) : null;
     _slug = json['slug'];
   }
@@ -150,8 +160,8 @@ class Product {
       map['category'] = _category?.toJson();
     }
     map['priceDiscount'] = _priceDiscount;
-    map['colors'] = _color;
-    map['sizes'] = _size;
+    map['colors'] = _colors;
+    map['sizes'] = _sizes;
     if (_seller != null) {
       map['seller'] = _seller?.toJson();
     }
@@ -221,4 +231,60 @@ class Seller {
     map['profileImage'] = _profileImage;
     return map;
   }
+}
+
+class Color {
+  String? _id;
+  String? _color;
+
+  String? get id => _id;
+  String? get color => _color;
+
+  Color({
+    String? id,
+    String? color}){
+    _id = id;
+    _color = color;
+  }
+
+  Color.fromJson(dynamic json) {
+    _id = json['_id'];
+    _color = json['color'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['_id'] = _id;
+    map['color'] = _color;
+    return map;
+  }
+
+}
+
+class Size {
+  String? _id;
+  String? _size;
+
+  String? get id => _id;
+  String? get size => _size;
+
+  Size({
+    String? id,
+    String? size}){
+    _id = id;
+    _size = size;
+  }
+
+  Size.fromJson(dynamic json) {
+    _id = json['_id'];
+    _size = json['size'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['_id'] = _id;
+    map['size'] = _size;
+    return map;
+  }
+
 }
