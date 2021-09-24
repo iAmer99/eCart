@@ -30,10 +30,15 @@ class Themes {
   static ThemeData darkTheme = ThemeData(
       primaryColor: mainColor,
       primarySwatch: mainColorSwatch,
-      accentColor: accentColor,
+      accentColor: accentColor.withOpacity(0.4),
       primaryColorLight: Colors.black,
       primaryColorDark: Colors.white,
-      canvasColor: Color(0xff243447),
+      canvasColor: Color(0xff16202a),
+      textTheme: TextTheme(
+        subtitle1: TextStyle(
+          color: Colors.white70,
+        ),
+      ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.white,
         selectedItemColor: mainColor,

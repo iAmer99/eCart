@@ -173,15 +173,20 @@ class CartController extends GetxController {
   verifyDiscount(String code) async {
     _discountStatus = RxStatus.loading();
     update();
-    final response = await _repository.verifyDiscount(code);
-    response.fold((error) {
-      _discountStatus = RxStatus.error(error);
+    if(code.isEmpty){
+      _discountStatus = RxStatus.error("Empty Code");
       update();
-    }, (discount) {
-      SessionManagement.setNewDiscount(discount, code);
-      _discountStatus = RxStatus.success();
-      update();
-    });
+    }else{
+      final response = await _repository.verifyDiscount(code);
+      response.fold((error) {
+        _discountStatus = RxStatus.error(error);
+        update();
+      }, (discount) {
+        SessionManagement.setNewDiscount(discount, code);
+        _discountStatus = RxStatus.success();
+        update();
+      });
+    }
   }
 
   deleteDiscount() async {

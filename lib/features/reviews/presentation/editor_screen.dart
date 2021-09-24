@@ -63,6 +63,7 @@ class _EditorReviewState extends State<EditorReview> {
                               fontSize: 2.2 * textMultiplier,
                             ),
                           ),
+                          hideCart: true,
                         ),
                         SizedBox(
                           height: 4 * heightMultiplier,

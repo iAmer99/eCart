@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/product_details/repository/model/productInCart.dart';
 import 'package:ecart/features/shared/models/cart.dart';
 import 'package:ecart/features/shared/models/product.dart';
@@ -44,7 +45,7 @@ class ProductRepository {
       }
       return Left("Product not in the cart");
     } catch (error) {
-      print(error.toString());
+     if(SessionManagement.isUser) print(error.toString());
       return Left("Product not in the cart");
     }
   }

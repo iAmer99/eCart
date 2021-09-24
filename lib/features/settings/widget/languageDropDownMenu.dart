@@ -77,7 +77,7 @@ class _LanguageDropDownMenuState extends State<LanguageDropDownMenu> {
               });
              if(value != null) _controller.changeLanguage(value);
             },
-            dropdownColor: Get.theme.canvasColor,
+            dropdownColor: Get.theme.accentColor,
           ),
         ));
   }

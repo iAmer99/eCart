@@ -57,6 +57,7 @@ class ReviewsScreen extends GetView<ReviewsController> {
                     fontSize: 2.2 * textMultiplier,
                   ),
                 ),
+                hideCart: true,
               ),
               SizedBox(
                 height: 2 * heightMultiplier,
@@ -119,7 +120,18 @@ class ReviewsScreen extends GetView<ReviewsController> {
                                     LoadingReviewCard(),
                                 ],
                               ),
-                            )
+                            ),
+                          if (controller.status.isError)
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  controller.status.errorMessage!,
+                                  style: TextStyle(
+                                      color: Get.theme.primaryColorDark,
+                                      fontSize: 2.2 * textMultiplier),
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),

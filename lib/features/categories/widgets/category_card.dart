@@ -21,7 +21,7 @@ class CategoryCard extends StatelessWidget {
         ),
         child: Card(
           color: Get.theme.canvasColor,
-          elevation: 9,
+          elevation: Get.isDarkMode ? 2 : 5,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(1.5 * heightMultiplier)
           ),

@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CouponRow extends StatefulWidget {
-  const CouponRow({Key? key, required this.couponController, required this.node,}) : super(key: key);
-  final TextEditingController couponController;
+  CouponRow({Key? key, required this.node,}) : super(key: key);
   final FocusNode node;
 
   @override
@@ -16,12 +15,16 @@ class CouponRow extends StatefulWidget {
 }
 
 class _CouponRowState extends State<CouponRow> {
+  final TextEditingController couponController= TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(
       builder: (_controller) {
-        widget.couponController.text = _controller.code;
+        if(SessionManagement.discountCode != null) setState(() {
+          couponController.text = _controller.code;
+        });
         return Form(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +52,7 @@ class _CouponRowState extends State<CouponRow> {
                           EdgeInsets.symmetric(horizontal: 2 * widthMultiplier),
                       margin: EdgeInsets.only(top: heightMultiplier),
                       child: TextFormField(
-                        controller: widget.couponController,
+                        controller: couponController,
                         focusNode: widget.node,
                         onChanged: (String value)=> _controller.onCodeChange(value),
                         decoration: InputDecoration(
@@ -87,14 +90,8 @@ class _CouponRowState extends State<CouponRow> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     closeKeyboard(context);
-                                    if (widget.couponController.text
-                                        .trim()
-                                        .isNotEmpty) {
                                       _controller.verifyDiscount(
-                                          widget.couponController.text.trim());
-                                    } else {
-                                      showSnackBar("Enter coupon code");
-                                    }
+                                          couponController.text.trim());
                                   },
                                   child: Text(
                                     SessionManagement.discountCode == null

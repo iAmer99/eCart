@@ -31,7 +31,7 @@ class ChangePasswordController extends GetxController {
       _status = RxStatus.success();
       update();
       showSuccessDialog(success, onAction: (){
-        Get.offNamedUntil(AppRoutesNames.accountScreen , (route) => false);
+       Get.back();
       });
     });
   }

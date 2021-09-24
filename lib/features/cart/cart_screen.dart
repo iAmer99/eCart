@@ -25,7 +25,7 @@ class CartScreen extends GetView<CartController> {
       },
       child: Scaffold(
         body: SafeArea(
-          child: SessionManagement.isGuest ? MustLogin(hideCart: true,) :  Padding(
+          child: SessionManagement.isGuest ? MustLogin(hideCart: true, title: Container(),) :  Padding(
             padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +117,6 @@ class CartScreen extends GetView<CartController> {
                                   child: Column(
                                     children: [
                                       CouponRow(
-                                        couponController: _couponController,
                                         node: _node,
                                       ),
                                       SizedBox(

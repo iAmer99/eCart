@@ -51,34 +51,7 @@ class CartItemCard extends GetView<CartController> {
                     children: [
                       Flexible(
                         child: Text(
-                          "Color",
-                          style: TextStyle(
-                            color: Get.theme.primaryColorDark.withOpacity(0.5),
-                            fontSize: 1.5 * textMultiplier,
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: Text(
                           item.selectedColor!.color!,
-                          style: TextStyle(
-                            color: Get.theme.primaryColorDark.withOpacity(0.5),
-                            fontSize: 1.5 * textMultiplier,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: heightMultiplier,
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          "Size",
                           style: TextStyle(
                             color: Get.theme.primaryColorDark.withOpacity(0.5),
                             fontSize: 1.5 * textMultiplier,

@@ -5,7 +5,6 @@ import 'package:ecart/features/shared/localization/texts.dart';
 import 'package:ecart/features/shared/themes/themes.dart';
 import 'package:ecart/routes/router.dart';
 import 'package:ecart/routes/routes_names.dart';
-import 'package:ecart/utils/colors.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,27 @@ void main() async{
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+
+  static setTheme(BuildContext context, ThemeMode theme){
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
+    SessionManagement.setTheme(theme == Themes.darkMode);
+    state.setTheme(theme);
+  }
+
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeMode _theme = SessionManagement.isDark ? Themes.darkMode : Themes.lightMode;
+
+   setTheme(ThemeMode theme){
+    setState(() {
+      _theme = theme;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -29,7 +48,9 @@ class MyApp extends StatelessWidget {
           return GetMaterialApp(
             title: 'eCart',
             debugShowCheckedModeBanner: false,
+            themeMode: _theme,
             theme: Themes.lightTheme,
+            darkTheme: Themes.darkTheme,
             locale: SessionManagement.isArabic ? MyLocales.arabic : MyLocales.english,
             translations: Texts(),
             getPages: AppRouter.pages,

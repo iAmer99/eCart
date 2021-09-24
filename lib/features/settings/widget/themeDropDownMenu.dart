@@ -1,3 +1,4 @@
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/settings/controller/settings_controller.dart';
 import 'package:ecart/features/settings/widget/myDropDown.dart';
 import 'package:ecart/features/shared/themes/themes.dart';
@@ -14,7 +15,7 @@ class ThemeDropDownMenu extends StatefulWidget {
 }
 
 class _ThemeDropDownMenuState extends State<ThemeDropDownMenu> {
-  ThemeMode mode = Get.isDarkMode ? Themes.darkMode : Themes.lightMode;
+  ThemeMode mode = SessionManagement.isDark ? Themes.darkMode : Themes.lightMode;
   final SettingsController _controller = Get.find<SettingsController>();
 
   @override
@@ -72,7 +73,7 @@ class _ThemeDropDownMenuState extends State<ThemeDropDownMenu> {
           });
           if(value != null) _controller.changeThemeMode(value);
         },
-        dropdownColor: Get.theme.canvasColor,
+        dropdownColor: Get.theme.accentColor,
       ),
     ));
   }

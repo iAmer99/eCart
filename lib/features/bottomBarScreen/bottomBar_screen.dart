@@ -2,7 +2,10 @@ import 'package:ecart/features/categories/categories_screen.dart';
 import 'package:ecart/features/favourites/favourites_screen.dart';
 import 'package:ecart/features/home/home_screen.dart';
 import 'package:ecart/features/more/more_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class BottomBarScreen extends StatefulWidget {
   @override
@@ -62,7 +65,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category),
+            icon: SvgPicture.asset('assets/svg/categories.svg', color: index == 1 ? Get.theme.primaryColor : Get.theme.bottomNavigationBarTheme.unselectedItemColor, height: Get.theme.iconTheme.size,),
             label: "Categories",
           ),
           BottomNavigationBarItem(

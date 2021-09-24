@@ -2,6 +2,7 @@ import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/reviews/controller/reviews_controller.dart';
 import 'package:ecart/features/reviews/modes.dart';
 import 'package:ecart/features/reviews/repository/models/reviews_response.dart';
+import 'package:ecart/features/shared/localization/texts.dart';
 import 'package:ecart/features/shared/models/user_response.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -58,59 +59,84 @@ class ReviewCard extends GetView<ReviewsController> {
                   ),
                 ],
               ),
-            if(user.id == SessionManagement.userID)  Expanded(
-                child: Align(
-                  alignment: AlignmentDirectional.centerEnd,
-                  child: PopupMenuButton(
-                    itemBuilder: (BuildContext context) {
-                      return [
-                        PopupMenuItem(
-                          child: Text(
-                            "Edit",
-                            style: TextStyle(color: Get.theme.primaryColorDark),
+              if (user.id == SessionManagement.userID)
+                Expanded(
+                  child: Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: PopupMenuButton(
+                      color: Get.theme.accentColor,
+                      icon: Icon(
+                        Icons.more_vert,
+                        color: Get.theme.primaryColorDark,
+                      ),
+                      itemBuilder: (BuildContext context) {
+                        return [
+                          PopupMenuItem(
+                            child: Text(
+                              "Edit",
+                              style:
+                                  TextStyle(color: Get.theme.primaryColorDark),
+                            ),
+                            value: Mode.Edit,
                           ),
-                          value: Mode.Edit,
-                        ),
-                        PopupMenuItem(
-                          child: Text(
-                            "Delete",
-                            style: TextStyle(color: Get.theme.primaryColorDark),
-                          ),
-                          value: Mode.Delete,
-                        )
-                      ];
-                    },
-                    onSelected: (mode){
-                      if(mode == Mode.Delete){
-                        showDialog(
-                            context: context,
-                            builder: (ctx) => AlertDialog(
-                              title: Text("Are you sure?"),
-                              content: Text("Are you sure to delete this review?"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pop();
-                                    },
-                                    child: Text("Cancel",)),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pop();
-                                      controller.deleteReview(review.id!);
-                                    },
-                                    child: Text(
-                                      "Delete",
-                                      style: TextStyle(color: Colors.red),
-                                    )),
-                              ],
-                            ));
-                      }else{
-                        Get.to(()=> EditorReview(review: review,), arguments: Mode.Edit);
-                      }
-                    },
+                          PopupMenuItem(
+                            child: Text(
+                              "Delete",
+                              style:
+                                  TextStyle(color: Get.theme.primaryColorDark),
+                            ),
+                            value: Mode.Delete,
+                          )
+                        ];
+                      },
+                      onSelected: (mode) {
+                        if (mode == Mode.Delete) {
+                          showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                    backgroundColor: Get.theme.canvasColor,
+                                    title: Text(
+                                      "Are you sure?",
+                                      style: TextStyle(
+                                        color: Get.theme.primaryColorDark,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      "Are you sure to delete this review?",
+                                      style: TextStyle(
+                                        color: Get.theme.primaryColorDark,
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(ctx).pop();
+                                          },
+                                          child: Text(
+                                            "Cancel",
+                                          )),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(ctx).pop();
+                                            controller.deleteReview(review.id!);
+                                          },
+                                          child: Text(
+                                            "Delete",
+                                            style: TextStyle(color: Colors.red),
+                                          )),
+                                    ],
+                                  ));
+                        } else {
+                          Get.to(
+                              () => EditorReview(
+                                    review: review,
+                                  ),
+                              arguments: Mode.Edit);
+                        }
+                      },
+                    ),
                   ),
-                ),
-              )
+                )
             ],
           ),
           SizedBox(

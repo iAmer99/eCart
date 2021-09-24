@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ecart/core/session_management.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,8 @@ import 'package:get/get.dart';
 void changeStatusBarColor() {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness:
+            SessionManagement.isDark ? Brightness.light : Brightness.dark,
         statusBarColor: Colors.transparent),
   );
 }
@@ -18,7 +20,12 @@ void closeKeyboard(BuildContext context) => FocusScope.of(context).unfocus();
 
 showErrorDialog(String error) {
   Get.dialog(AlertDialog(
-    title: Text("Error Occurred"),
+    title: Text(
+      "Error Occurred",
+      style: TextStyle(
+        color: Get.theme.primaryColorDark,
+      ),
+    ),
     backgroundColor: Get.theme.canvasColor,
     content: Column(
       mainAxisSize: MainAxisSize.min,
@@ -51,7 +58,12 @@ showErrorDialog(String error) {
 showSuccessDialog(String msg, {Function? onAction}) {
   Get.dialog(
     AlertDialog(
-      title: Text("Success"),
+      title: Text(
+        "Success",
+        style: TextStyle(
+          color: Get.theme.primaryColorDark,
+        ),
+      ),
       backgroundColor: Get.theme.canvasColor,
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -98,11 +110,10 @@ Future<bool?> checkInternetConnection() async {
 
 showSnackBar(String msg) {
   Get.rawSnackbar(
-    title: "Error",
     messageText: Text(
       msg,
-      style: TextStyle(color: Get.theme.primaryColorLight),
+      style: TextStyle(color: Get.theme.primaryColorDark),
     ),
-    backgroundColor: Get.theme.primaryColorDark,
+    backgroundColor: Get.theme.canvasColor,
   );
 }

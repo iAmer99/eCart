@@ -185,7 +185,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                     BorderRadius.circular(
                                                         1.5 * heightMultiplier),
                                                 child: FadeInImage(
-                                                  fit: BoxFit.cover,
+                                                  fit: BoxFit.contain,
                                                   placeholder: AssetImage(
                                                       "assets/images/default.jpg"),
                                                   image: NetworkImage(image),

@@ -1,11 +1,16 @@
+import 'package:ecart/core/session_management.dart';
+import 'package:ecart/features/settings/controller/settings_controller.dart';
 import 'package:ecart/features/settings/widget/languageDropDownMenu.dart';
 import 'package:ecart/features/settings/widget/themeDropDownMenu.dart';
+import 'package:ecart/features/shared/themes/themes.dart';
 import 'package:ecart/features/shared/widgets/appBar.dart';
+import 'package:ecart/main.dart';
+import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends GetView<SettingsController> {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
@@ -44,7 +49,9 @@ class SettingsScreen extends StatelessWidget {
                         height: 8 * heightMultiplier,
                         margin: EdgeInsets.only(bottom: 2 * heightMultiplier),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async{
+                            controller.save(context);
+                          },
                           child: Text(
                             "Save",
                             style: TextStyle(fontSize: 3.6 * textMultiplier),
