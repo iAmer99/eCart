@@ -22,9 +22,7 @@ class _CouponRowState extends State<CouponRow> {
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(
       builder: (_controller) {
-        if(SessionManagement.discountCode != null) setState(() {
-          couponController.text = _controller.code;
-        });
+        if(SessionManagement.discountCode != null) couponController.text = _controller.code;
         return Form(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
