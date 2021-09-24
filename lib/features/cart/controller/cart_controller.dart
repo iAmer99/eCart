@@ -3,6 +3,7 @@ import 'package:ecart/features/cart/repository/cart_repository.dart';
 import 'package:ecart/features/cart/repository/model/cart_item.dart';
 import 'package:ecart/features/shared/models/cart.dart';
 import 'package:ecart/features/shared/models/product.dart';
+import 'package:ecart/usecase/cart_usecase.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:get/get.dart';
 
@@ -105,7 +106,7 @@ class CartController extends GetxController {
   increase(String id, Color selectedColor, Size selectedSize) async {
     _localChange(true, id, selectedColor, selectedSize);
     final response =
-        await _repository.increase(id, selectedColor.id!, selectedSize.id!);
+        await CartUseCase.increase(id, selectedColor.id!, selectedSize.id!);
     response.fold((error) {
       _onError(true, id, selectedColor, selectedSize);
       showSnackBar(error);
@@ -122,7 +123,7 @@ class CartController extends GetxController {
     if (quantity > 1) {
       _localChange(false, id, selectedColor, selectedSize);
       final response =
-          await _repository.decrease(id, selectedColor.id!, selectedSize.id!);
+          await CartUseCase.decrease(id, selectedColor.id!, selectedSize.id!);
       response.fold((error) {
         _onError(false, id, selectedColor, selectedSize);
         update();
@@ -150,7 +151,7 @@ class CartController extends GetxController {
     _totalPrice = _totalPrice - selectedItemPrice;
     update();
     final response =
-        await _repository.removeFromCart(id, selectedColorID, selectedSizeID);
+        await CartUseCase.removeFromCart(id, selectedColorID, selectedSizeID);
     response.fold((error) {
       cart.cartItems!.insert(index, selectedItem);
       _totalPrice = _totalPrice + selectedItemPrice;
@@ -173,10 +174,10 @@ class CartController extends GetxController {
   verifyDiscount(String code) async {
     _discountStatus = RxStatus.loading();
     update();
-    if(code.isEmpty){
+    if (code.isEmpty) {
       _discountStatus = RxStatus.error("Empty Code");
       update();
-    }else{
+    } else {
       final response = await _repository.verifyDiscount(code);
       response.fold((error) {
         _discountStatus = RxStatus.error(error);

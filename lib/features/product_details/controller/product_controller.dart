@@ -1,6 +1,8 @@
 import 'package:ecart/features/product_details/repository/model/productInCart.dart';
 import 'package:ecart/features/product_details/repository/product_repository.dart';
 import 'package:ecart/features/shared/models/product.dart';
+import 'package:ecart/usecase/cart_usecase.dart';
+import 'package:ecart/usecase/favourites_usecase.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +31,7 @@ class ProductController extends GetxController {
   increase() async {
     quantity++;
     if (addedToCart.isTrue) {
-      final response = await _repository.increase(
+      final response = await CartUseCase.increase(
           product.id!, _selectedColor.id!, _selectedSize.id!);
       response.fold((error) {
         quantity--;
@@ -51,7 +53,7 @@ class ProductController extends GetxController {
     if (quantity.value != 1) {
       quantity--;
       if (addedToCart.isTrue) {
-        final response = await _repository.decrease(
+        final response = await CartUseCase.decrease(
             product.id!, _selectedColor.id!, _selectedSize.id!);
         response.fold((error) {
           quantity++;
@@ -107,7 +109,7 @@ class ProductController extends GetxController {
   addToFavourites() async {
     isFavourite = true;
     update();
-    final response = await _repository.addToFavourite(product.id!);
+    final response = await FavouritesUseCase.addToFavourite(product.id!);
     response.fold((error) {
       isFavourite = false;
       update();
@@ -124,7 +126,7 @@ class ProductController extends GetxController {
   removeFromFavourites() async {
     isFavourite = false;
     update();
-    final response = await _repository.removeFromFavourites(product.id!);
+    final response = await FavouritesUseCase.removeFromFavourites(product.id!);
     response.fold((error) {
       isFavourite = true;
       update();
@@ -141,7 +143,7 @@ class ProductController extends GetxController {
   addToCart() async {
     addedToCart.value = true;
     update();
-    final response = await _repository.addToCart(
+    final response = await CartUseCase.addToCart(
         product.id!, quantity.value, _selectedColor.id!, _selectedSize.id!);
     response.fold((error) {
       addedToCart.value = false;

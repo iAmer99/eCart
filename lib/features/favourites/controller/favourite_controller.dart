@@ -1,5 +1,6 @@
 import 'package:ecart/features/favourites/repository/favourite_repository.dart';
 import 'package:ecart/features/shared/models/product.dart';
+import 'package:ecart/usecase/favourites_usecase.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:get/get.dart';
 
@@ -40,7 +41,7 @@ class FavouritesController extends GetxController {
     int index = favourites.indexOf(removedProduct);
     favourites.removeAt(index);
     update();
-    final response = await _repository.removeFromFavourites(id);
+    final response = await FavouritesUseCase.removeFromFavourites(id);
     response.fold((error) {
       favourites.insert(index, removedProduct);
       update();

@@ -49,28 +49,4 @@ class FavouritesRepository {
     }
   }
 
-  Future<Either<String, bool>> removeFromFavourites(String id) async{
-     try{
-       final response = await _dio.delete("favorite/$id");
-       if(response.statusMessage == "OK"){
-         return Right(true);
-       }else{
-         return Left("Something went wrong!");
-       }
-     } catch (error){
-       if (error is DioError) {
-         if (error.response == null) {
-           return Left(DioUtil.handleDioError(error));
-         } else {
-           final res = error.response!.data as Map<String, dynamic>;
-           return Left(res["message"]);
-         }
-       } else {
-         print(error.toString());
-         return Left("Something went wrong!");
-       }
-     }
-  }
-
-
 }
