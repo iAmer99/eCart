@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/features/orders/repository/models/order.dart' as model;
 import 'package:ecart/features/orders/repository/models/order_response.dart';
@@ -30,7 +31,7 @@ class OrdersRepository {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
 

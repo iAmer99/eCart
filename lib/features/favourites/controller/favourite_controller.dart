@@ -50,7 +50,7 @@ class FavouritesController extends GetxController {
       if (!res) {
         favourites.insert(index, removedProduct);
         update();
-        showSnackBar("Something went wrong!");
+        showSnackBar("unknown_error".tr);
       }
     });
     if(favourites.isEmpty){

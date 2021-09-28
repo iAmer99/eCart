@@ -17,7 +17,7 @@ class CheapestProducts extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Cheapest Products",
+                "cheapest_products".tr,
                 style: TextStyle(
                     color: Get.theme.primaryColorDark.withOpacity(0.7),
                     fontSize: 2.2 * textMultiplier),
@@ -49,7 +49,7 @@ class CheapestProducts extends StatelessWidget {
     if (controller.cheapProductStatus.isLoading) {
       return _buildLoading();
     } else if (controller.cheapProductStatus.isEmpty) {
-      return Center(child: Text("No Products Found",
+      return Center(child: Text("no_products".tr,
         style: TextStyle(color: Get.theme.primaryColorDark),),);
     } else if (controller.cheapProductStatus.isSuccess) {
       return Row(

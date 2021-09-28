@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/features/shared/models/product.dart';
-
+import 'package:get/get.dart';
 import 'model/favourite_response.dart';
 
 class FavouritesRepository {
@@ -44,7 +44,7 @@ class FavouritesRepository {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }

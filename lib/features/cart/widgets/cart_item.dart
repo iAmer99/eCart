@@ -73,7 +73,9 @@ class CartItemCard extends GetView<CartController> {
                     height: heightMultiplier,
                   ),
                   Text(
-                    "${item.totalProductPrice.toString()} EGP",
+                    "price".trParams({
+                      "price": item.totalProductPrice.toString(),
+                    }),
                     style: TextStyle(
                       color: Get.theme.primaryColorDark.withOpacity(0.8),
                       fontSize: 2.2 * textMultiplier,
@@ -170,7 +172,7 @@ class CartItemCard extends GetView<CartController> {
                             item.selectedColor!.id!, item.selectedSize!.id!);
                       },
                       icon: Icon(Icons.delete_forever),
-                      label: Text("Remove"),
+                      label: Text("remove".tr),
                     ),
                   ],
                 ),

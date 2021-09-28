@@ -76,7 +76,7 @@ class RegisterScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Sign up",
+                              "sign_up".tr,
                               style: TextStyle(
                                   color: Get.theme.primaryColor,
                                   fontWeight: FontWeight.bold,
@@ -87,7 +87,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             Container(
                               child: Text(
-                                "Create a new account to access thousands of products",
+                                "sign_up_description".tr,
                                 style: TextStyle(
                                     color: Get.theme.primaryColorDark
                                         .withOpacity(0.5)),
@@ -156,8 +156,8 @@ class RegisterScreen extends StatelessWidget {
                 myFocusNode: _nameNode,
                 nextFocusNode: _emailNode,
                 isPassword: false,
-                label: "Name",
-                hint: "Enter your full Name",
+                label: "name".tr,
+                hint: "name_hint".tr,
                 myIcon: Icon(Icons.person),
                 myValidator: (name) => isValidName(name!.trim()),
                 keyboardType: TextInputType.name),
@@ -176,8 +176,8 @@ class RegisterScreen extends StatelessWidget {
                 myFocusNode: _emailNode,
                 nextFocusNode: _usernameNode,
                 isPassword: false,
-                label: "Email",
-                hint: "Enter your email",
+                label: "email".tr,
+                hint: "email_hint".tr,
                 myIcon: Icon(Icons.alternate_email),
                 myValidator: (email) => isValidEmail(email!.trim()),
                 keyboardType: TextInputType.emailAddress),
@@ -196,8 +196,8 @@ class RegisterScreen extends StatelessWidget {
                 myFocusNode: _usernameNode,
                 nextFocusNode: _passwordNode,
                 isPassword: false,
-                label: "Username",
-                hint: "Enter your username",
+                label: "username".tr,
+                hint: "username_hint".tr,
                 myIcon: Icon(Icons.person_outline),
                 myValidator: (name) => isValidName(name!.trim()),
                 keyboardType: TextInputType.name),
@@ -216,8 +216,8 @@ class RegisterScreen extends StatelessWidget {
                 myFocusNode: _passwordNode,
                 nextFocusNode: _confirmPasswordNode,
                 isPassword: true,
-                label: "Password",
-                hint: "Enter your password",
+                label: "password".tr,
+                hint: "password_hint".tr,
                 myIcon: Icon(Icons.lock),
                 myValidator: (password) => isValidPassword(password),
                 keyboardType: TextInputType.visiblePassword),
@@ -246,8 +246,8 @@ class RegisterScreen extends StatelessWidget {
                         username: _usernameController.text.trim());
                   }
                 },
-                label: "Confirm Password",
-                hint: "Enter your password again",
+                label: "confirm_password".tr,
+                hint: "confirm_password_hint".tr,
                 myIcon: Icon(Icons.password),
                 myValidator: (confirm) =>
                     confirmPassword(_passwordController.text, confirm),
@@ -268,7 +268,7 @@ class RegisterScreen extends StatelessWidget {
                     }
                   },
                   child: Text(
-                    "Continue",
+                    "continue".tr,
                     style: TextStyle(fontSize: 3.6 * textMultiplier),
                   ))),
           Align(
@@ -276,7 +276,7 @@ class RegisterScreen extends StatelessWidget {
                 onPressed: () {
                   Get.toNamed(AppRoutesNames.loginScreen);
                 },
-                child: Text("Already have an account? login")),
+                child: Text("have_account".tr)),
             alignment: AlignmentDirectional.centerStart,
           ),
           Align(
@@ -289,7 +289,7 @@ class RegisterScreen extends StatelessWidget {
                   SessionManagement.createGuestSession();
                   Get.offAllNamed(AppRoutesNames.bottomBarScreen);
                 },
-                child: Text("Continue as a guest"),
+                child: Text("continue_guest".tr),
               ),
             ),
           )
@@ -316,8 +316,8 @@ class RegisterScreen extends StatelessWidget {
                 nextFocusNode: _addressNode,
                 maximum: 11,
                 isPassword: false,
-                label: "Phone",
-                hint: "Enter your phone number",
+                label: "phone".tr,
+                hint: "phone_hint".tr,
                 myIcon: Icon(Icons.phone_android),
                 myValidator: (phone) => isValidPhone(phone),
                 keyboardType: TextInputType.phone),
@@ -336,8 +336,8 @@ class RegisterScreen extends StatelessWidget {
                 controller: _addressController,
                 myFocusNode: _addressNode,
                 isPassword: false,
-                label: "Address",
-                hint: "Enter your address",
+                label: "address".tr,
+                hint: "address_hint".tr,
                 myIcon: Icon(Icons.home),
                 onComplete: () {
                   closeKeyboard(context);
@@ -345,7 +345,7 @@ class RegisterScreen extends StatelessWidget {
                       _addressController.text.trim());
                 },
                 myValidator: (address) {
-                  return address!.isNotEmpty ? null : "Mobile is empty";
+                  return address!.isNotEmpty ? null : "address_hint".tr;
                 },
                 keyboardType: TextInputType.streetAddress),
           ),
@@ -362,8 +362,8 @@ class RegisterScreen extends StatelessWidget {
                   child: Text(
                     _phoneController.text.trim().isEmpty &&
                             _addressController.text.trim().isEmpty
-                        ? "Skip"
-                        : "Continue",
+                        ? "skip".tr
+                        : "continue".tr,
                     style: TextStyle(fontSize: 3.6 * textMultiplier),
                   ))),
         ],
@@ -379,7 +379,7 @@ class RegisterScreen extends StatelessWidget {
         GestureDetector(
           onTap: () {
             Get.dialog(AlertDialog(
-              title: Text("Choose Image Source"),
+              title: Text("choose_image".tr),
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -396,7 +396,7 @@ class RegisterScreen extends StatelessWidget {
                           color: mainColor,
                         ),
                         Text(
-                          "Camera",
+                          "camera".tr,
                           style: TextStyle(color: mainColor),
                         )
                       ],
@@ -415,7 +415,7 @@ class RegisterScreen extends StatelessWidget {
                           color: mainColor,
                         ),
                         Text(
-                          "Gallery",
+                          "gallery".tr,
                           style: TextStyle(color: mainColor),
                         )
                       ],
@@ -428,7 +428,7 @@ class RegisterScreen extends StatelessWidget {
                     onPressed: () {
                       Get.back();
                     },
-                    child: Text("Cancel"))
+                    child: Text("cancel".tr))
               ],
             ));
           },
@@ -457,13 +457,13 @@ class RegisterScreen extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: () {
                   if (controller.image == null) {
-                    showErrorDialog("You have to choose a picture");
+                    showErrorDialog("no_selected_image".tr);
                   } else {
                     controller.register();
                   }
                 },
                 child: Text(
-                  "Register",
+                  "sign_up".tr,
                   style: TextStyle(fontSize: 3.6 * textMultiplier),
                 ))),
       ],

@@ -12,7 +12,7 @@ class FavouritesUseCase {
       if (response.statusMessage == "OK") {
         return Right(true);
       } else {
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     } catch (error) {
       if (error is DioError) {
@@ -24,7 +24,7 @@ class FavouritesUseCase {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -35,7 +35,7 @@ class FavouritesUseCase {
       if (response.statusMessage == "OK") {
         return Right(true);
       } else {
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     } catch (error) {
       if (error is DioError) {
@@ -47,7 +47,7 @@ class FavouritesUseCase {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }

@@ -13,7 +13,10 @@ class DioUtil {
       contentType: Headers.jsonContentType,
       connectTimeout: 50 * 1000,
       receiveTimeout: 50 * 1000,
-      headers: {'Authorization': "Bearer ${SessionManagement.accessToken}"});
+      headers: {
+        'Authorization': "Bearer ${SessionManagement.accessToken}",
+        "Accept-Language": SessionManagement.isArabic? "ar_MX" : "en_MX",
+      });
 
   static DioUtil? init() {
     if (_instance == null) {
@@ -27,7 +30,8 @@ class DioUtil {
 
   static setDioAgain() {
     options.headers = {
-      'Authorization': "Bearer ${SessionManagement.accessToken}"
+      'Authorization': "Bearer ${SessionManagement.accessToken}",
+      "Accept-Language": SessionManagement.isArabic? "ar_MX" : "en_MX",
     };
     _dio = Dio(options);
     Get.replace<Dio>(Dio(options), tag: 'dio');
@@ -40,24 +44,24 @@ class DioUtil {
     String errorDescription = "";
     switch (dioError.type) {
       case DioErrorType.cancel:
-        errorDescription = "request cancelled";
+        errorDescription = "request_cancelled".tr;
         break;
       case DioErrorType.connectTimeout:
         //Connection timeout with API server
-        errorDescription = "timeout";
+        errorDescription = "timeout".tr;
         break;
       case DioErrorType.other:
-        errorDescription = "checkout internet";
+        errorDescription = "no_internet".tr;
         break;
       case DioErrorType.response:
-        errorDescription = "timeout";
+        errorDescription = "timeout".tr;
         break;
       case DioErrorType.response:
         print("Received invalid status code: ${dioError.response?.statusCode}");
-        errorDescription = "unknown error";
+        errorDescription = "unknown_error".tr;
         break;
       case DioErrorType.sendTimeout:
-        errorDescription = "timeout";
+        errorDescription = "timeout".tr;
         break;
     }
     return errorDescription;

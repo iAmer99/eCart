@@ -43,7 +43,7 @@ class MustLogin extends StatelessWidget {
                                 Get.toNamed(AppRoutesNames.registerScreen);
                               },
                               child: Text(
-                                "Register",
+                                "sign_up".tr,
                                 style: TextStyle(fontSize: 3.6 * textMultiplier),
                               ))),
                       TextButton(
@@ -51,7 +51,7 @@ class MustLogin extends StatelessWidget {
                           Get.toNamed(AppRoutesNames.loginScreen);
                         },
                         child: Text(
-                          "Already have an account? Login",
+                          "have_account".tr,
                           style: TextStyle(fontSize: 2 * textMultiplier),
                         ),
                       ),

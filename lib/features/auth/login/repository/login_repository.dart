@@ -2,7 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/features/auth/login/repository/model/login_response.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 
 class LoginRepository{
   final Dio _dio;
@@ -22,7 +24,7 @@ class LoginRepository{
       }
     }catch(error){
       debugPrint(error.toString());
-      return Left("Something went wrong!");
+      return Left("unknown_error".tr);
     }
   }
 }

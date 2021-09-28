@@ -43,7 +43,7 @@ class HomeController extends GetxController {
          },
        );
      }else{
-       categoryStatus = RxStatus.error("No Internet Connection");
+       categoryStatus = RxStatus.error("no_internet".tr);
        update();
      }
    });
@@ -72,7 +72,7 @@ class HomeController extends GetxController {
          },
        );
      }else{
-       cheapProductStatus = RxStatus.error("No Internet Connection");
+       cheapProductStatus = RxStatus.error("no_internet".tr);
        update();
      }
    });
@@ -101,7 +101,7 @@ class HomeController extends GetxController {
           },
         );
       }else{
-        popularProductStatus = RxStatus.error("No Internet Connection");
+        popularProductStatus = RxStatus.error("no_internet".tr);
         update();
       }
     });
@@ -111,7 +111,7 @@ class HomeController extends GetxController {
     final response = await _repository.checkTokenValidity();
     response.fold((error){
       print(error);
-      showSnackBar("No Internet Connection");
+      showSnackBar("no_internet".tr);
     }, (res) async{
       await SessionManagement.refreshTokens(accessToken: res.tokens!.accessToken!, refreshToken: res.tokens!.refreshToken!);
       await DioUtil.setDioAgain();

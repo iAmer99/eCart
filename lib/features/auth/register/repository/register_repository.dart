@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/features/auth/register/repository/model/register_response.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' as g;
 
 class RegisterRepository {
   final Dio _dio;
@@ -25,7 +26,7 @@ class RegisterRepository {
       }
     }catch(error){
       debugPrint(error.toString());
-      return Left("Something went wrong!");
+      return Left("unknown_error".tr);
     }
   }
 }

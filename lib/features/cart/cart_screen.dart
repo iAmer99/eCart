@@ -14,7 +14,6 @@ import 'package:get/get.dart';
 
 class CartScreen extends GetView<CartController> {
   CartScreen({Key? key}) : super(key: key);
-  final TextEditingController _couponController = TextEditingController();
   final FocusNode _node = FocusNode();
 
   @override
@@ -35,7 +34,7 @@ class CartScreen extends GetView<CartController> {
                 ),
                 MyAppBar(
                   title: Text(
-                    "Cart",
+                    "cart".tr,
                     style: TextStyle(
                       color: Get.theme.primaryColorDark,
                       fontSize: 2.5 * textMultiplier,
@@ -74,7 +73,7 @@ class CartScreen extends GetView<CartController> {
                             Expanded(
                               child: Center(
                                 child: Text(
-                                  "Your Cart is Empty, Start shopping now",
+                                  "empty_cart".tr,
                                   style: TextStyle(
                                     fontSize: 2.5 * textMultiplier,
                                     color: Get.theme.primaryColorDark
@@ -136,7 +135,7 @@ class CartScreen extends GetView<CartController> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "Total Price",
+                                                  "total_price".tr,
                                                   style: TextStyle(
                                                     color: Get.theme
                                                         .primaryColorDark
@@ -149,7 +148,9 @@ class CartScreen extends GetView<CartController> {
                                                   height: heightMultiplier,
                                                 ),
                                                 Text(
-                                                  "${controller.totalPrice.toStringAsFixed(2)} EGP",
+                                                  "price".trParams({
+                                                    "price" : controller.totalPrice.toStringAsFixed(2),
+                                                  }),
                                                   style: TextStyle(
                                                     color: Get.theme
                                                         .primaryColorDark
@@ -172,7 +173,7 @@ class CartScreen extends GetView<CartController> {
                                                 Get.toNamed(AppRoutesNames.checkoutScreen);
                                               },
                                               child: Text(
-                                                "Checkout",
+                                                "checkout".tr,
                                                 style: TextStyle(
                                                   fontSize:
                                                       3 * textMultiplier,

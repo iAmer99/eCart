@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as g;
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/shared/models/user_response.dart';
@@ -16,7 +17,7 @@ class AccountRepository {
         final User user = await _getUserData(SessionManagement.userID!);
         return Right(user);
       } else {
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     } catch (error) {
       if (error is DioError) {
@@ -28,7 +29,7 @@ class AccountRepository {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -51,7 +52,7 @@ class AccountRepository {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -63,21 +64,21 @@ class AccountRepository {
       if (data.user != null) {
         return data.user!;
       } else {
-        throw "User not found";
+        throw "no_user_found".tr;
       }
     } catch (error) {
       if (error is DioError) {
         if (error.response == null) {
           throw DioUtil.handleDioError(error);
         } else if (error.response!.statusCode == 404) {
-          throw "User not found";
+          throw "no_user_found".tr;
         } else {
           final res = error.response!.data as Map<String, dynamic>;
           throw res["message"];
         }
       } else {
         print(error.toString());
-        throw "Something went wrong!";
+        throw "unknown_error".tr;
       }
     }
   }

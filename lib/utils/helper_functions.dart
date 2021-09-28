@@ -21,7 +21,7 @@ void closeKeyboard(BuildContext context) => FocusScope.of(context).unfocus();
 showErrorDialog(String error) {
   Get.dialog(AlertDialog(
     title: Text(
-      "Error Occurred",
+      "error_occurred".tr,
       style: TextStyle(
         color: Get.theme.primaryColorDark,
       ),
@@ -50,7 +50,7 @@ showErrorDialog(String error) {
           onPressed: () {
             Get.back();
           },
-          child: Text("Okay"))
+          child: Text("okay".tr))
     ],
   ));
 }
@@ -59,7 +59,7 @@ showSuccessDialog(String msg, {Function? onAction}) {
   Get.dialog(
     AlertDialog(
       title: Text(
-        "Success",
+        "success".tr,
         style: TextStyle(
           color: Get.theme.primaryColorDark,
         ),
@@ -90,7 +90,7 @@ showSuccessDialog(String msg, {Function? onAction}) {
               Get.back();
               if (onAction != null) onAction();
             },
-            child: Text("Okay"))
+            child: Text("okay".tr))
       ],
     ),
     barrierDismissible: onAction == null,

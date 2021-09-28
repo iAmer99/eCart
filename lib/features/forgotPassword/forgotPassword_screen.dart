@@ -61,7 +61,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Forgot password?",
+                            "forgot_password".tr,
                             style: TextStyle(
                                 color: Get.theme.primaryColor,
                                 fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                           ),
                           Container(
                             child: Text(
-                              "Reset your password to get back to your account",
+                              "forgot_password_description".tr,
                               style: TextStyle(
                                   color: Get.theme.primaryColorDark.withOpacity(0.5)),
                             ),
@@ -131,8 +131,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                   myFocusNode: _codeNode,
                   nextFocusNode: _passwordNode,
                   isPassword: false,
-                  label: "Code",
-                  hint: "Enter code you received",
+                  label: "code".tr,
+                  hint: "code_hint".tr,
                   myIcon: Icon(Icons.security),
                   myValidator: (code) => validator.isValidCode(code),
                   keyboardType: TextInputType.text),
@@ -151,8 +151,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                   myFocusNode: _passwordNode,
                   nextFocusNode: _confirmPasswordNode,
                   isPassword: true,
-                  label: "New Password",
-                  hint: "Enter new password",
+                  label: "new_password".tr,
+                  hint: "new_password_hint".tr,
                   myIcon: Icon(Icons.lock),
                   myValidator: (password) =>
                       validator.isValidPassword(password),
@@ -181,8 +181,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                     }
                   },
                   isPassword: true,
-                  label: "Confirm Password",
-                  hint: "Enter password again",
+                  label: "confirm_password".tr,
+                  hint: "confirm_password_hint".tr,
                   myIcon: Icon(Icons.password),
                   myValidator: (confirmPassword) => validator.confirmPassword(
                       _passwordController.text, confirmPassword),
@@ -192,7 +192,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               child: TextButton(
                   onPressed: () {
                     controller.getBack();
-                  }, child: Text("Didn't receive code?")),
+                  }, child: Text("didn't_get_code".tr)),
               alignment: AlignmentDirectional.centerStart,
             ),
             Container(
@@ -212,7 +212,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       }
                     },
                     child: Text(
-                      "Save",
+                      "save".tr,
                       style: TextStyle(fontSize: 3.6 * textMultiplier),
                     ))),
           ],
@@ -243,8 +243,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                   controller: _emailController,
                   myFocusNode: _emailNode,
                   isPassword: false,
-                  label: "Email",
-                  hint: "Enter your email",
+                  label: "email".tr,
+                  hint: "email_hint".tr,
                   onComplete: () {
                     closeKeyboard(context);
                     if (_firstKey.currentState!.validate()) {
@@ -268,7 +268,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       }
                     },
                     child: Text(
-                      "Send Code",
+                      "send_code".tr,
                       style: TextStyle(fontSize: 3.6 * textMultiplier),
                     ))),
           ],

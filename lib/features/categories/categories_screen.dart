@@ -43,7 +43,7 @@ class CategoriesScreen extends StatelessWidget {
                         Expanded(
                             child: Center(
                           child: Text(
-                            "No Categories Found",
+                            "no_categories".tr,
                             style: TextStyle(
                                 color: Get.theme.primaryColorDark,
                                 fontSize: 2.2 * textMultiplier),

@@ -119,7 +119,7 @@ class ReviewsController extends GetxController {
       if (!res) {
         reviewsData.insert(index, removedReview);
         update();
-        showSnackBar("Something went wrong!");
+        showSnackBar("unknown_error".tr);
       }
     });
     await refreshProduct();
@@ -141,7 +141,7 @@ class ReviewsController extends GetxController {
       if (!res) {
         _editorStatus = RxStatus.error();
         update();
-        showErrorDialog("Something went wrong!");
+        showErrorDialog("unknown_error".tr);
       } else {
         await refreshProduct();
         await getReviews();
@@ -171,7 +171,7 @@ class ReviewsController extends GetxController {
       if (!res) {
         _editorStatus = RxStatus.error();
         update();
-        showErrorDialog("Something went wrong!");
+        showErrorDialog("unknown_error".tr);
       } else {
         Review editedReview = selectedReview["review"] as Review;
         editedReview.reviewSetter = review;

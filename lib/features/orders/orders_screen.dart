@@ -34,7 +34,7 @@ class OrdersScreen extends GetView<OrdersController> {
                   MyAppBar(
                     hideCart: true,
                     title: Text(
-                      "My Orders",
+                      "my_orders".tr,
                       style: TextStyle(
                         color: Get.theme.primaryColorDark,
                         fontSize: 2.5 * textMultiplier,
@@ -59,7 +59,7 @@ class OrdersScreen extends GetView<OrdersController> {
                                 Expanded(
                                   child: Center(
                                     child: Text(
-                                      "No Orders found, Start shopping now",
+                                      "no_orders".tr,
                                       style: TextStyle(
                                           color: Get.theme.primaryColorDark,
                                           fontSize: 2.2 * textMultiplier),

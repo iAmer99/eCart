@@ -28,7 +28,7 @@ class _CouponRowState extends State<CouponRow> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Coupon Code",
+                "coupon_code".tr,
                 style: TextStyle(
                   color: Get.theme.primaryColorDark.withOpacity(0.7),
                   fontSize: 2 * textMultiplier,
@@ -93,8 +93,8 @@ class _CouponRowState extends State<CouponRow> {
                                   },
                                   child: Text(
                                     SessionManagement.discountCode == null
-                                        ? "Verify"
-                                        : "Verified",
+                                        ? "verify".tr
+                                        : "verified".tr,
                                     style: TextStyle(
                                       fontSize: 2.2 * textMultiplier,
                                     ),
@@ -117,7 +117,9 @@ class _CouponRowState extends State<CouponRow> {
               ),
               if (SessionManagement.discountCode != null)
                 Text(
-                  "Your order will be ${SessionManagement.discount}% off",
+                  "order_discount".trParams({
+                    "discount" : SessionManagement.discount.toString()
+                  }),
                   style: TextStyle(
                     color: Get.theme.primaryColorDark.withOpacity(0.7),
                     fontSize: 2.2 * textMultiplier,

@@ -36,7 +36,7 @@ class _ThemeDropDownMenuState extends State<ThemeDropDownMenu> {
                   width: widthMultiplier,
                 ),
                 Text(
-                  "Light",
+                  "light".tr,
                   style: TextStyle(
                     fontSize: 2.2 * textMultiplier,
                   ),
@@ -56,7 +56,7 @@ class _ThemeDropDownMenuState extends State<ThemeDropDownMenu> {
                   width: widthMultiplier,
                 ),
                 Text(
-                  "Dark",
+                  "dark".tr,
                   style: TextStyle(
                     fontSize: 2.2 * textMultiplier,
                   ),

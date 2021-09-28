@@ -35,7 +35,7 @@ class ReviewsScreen extends GetView<ReviewsController> {
                 }
               },
               child: Text(
-                "Write a review",
+                "write_a_review".tr,
                 style: TextStyle(fontSize: 3 * textMultiplier),
               )),
         ),
@@ -51,7 +51,7 @@ class ReviewsScreen extends GetView<ReviewsController> {
               ),
               MyAppBar(
                 title: Text(
-                  "Reviews",
+                  "reviews".tr,
                   style: TextStyle(
                     color: Get.theme.primaryColorDark,
                     fontSize: 2.2 * textMultiplier,
@@ -77,7 +77,7 @@ class ReviewsScreen extends GetView<ReviewsController> {
                             Expanded(
                               child: Center(
                                 child: Text(
-                                  "No Reviews found, Add yours now",
+                                  "no_reviews".tr,
                                   style: TextStyle(
                                       color: Get.theme.primaryColorDark,
                                       fontSize: 2.2 * textMultiplier),

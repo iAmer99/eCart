@@ -17,7 +17,7 @@ class PopularProducts extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Popular Products",
+                "popular_products".tr,
                 style: TextStyle(
                     color: Get.theme.primaryColorDark.withOpacity(0.7),
                     fontSize: 2.2 * textMultiplier),
@@ -49,7 +49,7 @@ class PopularProducts extends StatelessWidget {
     if (controller.popularProductStatus.isLoading) {
       return _buildLoading();
     } else if (controller.popularProductStatus.isEmpty) {
-      return Center(child: Text("No Products Found",
+      return Center(child: Text("no_products".tr,
         style: TextStyle(color: Get.theme.primaryColorDark),),);
     } else if (controller.popularProductStatus.isSuccess) {
       return Row(

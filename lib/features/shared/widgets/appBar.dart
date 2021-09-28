@@ -64,7 +64,7 @@ class MyAppBar extends StatelessWidget {
                             : null,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "What are you looking for?",
+                            hintText: "search_hint".tr,
                             hintStyle: TextStyle(
                               color:
                                   Get.theme.primaryColorDark.withOpacity(0.7),

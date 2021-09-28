@@ -7,6 +7,7 @@ import 'package:ecart/features/cart/repository/model/discount_response.dart';
 import 'package:ecart/features/shared/models/cart.dart';
 import 'package:ecart/features/shared/models/product.dart';
 import 'package:ecart/features/shared/models/user_response.dart';
+import 'package:get/get.dart';
 
 class CartRepository {
   final Dio _dio;
@@ -43,7 +44,7 @@ class CartRepository {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -73,14 +74,14 @@ class CartRepository {
         if (error.response == null) {
           return Left(DioUtil.handleDioError(error));
         } else if (error.response!.statusCode == 404) {
-          return Left("Invalid Code");
+          return Left("invalid_code".tr);
         } else {
           final res = error.response!.data as Map<String, dynamic>;
           return Left(res["message"]);
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -102,7 +103,7 @@ class CartRepository {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -115,21 +116,21 @@ class CartRepository {
         final data = DiscountResponse.fromJson(response.data);
         return Right(Discount(code: user.discountCode!, off: data.discount!));
       } else {
-        return Left("No Discount Found");
+        return Left("no_discount_found".tr);
       }
     } catch (error) {
       if (error is DioError) {
         if (error.response == null) {
           return Left(DioUtil.handleDioError(error));
         } else if (error.response!.statusCode == 404) {
-          return Left("Invalid Code");
+          return Left("invalid_code".tr);
         } else {
           final res = error.response!.data as Map<String, dynamic>;
           return Left(res["message"]);
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -141,21 +142,21 @@ class CartRepository {
       if (data.user != null) {
         return data.user!;
       } else {
-        throw "User not found";
+        throw "no_user_found".tr;
       }
     } catch (error) {
       if (error is DioError) {
         if (error.response == null) {
           throw DioUtil.handleDioError(error);
         } else if (error.response!.statusCode == 404) {
-          throw "User not found";
+          throw "no_user_found".tr;
         } else {
           final res = error.response!.data as Map<String, dynamic>;
           throw res["message"];
         }
       } else {
         print(error.toString());
-        throw "Something went wrong!";
+        throw "unknown_error".tr;
       }
     }
   }

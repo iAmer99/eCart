@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Sign in",
+                              "sign_in".tr,
                               style: TextStyle(
                                   color: Get.theme.primaryColor,
                                   fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                             Container(
                               child: Text(
-                                "Sign in to your account to access thousands of products",
+                                "sign_in_description".tr,
                                 style: TextStyle(
                                     color: Get.theme.primaryColorDark.withOpacity(0.5)),
                               ),
@@ -85,8 +85,8 @@ class LoginScreen extends StatelessWidget {
                                     myFocusNode: _emailNode,
                                     nextFocusNode: _passwordNode,
                                     isPassword: false,
-                                    label: "Email",
-                                    hint: "Enter your email",
+                                    label: "email".tr,
+                                    hint: "email_hint".tr,
                                     myIcon: Icon(Icons.email_rounded),
                                     myValidator: (email) => isValidEmail(email),
                                     keyboardType: TextInputType.emailAddress),
@@ -105,8 +105,8 @@ class LoginScreen extends StatelessWidget {
                                     controller: _passwordController,
                                     myFocusNode: _passwordNode,
                                     isPassword: true,
-                                    label: "Password",
-                                    hint: "Enter your password",
+                                    label: "password".tr,
+                                    hint: "password_hint".tr,
                                     myIcon: Icon(Icons.lock),
                                     onComplete: (){
                                       closeKeyboard(context);
@@ -123,7 +123,7 @@ class LoginScreen extends StatelessWidget {
                                   onPressed: () {
                                     Get.toNamed(AppRoutesNames.forgotPasswordScreen);
                                   },
-                                  child: Text("Forgot password?"),
+                                  child: Text("forgot_password".tr),
                                 ),
                               ),
                               Container(
@@ -139,7 +139,7 @@ class LoginScreen extends StatelessWidget {
                                         }
                                       },
                                       child: Text(
-                                        "Sign in",
+                                        "sign_in".tr,
                                         style: TextStyle(fontSize: 3.6 * textMultiplier),
                                       ))),
                               Align(
@@ -147,7 +147,7 @@ class LoginScreen extends StatelessWidget {
                                     onPressed: () {
                                       Get.offAllNamed(AppRoutesNames.registerScreen);
                                     },
-                                    child: Text("Don't have an account? Register")),
+                                    child: Text("don't_have_account".tr)),
                                 alignment: AlignmentDirectional.centerStart,
                               ),
                             ],

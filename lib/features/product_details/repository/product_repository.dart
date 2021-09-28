@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/product_details/repository/model/productInCart.dart';
@@ -43,10 +44,10 @@ class ProductRepository {
           return Right(list);
         }
       }
-      return Left("Product not in the cart");
+      return Left("no_products".tr);
     } catch (error) {
      if(SessionManagement.isUser) print(error.toString());
-      return Left("Product not in the cart");
+      return Left("no_products".tr);
     }
   }
 
@@ -61,14 +62,14 @@ class ProductRepository {
         if (error.response == null) {
           return Left(DioUtil.handleDioError(error));
         } else if (error.response!.statusCode == 404) {
-          return Left("No Product found");
+          return Left("no_products".tr);
         } else {
           final res = error.response!.data as Map<String, dynamic>;
           return Left(res["message"]);
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }

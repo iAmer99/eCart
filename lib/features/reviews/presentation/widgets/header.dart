@@ -48,7 +48,9 @@ class ReviewsHeader extends StatelessWidget {
               ),
               SizedBox(height: heightMultiplier,),
               Text(
-                "Based on ${product.ratingsQuantity} reviews",
+                "rating_based_on".trParams({
+                  "number": product.ratingsQuantity.toString()
+                }),
                 style: TextStyle(
                   color: Get.theme.primaryColorDark.withOpacity(0.5),
                   fontSize: 2.2 * textMultiplier,

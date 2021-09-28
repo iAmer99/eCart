@@ -14,8 +14,8 @@ class _SortSelectionState extends State<SortSelection> {
   int _tag = 0;
 
   List<String> _options = [
-    'Popular', 'Alphabetically', 'Price: High to Low',
-    'Price: Low to High'];
+    'popular'.tr, 'alphabetically'.tr, 'price_high_to_low'.tr,
+    'price_low_to_high'.tr];
 
   @override
   Widget build(BuildContext context) {

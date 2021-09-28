@@ -44,7 +44,7 @@ class ChangePasswordScreen extends StatelessWidget {
                         MyAppBar(
                           hideCart: true,
                           title: Text(
-                            "Change Password",
+                            "change_password".tr,
                             style: TextStyle(
                               color: Get.theme.primaryColorDark,
                               fontSize: 2.5 * textMultiplier,
@@ -81,8 +81,8 @@ class ChangePasswordScreen extends StatelessWidget {
                                     myFocusNode: _oldPasswordNode,
                                     nextFocusNode: _passwordNode,
                                     isPassword: true,
-                                    label: "Old Password",
-                                    hint: "Enter old password",
+                                    label: "old_password".tr,
+                                    hint: "old_password_hint".tr,
                                     myIcon: Icon(Icons.lock),
                                     myValidator: (password) =>
                                         validator.isValidPassword(password),
@@ -103,8 +103,8 @@ class ChangePasswordScreen extends StatelessWidget {
                                     myFocusNode: _passwordNode,
                                     nextFocusNode: _confirmPasswordNode,
                                     isPassword: true,
-                                    label: "New Password",
-                                    hint: "Enter new password",
+                                    label: "new_password".tr,
+                                    hint: "new_password_hint".tr,
                                     myIcon: Icon(Icons.lock),
                                     myValidator: (password) =>
                                         validator.isValidPassword(password),
@@ -135,8 +135,8 @@ class ChangePasswordScreen extends StatelessWidget {
                                       }
                                     },
                                     isPassword: true,
-                                    label: "Confirm Password",
-                                    hint: "Enter password again",
+                                    label: "confirm_password".tr,
+                                    hint: "confirm_password_hint".tr,
                                     myIcon: Icon(Icons.password),
                                     myValidator: (confirmPassword) =>
                                         validator.confirmPassword(
@@ -161,7 +161,7 @@ class ChangePasswordScreen extends StatelessWidget {
                                         }
                                       },
                                       child: Text(
-                                        "Save",
+                                        "save".tr,
                                         style: TextStyle(
                                             fontSize: 3.6 * textMultiplier),
                                       ))),

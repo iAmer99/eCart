@@ -53,7 +53,9 @@ class OrderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Order #${index + 1}",
+                      "order_number".trParams({
+                        "number" : (index + 1).toString()
+                      }),
                       style: TextStyle(
                         color: Get.theme.primaryColorDark,
                         fontSize: 2 * textMultiplier,
@@ -65,7 +67,9 @@ class OrderCard extends StatelessWidget {
                       height: heightMultiplier,
                     ),
                     Text(
-                      "${order.totalPrice.toString()} EGP",
+                      "price".trParams({
+                        "price" : order.totalPrice.toString()
+                      }),
                       style: TextStyle(
                         color: Get.theme.primaryColorDark.withOpacity(0.8),
                         fontSize: 2 * textMultiplier,

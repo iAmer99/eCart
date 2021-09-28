@@ -19,14 +19,14 @@ class CategoriesSlider extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Categories",
+                "categories".tr,
                 style: TextStyle(
                     color: Get.theme.primaryColorDark.withOpacity(0.7),
                     fontSize: 2.2 * textMultiplier),
               ),
               TextButton(onPressed: () {
                 Get.toNamed(AppRoutesNames.categoriesScreen);
-              }, child: Text("See All")),
+              }, child: Text("see_all".tr)),
             ],
           ),
           SingleChildScrollView(
@@ -45,7 +45,7 @@ class CategoriesSlider extends StatelessWidget {
         children: _buildLoading(),
       );
     }else if(controller.categoryStatus.isEmpty){
-      return Center(child: Text("No Categories Found", style: TextStyle(color: Get.theme.primaryColorDark),),);
+      return Center(child: Text("no_categories".tr, style: TextStyle(color: Get.theme.primaryColorDark),),);
     }else if(controller.categoryStatus.isSuccess){
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,

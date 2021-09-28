@@ -57,7 +57,7 @@ class CategoriesController extends GetxController {
             },
           );
         } else {
-          categoryStatus = RxStatus.error("No Internet Connection");
+          categoryStatus = RxStatus.error("no_internet".tr);
           update();
         }
       });

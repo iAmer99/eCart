@@ -73,7 +73,7 @@ class ReviewCard extends GetView<ReviewsController> {
                         return [
                           PopupMenuItem(
                             child: Text(
-                              "Edit",
+                              "edit".tr,
                               style:
                                   TextStyle(color: Get.theme.primaryColorDark),
                             ),
@@ -81,7 +81,7 @@ class ReviewCard extends GetView<ReviewsController> {
                           ),
                           PopupMenuItem(
                             child: Text(
-                              "Delete",
+                              "delete".tr,
                               style:
                                   TextStyle(color: Get.theme.primaryColorDark),
                             ),
@@ -96,13 +96,13 @@ class ReviewCard extends GetView<ReviewsController> {
                               builder: (ctx) => AlertDialog(
                                     backgroundColor: Get.theme.canvasColor,
                                     title: Text(
-                                      "Are you sure?",
+                                      "are_you_sure".tr,
                                       style: TextStyle(
                                         color: Get.theme.primaryColorDark,
                                       ),
                                     ),
                                     content: Text(
-                                      "Are you sure to delete this review?",
+                                      "are_you_sure_review".tr,
                                       style: TextStyle(
                                         color: Get.theme.primaryColorDark,
                                       ),
@@ -113,7 +113,7 @@ class ReviewCard extends GetView<ReviewsController> {
                                             Navigator.of(ctx).pop();
                                           },
                                           child: Text(
-                                            "Cancel",
+                                            "cancel".tr,
                                           )),
                                       TextButton(
                                           onPressed: () {
@@ -121,7 +121,7 @@ class ReviewCard extends GetView<ReviewsController> {
                                             controller.deleteReview(review.id!);
                                           },
                                           child: Text(
-                                            "Delete",
+                                            "delete".tr,
                                             style: TextStyle(color: Colors.red),
                                           )),
                                     ],

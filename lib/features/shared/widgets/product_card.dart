@@ -86,7 +86,9 @@ class ProductCard extends StatelessWidget {
                         height: heightMultiplier,
                       ),
                       Text(
-                        "${product.priceAfterDiscount!} EGP",
+                        "price".trParams({
+                          "price": product.priceAfterDiscount!.toString(),
+                        }),
                         style: TextStyle(
                           color: product.priceDiscount != null &&
                                   product.priceDiscount != 0

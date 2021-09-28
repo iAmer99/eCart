@@ -41,7 +41,7 @@ class AccountController extends GetxController {
         imageUpdateError = error;
       }, (_response) {
         if (!_response) {
-          imageUpdateError = "Something went wrong!";
+          imageUpdateError = "unknown_error".tr;
         }
       });
     }

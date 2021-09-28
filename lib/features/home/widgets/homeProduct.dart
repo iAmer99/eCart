@@ -53,7 +53,9 @@ class HomeProduct extends StatelessWidget {
                 Container(
                   alignment: AlignmentDirectional.centerStart,
                   width: 31 * imageSizeMultiplier,
-                  child: Text("${product.priceAfterDiscount!}EGP",
+                  child: Text("price".trParams({
+                    "price": product.priceAfterDiscount!.toString()
+                  }),
                     style: TextStyle(
                       color: product.priceDiscount != null &&
                           product.priceDiscount != 0 ? Get.theme.primaryColor : Get.theme.primaryColorDark
@@ -74,7 +76,7 @@ class HomeProduct extends StatelessWidget {
                           Get.toNamed(AppRoutesNames.productDetailsScreen, arguments: product);
                         },
                         child: Text(
-                          "Buy Now",
+                          "buy_now".tr,
                           style: TextStyle(fontSize: 2 * textMultiplier),
                         ))),
               ],

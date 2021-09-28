@@ -29,7 +29,7 @@ class PaymentForm extends GetView<CheckoutController> {
       child: Column(
         children: [
           Text(
-            "Payment",
+            "payment".tr,
             style: TextStyle(
               color: Get.theme.primaryColorDark.withOpacity(0.8),
               fontSize: 3.6 * textMultiplier,
@@ -47,7 +47,7 @@ class PaymentForm extends GetView<CheckoutController> {
             node: _phoneNode,
             nextNode: _cardNumbersNode,
             keyboardType: TextInputType.phone,
-            label: "Phone Number",
+            label: "phone".tr,
             icon: Icon(Icons.phone),
             validator: (String? phone) => isValidPhone(phone),
           ),
@@ -56,13 +56,13 @@ class PaymentForm extends GetView<CheckoutController> {
             node: _cardNumbersNode,
             nextNode: _monthNode,
             keyboardType: TextInputType.number,
-            label: "Card Numbers",
+            label: "card_numbers".tr,
             icon: Icon(Icons.credit_card_rounded),
             validator: (String? card) {
               if (card == null || card.isEmpty) {
-                return "Please enter your credit card numbers";
+                return "wrong_card".tr;
               } else if (card.trim().length != 16) {
-                return "Please enter correct credit card numbers";
+                return "wrong_card".tr;
               } else {
                 return null;
               }
@@ -71,7 +71,7 @@ class PaymentForm extends GetView<CheckoutController> {
           Align(
             alignment: AlignmentDirectional.centerStart,
             child: Text(
-              "Expiry Date",
+              "expiry_date".tr,
               style: TextStyle(
                 color: Get.theme.primaryColorDark.withOpacity(0.7),
                 fontSize: 2 * textMultiplier,
@@ -90,7 +90,7 @@ class PaymentForm extends GetView<CheckoutController> {
                   node: _monthNode,
                   nextNode: _yearNode,
                   keyboardType: TextInputType.number,
-                  label: "Month",
+                  label: "month".tr,
                 ),
               ),
               SizedBox(
@@ -103,7 +103,7 @@ class PaymentForm extends GetView<CheckoutController> {
                   node: _yearNode,
                   nextNode: _cvcNode,
                   keyboardType: TextInputType.number,
-                  label: "Year",
+                  label: "year".tr,
                 ),
               ),
               SizedBox(
@@ -166,7 +166,7 @@ class PaymentForm extends GetView<CheckoutController> {
                               MaterialStateProperty.all(Colors.grey),
                         ),
                         child: Text(
-                          "Previous",
+                          "previous".tr,
                           style: TextStyle(fontSize: 3.6 * textMultiplier),
                         ))),
               ),
@@ -209,7 +209,7 @@ class PaymentForm extends GetView<CheckoutController> {
                           }
                         },
                         child: Text(
-                          "Pay Now",
+                          "pay".tr,
                           style: TextStyle(fontSize: 3.6 * textMultiplier),
                         ))),
               ),

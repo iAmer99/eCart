@@ -57,7 +57,7 @@ class _EditorReviewState extends State<EditorReview> {
                         ),
                         MyAppBar(
                           title: Text(
-                            mode == Mode.Edit ? "Edit" : "Write a review",
+                            mode == Mode.Edit ? "edit".tr : "write_a_review".tr,
                             style: TextStyle(
                               color: Get.theme.primaryColorDark,
                               fontSize: 2.2 * textMultiplier,
@@ -117,7 +117,7 @@ class _EditorReviewState extends State<EditorReview> {
                                 borderRadius: BorderRadius.circular(
                                     1.5 * heightMultiplier),
                               ),
-                              hintText: "Enter your review",
+                              hintText: "review_hint".tr,
                               hintStyle: TextStyle(
                                   color: Get.theme.primaryColorDark
                                       .withOpacity(0.5)),
@@ -129,7 +129,7 @@ class _EditorReviewState extends State<EditorReview> {
                             keyboardType: TextInputType.multiline,
                             validator: (String? value) {
                               if (value == null) {
-                                return "Enter your review";
+                                return "review_hint".tr;
                               } else {
                                 return null;
                               }
@@ -160,7 +160,7 @@ class _EditorReviewState extends State<EditorReview> {
                               }
                             },
                             child: Text(
-                              mode == Mode.Write ? "Add Review" : "Edit",
+                              mode == Mode.Write ? "add_review".tr : "edit".tr,
                               style: TextStyle(fontSize: 3.6 * textMultiplier),
                             ),
                           ),

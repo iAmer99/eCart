@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/core/session_management.dart';
 import 'package:ecart/features/home/repository/models/refresh_tokens.dart';
@@ -59,7 +60,7 @@ class HomeRepository {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -81,7 +82,7 @@ class HomeRepository {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }

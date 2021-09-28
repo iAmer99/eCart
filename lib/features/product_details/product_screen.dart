@@ -115,7 +115,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   onPressed: () {
                                     if (SessionManagement.isUser) {
                                       if (product.isOutOfStock == true) {
-                                        showSnackBar("Product is out if stock");
+                                        showSnackBar("product_out_of_stock".tr);
                                       } else if (addedToCart.isFalse) {
                                         controller.addToCart();
                                       } else {
@@ -134,8 +134,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ),
                                   child: Text(
                                     addedToCart.value
-                                        ? "Checkout"
-                                        : "Add to Cart",
+                                        ? "checkout".tr
+                                        : "add_to_cart".tr,
                                     style: TextStyle(
                                         fontSize: 3.6 * textMultiplier),
                                   )));
@@ -277,7 +277,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "${product.priceAfterDiscount!} EGP",
+                          "price".trParams({
+                            "price" : product.priceAfterDiscount!.toString()
+                          }),
                           style: TextStyle(
                             color: product.priceDiscount != null &&
                                     product.priceDiscount != 0
@@ -290,7 +292,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             product.priceDiscount != 0 &&
                             product.isOutOfStock != true)
                           Text(
-                            "${product.price!} EGP",
+                            "price".trParams({
+                              "price" : product.priceAfterDiscount!.toString()
+                            }),
                             style: TextStyle(
                               color:
                                   Get.theme.primaryColorDark.withOpacity(0.5),
@@ -301,7 +305,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         if (product.isOutOfStock != null &&
                             product.isOutOfStock == true)
                           Text(
-                            "Out Of Stock",
+                            "out_of_stock".tr,
                             style: TextStyle(
                               color: Colors.red,
                               fontSize: 2 * textMultiplier,
@@ -326,7 +330,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       .withOpacity(0.2)),
                               color: Get.theme.canvasColor),
                           child: Text(
-                            "Product",
+                            "product".tr,
                             style: TextStyle(
                                 color: Get.theme.primaryColor,
                                 fontSize: 2.2 * textMultiplier),
@@ -350,7 +354,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         .withOpacity(0.2)),
                                 color: Get.theme.canvasColor),
                             child: Text(
-                              "Reviews",
+                              "reviews".tr,
                               style: TextStyle(
                                   color: Get.theme.primaryColorDark
                                       .withOpacity(0.8),
@@ -371,7 +375,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         children: [
                           Flexible(
                             child: Text(
-                              "Sizes",
+                              "sizes".tr,
                               style: TextStyle(
                                 color:
                                     Get.theme.primaryColorDark.withOpacity(0.5),
@@ -431,7 +435,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         children: [
                           Flexible(
                             child: Text(
-                              "Colors",
+                              "colors".tr,
                               style: TextStyle(
                                 color:
                                     Get.theme.primaryColorDark.withOpacity(0.5),
@@ -484,7 +488,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       height: 2 * heightMultiplier,
                     ),
                     Text(
-                      "Description",
+                      "description".tr,
                       style: TextStyle(
                         color: Get.theme.primaryColorDark.withOpacity(0.5),
                         fontSize: 2.2 * textMultiplier,

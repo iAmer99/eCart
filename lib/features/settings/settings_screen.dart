@@ -27,7 +27,7 @@ class SettingsScreen extends GetView<SettingsController> {
               MyAppBar(
                 hideCart: true,
                 title: Text(
-                  "Settings",
+                  "settings".tr,
                   style: TextStyle(
                     color: Get.theme.primaryColorDark,
                     fontSize: 2.5 * textMultiplier,
@@ -53,7 +53,7 @@ class SettingsScreen extends GetView<SettingsController> {
                             controller.save(context);
                           },
                           child: Text(
-                            "Save",
+                            "save".tr,
                             style: TextStyle(fontSize: 3.6 * textMultiplier),
                           ),
                         ),

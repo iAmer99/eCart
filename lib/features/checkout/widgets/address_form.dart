@@ -28,7 +28,7 @@ class AddressForm extends GetView<CheckoutController> {
       child: Column(
         children: [
           Text(
-            "Shipping Address",
+            "shipping_address".tr,
             style: TextStyle(
               color: Get.theme.primaryColorDark.withOpacity(0.8),
               fontSize: 3.6 * textMultiplier,
@@ -45,11 +45,11 @@ class AddressForm extends GetView<CheckoutController> {
             controller: _addressController,
             node: _addressNode,
             nextNode: _cityNode,
-            label: "Address",
+            label: "address".tr,
             icon: Icon(Icons.home),
             validator: (String? address) {
               if (address == null || address.trim().isEmpty) {
-                return "Please enter your address";
+                return "address_hint".tr;
               } else {
                 return null;
               }
@@ -59,11 +59,11 @@ class AddressForm extends GetView<CheckoutController> {
             controller: _cityController,
             node: _cityNode,
             nextNode: _countryNode,
-            label: "City",
+            label: "city".tr,
             icon: Icon(Icons.location_city),
             validator: (String? city) {
               if (city == null || city.trim().isEmpty) {
-                return "Please enter your city";
+                return "city_hint".tr;
               } else {
                 return null;
               }
@@ -73,11 +73,11 @@ class AddressForm extends GetView<CheckoutController> {
             controller: _countryController,
             node: _countryNode,
             nextNode: _postalCodeNode,
-            label: "Country",
+            label: "country".tr,
             icon: Icon(Icons.map_outlined),
             validator: (String? country) {
               if (country == null || country.trim().isEmpty) {
-                return "Please enter your country";
+                return "country_hint".tr;
               } else {
                 return null;
               }
@@ -86,7 +86,7 @@ class AddressForm extends GetView<CheckoutController> {
           MyTextFormField(
             controller: _postalCodeController,
             node: _postalCodeNode,
-            label: "Postal Code",
+            label: "postal_code".tr,
             onComplete: () {
               closeKeyboard(context);
               if (formKey.currentState!.validate()) {
@@ -101,7 +101,7 @@ class AddressForm extends GetView<CheckoutController> {
             icon: Icon(Icons.markunread_mailbox_outlined),
             validator: (String? code) {
               if (code == null || code.trim().isEmpty) {
-                return "Please enter your postal code";
+                return "postal_code_hint".tr;
               } else {
                 return null;
               }
@@ -123,7 +123,7 @@ class AddressForm extends GetView<CheckoutController> {
                     }
                   },
                   child: Text(
-                    "Continue",
+                    "continue".tr,
                     style: TextStyle(fontSize: 3.6 * textMultiplier),
                   ))),
         ],

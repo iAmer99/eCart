@@ -113,7 +113,7 @@ class CartController extends GetxController {
     }, (res) {
       if (!res) {
         _onError(true, id, selectedColor, selectedSize);
-        showSnackBar("Something went wrong!");
+        showSnackBar("unknown_error".tr);
       }
     });
   }
@@ -131,7 +131,7 @@ class CartController extends GetxController {
       }, (res) {
         if (!res) {
           _onError(false, id, selectedColor, selectedSize);
-          showSnackBar("Something went wrong!");
+          showSnackBar("unknown_error".tr);
         }
       });
     } else {
@@ -162,7 +162,7 @@ class CartController extends GetxController {
         cart.cartItems!.insert(index, selectedItem);
         _totalPrice = _totalPrice + selectedItemPrice;
         update();
-        showSnackBar("Something went wrong!");
+        showSnackBar("unknown_error".tr);
       }
     });
     if (cart.cartItems!.isEmpty) {
@@ -175,7 +175,7 @@ class CartController extends GetxController {
     _discountStatus = RxStatus.loading();
     update();
     if (code.isEmpty) {
-      _discountStatus = RxStatus.error("Empty Code");
+      _discountStatus = RxStatus.error("empty_code".tr);
       update();
     } else {
       final response = await _repository.verifyDiscount(code);
@@ -206,7 +206,7 @@ class CartController extends GetxController {
       if (!response) {
         SessionManagement.setNewDiscount(discount, code!);
         this.code = code;
-        showSnackBar("Something went wrong!");
+        showSnackBar("unknown_error".tr);
         update();
       }
     });

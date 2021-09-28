@@ -18,7 +18,7 @@ class CartUseCase {
       if (response.statusMessage == "OK") {
         return Right(true);
       } else {
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     } catch (error) {
       if (error is DioError) {
@@ -30,7 +30,7 @@ class CartUseCase {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -46,7 +46,7 @@ class CartUseCase {
       if (response.statusMessage == "OK") {
         return Right(true);
       } else {
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     } catch (error) {
       if (error is DioError) {
@@ -58,7 +58,7 @@ class CartUseCase {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -74,7 +74,7 @@ class CartUseCase {
       if (response.statusMessage == "OK") {
         return Right(true);
       } else {
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     } catch (error) {
       if (error is DioError) {
@@ -86,7 +86,7 @@ class CartUseCase {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }
@@ -112,7 +112,7 @@ class CartUseCase {
         }
       } else {
         print(error.toString());
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }

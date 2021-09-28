@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:ecart/core/remote/dio_util.dart';
 import 'package:ecart/features/shared/models/category.dart';
 
@@ -29,7 +30,7 @@ class CategoriesRepository {
           return Left(res["message"]);
         }
       } else {
-        return Left("Something went wrong!");
+        return Left("unknown_error".tr);
       }
     }
   }

@@ -47,7 +47,7 @@ class FavouritesScreen extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: Text(
-                          "No Favourites Found",
+                          "no_favourites".tr,
                           style: TextStyle(
                               color: Get.theme.primaryColorDark,
                               fontSize: 2.2 * textMultiplier),

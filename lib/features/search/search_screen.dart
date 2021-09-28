@@ -80,7 +80,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         Expanded(
                           child: Center(
                             child: Text(
-                              "No Products Found",
+                              "no_products".tr,
                               style: TextStyle(
                                   color: Get.theme.primaryColorDark,
                                   fontSize: 2.2 * textMultiplier),

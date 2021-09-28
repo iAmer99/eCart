@@ -39,7 +39,7 @@ class ProductController extends GetxController {
       }, (res) {
         if (!res) {
           quantity--;
-          showSnackBar("Something went wrong!");
+          showSnackBar("unknown_error".tr);
         } else {
           ProductInCart product =
               _getProductInCart("${_selectedColor.id}" + "${_selectedSize.id}");
@@ -61,7 +61,7 @@ class ProductController extends GetxController {
         }, (res) {
           if (!res) {
             quantity++;
-            showSnackBar("Something went wrong!");
+            showSnackBar("unknown_error".tr);
           } else {
             ProductInCart product = _getProductInCart(
                 "${_selectedColor.id}" + "${_selectedSize.id}");
@@ -118,7 +118,7 @@ class ProductController extends GetxController {
       if (!res) {
         isFavourite = false;
         update();
-        showSnackBar("Something went wrong!");
+        showSnackBar("unknown_error".tr);
       }
     });
   }
@@ -135,7 +135,7 @@ class ProductController extends GetxController {
       if (!res) {
         isFavourite = true;
         update();
-        showSnackBar("Something went wrong!");
+        showSnackBar("unknown_error".tr);
       }
     });
   }
@@ -153,7 +153,7 @@ class ProductController extends GetxController {
       if (!res) {
         addedToCart.value = false;
         update();
-        showSnackBar("Something went wrong!");
+        showSnackBar("unknown_error".tr);
       } else {
         cartOfProduct.add(ProductInCart(
           selectedColor: _selectedColor,

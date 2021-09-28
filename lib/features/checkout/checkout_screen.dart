@@ -35,7 +35,7 @@ class CheckoutScreen extends StatelessWidget {
                         ),
                         MyAppBar(
                           title: Text(
-                            "Checkout",
+                            "checkout".tr,
                             style: TextStyle(
                               color: Get.theme.primaryColorDark,
                               fontSize: 2.5 * textMultiplier,

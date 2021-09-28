@@ -16,12 +16,13 @@ class MoreScreen extends GetView<MoreController> {
       body: SafeArea(
         child: SessionManagement.isGuest
             ? MustLogin(
-          hideCart: true,
-          showSettings : true,
-        )
+                hideCart: true,
+                showSettings: true,
+              )
             : SingleChildScrollView(
-              child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 4 * widthMultiplier),
                   child: Column(
                     children: [
                       SizedBox(
@@ -42,7 +43,7 @@ class MoreScreen extends GetView<MoreController> {
                         height: 1.5 * heightMultiplier,
                       ),
                       Text(
-                        "Welcome " + "${SessionManagement.name}",
+                        "welcome".trParams({"name": SessionManagement.name!}),
                         style: TextStyle(
                           color: Get.theme.primaryColorDark.withOpacity(0.7),
                           fontSize: 2.5 * textMultiplier,
@@ -57,33 +58,33 @@ class MoreScreen extends GetView<MoreController> {
                           Get.toNamed(AppRoutesNames.accountScreen);
                         },
                         icon: Icons.account_circle,
-                        title: "My Account",
+                        title: "my_account".tr,
                       ),
                       _buildButton(
                         onTap: () {
                           Get.toNamed(AppRoutesNames.ordersScreen);
                         },
                         icon: Icons.inventory_2,
-                        title: "My Orders",
+                        title: "my_orders".tr,
                       ),
                       _buildButton(
                         onTap: () {
                           Get.toNamed(AppRoutesNames.settingsScreen);
                         },
                         icon: Icons.settings,
-                        title: "Settings",
+                        title: "settings".tr,
                       ),
                       _buildButton(
                         onTap: () {
                           controller.logout();
                         },
                         icon: Icons.logout,
-                        title: "Logout",
+                        title: "logout".tr,
                       ),
                     ],
                   ),
                 ),
-            ),
+              ),
       ),
     );
   }

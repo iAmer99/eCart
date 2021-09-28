@@ -8,7 +8,6 @@ import 'package:ecart/routes/routes_names.dart';
 import 'package:ecart/utils/colors.dart';
 import 'package:ecart/utils/helper_functions.dart';
 import 'package:ecart/utils/size_config.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -55,7 +54,7 @@ class AccountScreen extends StatelessWidget {
                           MyAppBar(
                             hideCart: true,
                             title: Text(
-                              "Update Profile",
+                              "update_profile".tr,
                               style: TextStyle(
                                 color: Get.theme.primaryColorDark,
                                 fontSize: 2.5 * textMultiplier,
@@ -69,7 +68,7 @@ class AccountScreen extends StatelessWidget {
                                 (Rx<File> image) => GestureDetector(
                               onTap: () {
                                 Get.dialog(AlertDialog(
-                                  title: Text("Choose Image Source"),
+                                  title: Text("choose_image".tr),
                                   content: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -86,7 +85,7 @@ class AccountScreen extends StatelessWidget {
                                               color: mainColor,
                                             ),
                                             Text(
-                                              "Camera",
+                                              "camera".tr,
                                               style: TextStyle(color: mainColor),
                                             )
                                           ],
@@ -105,7 +104,7 @@ class AccountScreen extends StatelessWidget {
                                               color: mainColor,
                                             ),
                                             Text(
-                                              "Gallery",
+                                              "gallery".tr,
                                               style: TextStyle(color: mainColor),
                                             )
                                           ],
@@ -118,7 +117,7 @@ class AccountScreen extends StatelessWidget {
                                         onPressed: () {
                                           Get.back();
                                         },
-                                        child: Text("Cancel"))
+                                        child: Text("cancel".tr))
                                   ],
                                 ));
                               },
@@ -151,7 +150,7 @@ class AccountScreen extends StatelessWidget {
                             node: _nameNode,
                             nextNode: _emailNode,
                             keyboardType: TextInputType.name,
-                            label: "Name",
+                            label: "name".tr,
                             icon: Icon(Icons.person),
                           ),
                           MyTextFormField(
@@ -159,7 +158,7 @@ class AccountScreen extends StatelessWidget {
                             node: _emailNode,
                             nextNode: _phoneNode,
                             keyboardType: TextInputType.emailAddress,
-                            label: "Email",
+                            label: "email".tr,
                             icon: Icon(Icons.email),
                           ),
                           MyTextFormField(
@@ -167,7 +166,7 @@ class AccountScreen extends StatelessWidget {
                             node: _phoneNode,
                             nextNode: _addressNode,
                             keyboardType: TextInputType.phone,
-                            label: "Phone",
+                            label: "phone".tr,
                             icon: Icon(Icons.phone_android),
                           ),
                           MyTextFormField(
@@ -182,7 +181,7 @@ class AccountScreen extends StatelessWidget {
                                 phone: _phoneController.text,
                               );
                             },
-                            label: "Address",
+                            label: "address".tr,
                             icon: Icon(Icons.map),
                             keyboardType: TextInputType.streetAddress,
                           ),
@@ -201,7 +200,7 @@ class AccountScreen extends StatelessWidget {
                                 );
                               },
                               child: Text(
-                                "Save",
+                                "save".tr,
                                 style: TextStyle(fontSize: 3.6 * textMultiplier),
                               ),
                             ),
@@ -228,7 +227,7 @@ class AccountScreen extends StatelessWidget {
                                 ),
                               ),
                               child: Text(
-                                "Change Password",
+                                "change_password".tr,
                                 style: TextStyle(fontSize: 2.6 * textMultiplier, color: Get.theme.primaryColor),
                               ),
                             ),

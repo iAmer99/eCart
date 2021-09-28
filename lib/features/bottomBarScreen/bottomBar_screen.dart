@@ -62,19 +62,19 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: "Home",
+            label: "home".tr,
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset('assets/svg/categories.svg', color: index == 1 ? Get.theme.primaryColor : Get.theme.bottomNavigationBarTheme.unselectedItemColor, height: Get.theme.iconTheme.size,),
-            label: "Categories",
+            label: "categories".tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: "Favourites",
+            label: "favourites".tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            label: "More",
+            label: "more".tr,
           ),
         ],
         onTap: (index) {

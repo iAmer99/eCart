@@ -21,7 +21,7 @@ class SaleBanner extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Sale",
+                "sale".tr,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 4 * textMultiplier,
@@ -29,7 +29,7 @@ class SaleBanner extends StatelessWidget {
                 ),
               ),
               Text(
-                "Up to 40%",
+                "up_to_40".tr,
                 style: TextStyle(
                   color: Colors.black.withOpacity(0.6),
                   fontSize: 2.2 * textMultiplier,
@@ -37,7 +37,7 @@ class SaleBanner extends StatelessWidget {
                 ),
               ),
               Text(
-                "Shop Now",
+                "shop_now".tr,
                 style: TextStyle(
                   color: Get.theme.primaryColor,
                   fontSize: 4 * textMultiplier,
