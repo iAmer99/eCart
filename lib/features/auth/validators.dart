@@ -5,7 +5,7 @@ final RegExp _emailRegExp = RegExp(
 );
 
 String? isValidEmail(String? email) {
-  if (email!.trim().isEmpty) return "email_hint"..tr;
+  if (email!.trim().isEmpty) return "email_hint".tr;
   return _emailRegExp.hasMatch(email.trim()) ? null : "invalid_email".tr;
 }
 
